@@ -44,7 +44,9 @@ This open library is an evolving project. Future additions may include:
 
 ---
 
-© Torin Learning Group  
-Resources shared to support learning and academic growth.
-Commercial redistribution or resale of these resources is not permitted without written permission from Torin Learning Group.
 ---
+
+© Torin Learning Group  
+
+Resources shared to support learning and academic growth.  
+Commercial redistribution or resale of these resources is not permitted without written permission from Torin Learning Group.
