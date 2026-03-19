@@ -1,0 +1,24 @@
+# Economics Resources
+
+This section contains conceptual, analytical, and applied economics learning materials developed by Torin Learning Group.
+
+The goal of these resources is to help students build deep economic intuition, connect graphical reasoning with formal mathematical models, and develop strong analytical decision-making skills for exams, research, and real-world economic problems.
+
+Materials are designed to emphasize structural understanding — not just memorization — so learners can confidently interpret new economic situations and construct logical, model-based arguments.
+
+## Areas of focus include
+
+- **Microeconomic theory**  
+  Consumer choice, production and costs, market structure, strategic firm behavior, and welfare analysis.
+- **Macroeconomic frameworks**  
+  Long-run growth, business cycles, inflation dynamics, unemployment, and monetary and fiscal policy transmission mechanisms.
+- **Econometrics and data analysis**  
+  Statistical inference, regression modeling, causal reasoning, and empirical interpretation of economic relationships.
+- **Game theory and strategic interaction**  
+  Nash equilibrium, dynamic strategy, signaling, commitment, and competitive decision environments.
+- **Behavioral economics**  
+  Bounded rationality, cognitive biases, prospect theory, incentives, and policy nudges that shape real-world decision making.
+- **Finance and investment decision models**  
+  Risk-return tradeoffs, asset valuation logic, discounting frameworks, and applied capital allocation reasoning.
+- **Conceptual synthesis**  
+  Resources that connect models across fields to strengthen structural economic understanding and long-term retention.
