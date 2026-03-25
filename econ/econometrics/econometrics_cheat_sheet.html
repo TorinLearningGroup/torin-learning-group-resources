@@ -345,6 +345,39 @@
             }
         }
 
+        /* Solution / Derivation Toggle (matching original worksheet) */
+        .solution-button {
+            background-color: var(--green-medium);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-button:hover {
+            background-color: var(--green-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74,104,48,0.3);
+        }
+
+        .solution-content {
+            display: none;
+            background-color: #FFFBF0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 5px solid var(--gold);
+        }
+
+        .solution-content.show {
+            display: block;
+        }
+
         @media print {
             body { background: white; }
             .card { page-break-inside: avoid; }
@@ -662,65 +695,37 @@
             </div>
         </div>
 
+        <div class="card border-green">
+            <strong>Example: Effect of class size on earnings</strong>
+            <p style="margin-top: 10px;">Suppose you estimate:</p>
+            <div class="formula">
+                $$\ln(\text{Earnings}) = 10.2 + 0.08 \ln(\text{ClassSize})$$
+            </div>
+            <div class="highlight-box">
+                <strong>Log-Log interpretation:</strong> This is an elasticity. A 1% increase in class size is associated with a 0.08% increase in earnings.
+            </div>
+            <p>Now suppose you instead estimate:</p>
+            <div class="formula">
+                $$\text{Earnings} = 42{,}000 + 480 \ln(\text{ClassSize})$$
+            </div>
+            <div class="highlight-box">
+                <strong>Level-Log interpretation:</strong> A 1% increase in class size is associated with a $0.01 \times 480 = \$4.80$ increase in earnings.
+            </div>
+            <p>Finally, suppose the specification is:</p>
+            <div class="formula">
+                $$\ln(\text{Earnings}) = 10.5 + 0.012\,\text{ClassSize}$$
+            </div>
+            <div class="highlight-box">
+                <strong>Log-Level interpretation:</strong> A 1 unit increase in class size is associated with a $100 \times 0.012 = 1.2\%$ increase in earnings.
+            </div>
+            <div class="idea-box">
+                <strong>Tip:</strong> Always check whether each variable enters in levels or logs before interpreting. The wrong interpretation is a common exam mistake.
+            </div>
+        </div>
+
         <!-- ===================== SECTION 11 ===================== -->
         <div class="section-header">
             <div class="section-number">11</div>
-            <h2>Difference-in-Differences</h2>
-        </div>
-
-        <div class="card">
-            <div class="label">DiD Estimator</div>
-            <div class="formula">
-                $$\text{DiD} = (\bar{Y}^T_{\text{after}} - \bar{Y}^T_{\text{before}}) - (\bar{Y}^C_{\text{after}} - \bar{Y}^C_{\text{before}})$$
-            </div>
-            <table>
-                <tr>
-                    <th></th>
-                    <th>Before</th>
-                    <th>After</th>
-                </tr>
-                <tr>
-                    <td><strong>Treatment</strong></td>
-                    <td>a</td>
-                    <td>b</td>
-                </tr>
-                <tr>
-                    <td><strong>Control</strong></td>
-                    <td>c</td>
-                    <td>d</td>
-                </tr>
-            </table>
-            <p>DiD = $(b - a) - (d - c)$. The key insight: DiD compares <strong>changes</strong>, not levels.</p>
-        </div>
-
-        <div class="card border-green">
-            <div class="label">Regression Form</div>
-            <div class="formula">
-                $$Y = \beta_0 + \beta_1\,\text{Treat} + \beta_2\,\text{After} + \beta_3\,(\text{Treat} \times \text{After}) + u$$
-            </div>
-            <div class="formula-grid">
-                <div class="formula-tile">
-                    <h4>$\beta_0$</h4>
-                    <p class="formula-note">Control group, before treatment</p>
-                </div>
-                <div class="formula-tile">
-                    <h4>$\beta_1$</h4>
-                    <p class="formula-note">Baseline group difference</p>
-                </div>
-                <div class="formula-tile">
-                    <h4>$\beta_2$</h4>
-                    <p class="formula-note">Common time trend</p>
-                </div>
-                <div class="formula-tile" style="border-color: var(--gold); border-width: 3px;">
-                    <h4>$\beta_3$</h4>
-                    <p class="formula-note"><strong>Causal treatment effect</strong> (the parameter of interest)</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================== SECTION 12 ===================== -->
-        <div class="section-header">
-            <div class="section-number">12</div>
             <h2>Measurement Error Bias</h2>
         </div>
 
@@ -779,45 +784,121 @@
             </div>
         </div>
 
-        <!-- ===================== SECTION 13 ===================== -->
+        <!-- ===================== SECTION 12 ===================== -->
         <div class="section-header">
-            <div class="section-number">13</div>
+            <div class="section-number">12</div>
             <h2>Testing Equality of Coefficients</h2>
         </div>
 
         <div class="card">
-            <div class="label">Hypothesis</div>
+            <div class="label">Single Restriction: Equality of Two Coefficients</div>
             <div class="formula">
                 $$H_0: \beta_1 = \beta_2 \qquad \text{vs} \qquad H_a: \beta_1 \neq \beta_2$$
             </div>
-            <p>Use an F-test. Reject $H_0$ if $F > F_{\text{critical}}$.</p>
+            <p>This is a single restriction ($q = 1$). Use an F-test. Reject $H_0$ if $F > F_{\text{critical}}$.</p>
             <div class="warning-box">
                 <strong>Critical interpretation:</strong> Failing to reject $H_0$ does <strong>not</strong> mean the coefficients are equal. It means there is insufficient statistical evidence to conclude they differ.
             </div>
         </div>
 
-        <!-- ===================== SECTION 14 ===================== -->
+        <div class="card border-green">
+            <div class="label">Double Restriction: Joint Significance</div>
+            <div class="formula">
+                $$H_0: \beta_1 = \beta_2 = 0 \qquad \text{vs} \qquad H_a: \text{at least one } \beta_j \neq 0$$
+            </div>
+            <p>This imposes <strong>two restrictions</strong> ($q = 2$): both $\beta_1 = 0$ and $\beta_2 = 0$ simultaneously.</p>
+            <div class="formula-grid">
+                <div class="formula-tile">
+                    <h4>Unrestricted Model</h4>
+                    <p class="formula-note">$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + u$<br>(full model, includes both regressors)</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Restricted Model</h4>
+                    <p class="formula-note">$Y = \beta_0 + u$<br>(drops both $X_1$ and $X_2$, just the intercept)</p>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <strong>Why not just check individual t-tests?</strong> Each $\beta$ might be individually insignificant (due to multicollinearity), yet jointly significant. The F-test captures their combined explanatory power. You can have $t_1$ and $t_2$ both fail to reject individually, but the joint F-test rejects.
+            </div>
+            <div class="warning-box">
+                <strong>The significance level trap:</strong> If two individual t-tests each reject at the 5% level, this does <strong>not</strong> guarantee joint significance at the 5% level. The actual confidence level for the joint statement is $(0.95)^2 = 0.9025$, meaning the true joint significance level is roughly 10%, not 5%. This is why the F-test is needed -- it controls the joint significance level directly.
+                <br><br>
+                <button class="solution-button" onclick="toggleDerivation()">Show Derivation</button>
+                <div class="solution-content" id="derivation-content">
+                    <p><strong>Setup:</strong> Suppose we test two independent hypotheses, each at the $\alpha = 0.05$ significance level:</p>
+                    <div class="formula">
+                        $$H_0^{(1)}: \beta_1 = 0 \qquad H_0^{(2)}: \beta_2 = 0$$
+                    </div>
+                    <p><strong>Step 1:</strong> The probability that a single t-test correctly fails to reject a true null is:</p>
+                    <div class="formula">
+                        $$P(\text{not reject } H_0^{(j)} \mid H_0^{(j)} \text{ true}) = 1 - \alpha = 0.95$$
+                    </div>
+                    <p><strong>Step 2:</strong> If both nulls are true and the tests are independent, the probability that <em>both</em> fail to reject is:</p>
+                    <div class="formula">
+                        $$P(\text{not reject both}) = (1 - \alpha)^2 = (0.95)^2 = 0.9025$$
+                    </div>
+                    <p><strong>Step 3:</strong> Therefore, the probability that <em>at least one</em> individual test incorrectly rejects (a Type I error somewhere) is:</p>
+                    <div class="formula">
+                        $$P(\text{reject at least one}) = 1 - (1 - \alpha)^2 = 1 - 0.9025 = 0.0975 \approx 10\%$$
+                    </div>
+                    <p><strong>Conclusion:</strong> Using two separate 5% t-tests to make a joint claim gives an actual Type I error rate of ~10%, not 5%. The F-test avoids this by testing the joint restriction as a single hypothesis at exactly the desired significance level.</p>
+                    <div style="background: var(--gold-pale); border-left: 5px solid var(--gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-family: 'Source Serif 4', serif;">
+                        <strong>In general:</strong> For $q$ independent tests at level $\alpha$, the joint error rate is $1 - (1-\alpha)^q$, which grows with $q$.
+                    </div>
+                </div>
+            </div>
+            <div class="idea-box">
+                <strong>General pattern:</strong> For any joint hypothesis with $q$ restrictions, use the F-statistic from Section 13 with degrees of freedom $(q,\; n - k - 1)$. Common cases: $q = 1$ (single equality), $q = 2$ (two coefficients zero), or $q = k$ (all slopes zero, which gives the overall regression F-statistic).
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 13 ===================== -->
         <div class="section-header">
-            <div class="section-number">14</div>
-            <h2>Weak Instruments (IV Regression)</h2>
+            <div class="section-number">13</div>
+            <h2>F-Statistic: Restricted vs. Unrestricted Models</h2>
         </div>
 
         <div class="card">
-            <div class="label">Rule of Thumb</div>
+            <div class="label">Setup</div>
+            <p><strong>Unrestricted model:</strong> The full regression with all regressors included.</p>
+            <p><strong>Restricted model:</strong> The regression after imposing the null hypothesis (e.g., dropping variables or setting coefficients equal).</p>
+            <div class="label">F-Statistic Formula</div>
             <div class="formula">
-                $$F_{\text{first stage}} \geq 10$$
+                $$F = \frac{(\text{SSR}_{\text{restricted}} - \text{SSR}_{\text{unrestricted}})\,/\,q}{\text{SSR}_{\text{unrestricted}}\,/\,(n - k_{\text{unrestricted}} - 1)}$$
             </div>
-            <p>Check whether instruments are strong by looking at the F-statistic from the first-stage regression of the endogenous variable on the instruments.</p>
             <div class="highlight-box">
-                <strong>If instruments are weak ($F < 10$):</strong>
-                <ul style="margin-top: 8px;">
-                    <li>IV estimates have large variance (wide confidence intervals)</li>
-                    <li>IV bias approaches OLS bias</li>
-                    <li>Estimates become unreliable</li>
-                </ul>
+                <strong>Key:</strong><br>
+                $\text{SSR}_{\text{restricted}}$ = sum of squared residuals from the restricted model<br>
+                $\text{SSR}_{\text{unrestricted}}$ = sum of squared residuals from the unrestricted model<br>
+                $q$ = number of restrictions (how many constraints $H_0$ imposes)<br>
+                $n$ = sample size<br>
+                $k_{\text{unrestricted}}$ = number of regressors in the unrestricted model
+            </div>
+        </div>
+
+        <div class="card border-green">
+            <div class="label">Equivalently (using $R^2$)</div>
+            <div class="formula">
+                $$F = \frac{(R^2_{\text{unrestricted}} - R^2_{\text{restricted}})\,/\,q}{(1 - R^2_{\text{unrestricted}})\,/\,(n - k_{\text{unrestricted}} - 1)}$$
             </div>
             <div class="idea-box">
-                <strong>Always report the first-stage F-statistic</strong> when presenting IV results. It is the standard diagnostic for instrument strength.
+                <strong>Intuition:</strong> The F-statistic measures how much the model fit improves (in terms of SSR or $R^2$) when the restrictions are relaxed. If the improvement is large relative to the residual variance, you reject $H_0$.
+            </div>
+            <div class="highlight-box">
+                <strong>Decision rule:</strong> Reject $H_0$ if $F > F_{q,\, n - k_{\text{unrestricted}} - 1}^{\text{crit}}$ at the chosen significance level.
+            </div>
+            <div class="formula-grid">
+                <div class="formula-tile">
+                    <h4>Example: Joint Significance</h4>
+                    <p class="formula-note">$H_0: \beta_3 = \beta_4 = 0$<br>Restricted model drops $X_3$ and $X_4$, so $q = 2$.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Example: Equality</h4>
+                    <p class="formula-note">$H_0: \beta_1 = \beta_2$<br>Restricted model imposes the constraint, so $q = 1$.</p>
+                </div>
+            </div>
+            <div class="warning-box">
+                <strong>Note:</strong> The restricted model must always be nested within the unrestricted model. You cannot compare two unrelated specifications using this F-test.
             </div>
         </div>
 
@@ -864,6 +945,24 @@
         <p>Torin Learning Group: Econometrics Midterm Cheat Sheet</p>
         <p style="font-size: 12px; margin-top: 10px;">For questions or feedback, visit us online.</p>
     </div>
+
+    <script>
+    function toggleDerivation() {
+        var content = document.getElementById('derivation-content');
+        var button = content.previousElementSibling;
+        if (content.classList.contains('show')) {
+            content.classList.remove('show');
+            button.textContent = 'Show Derivation';
+        } else {
+            content.classList.add('show');
+            button.textContent = 'Hide Derivation';
+            // Re-render MathJax in the newly visible content
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise([content]);
+            }
+        }
+    }
+    </script>
 
 </body>
 </html>
