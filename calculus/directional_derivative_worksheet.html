@@ -943,9 +943,113 @@
                 </div>
             </div>
 
-            <!-- Section 9: Gradient Rules -->
+            <!-- Section 9: Second Derivative Test & the Hessian -->
             <div class="section-header">
                 <div class="section-number">7</div>
+                <h2>Second Derivative Test: The Hessian</h2>
+            </div>
+
+            <div class="card border-green">
+                <p>Once you've found a critical point (where $\nabla f = \mathbf{0}$), you need to classify it. Is it a local max, local min, or saddle point? The <strong>Hessian matrix</strong> answers this by capturing how the surface curves in every direction.</p>
+
+                <h4 style="margin-top:20px;">The Hessian Matrix</h4>
+                <div class="highlight-box" style="margin:12px 0;">
+                    $$H = \begin{pmatrix} f_{xx} & f_{xy} \\ f_{xy} & f_{yy} \end{pmatrix}$$
+                </div>
+
+                <h4 style="margin-top:20px;">What Each Entry Means (Geometric Intuition)</h4>
+                <div class="formula-grid" style="margin-top:12px;">
+                    <div class="formula-tile" style="border-color:var(--green-dark);background:#e6f4ea;">
+                        <h4>$f_{xx}$: Curvature along $x$</h4>
+                        <div class="formula-note">How fast $f_x$ is changing as you move in the $x$-direction. If $f_{xx} > 0$, the surface is <em>concave up</em> in the $x$-direction (like a valley). If $f_{xx} < 0$, it's <em>concave down</em> (like a hilltop).</div>
+                    </div>
+                    <div class="formula-tile" style="border-color:var(--green-dark);background:#e6f4ea;">
+                        <h4>$f_{yy}$: Curvature along $y$</h4>
+                        <div class="formula-note">Same idea, but in the $y$-direction. If $f_{yy} > 0$, the surface curves upward along $y$; if $f_{yy} < 0$, it curves downward.</div>
+                    </div>
+                    <div class="formula-tile" style="border-color:var(--gold);background:var(--gold-pale);">
+                        <h4>$f_{xy}$: The Twist</h4>
+                        <div class="formula-note">How the $x$-slope changes as you move in $y$ (or equivalently, how the $y$-slope changes in $x$). This measures <em>twisting</em> of the surface — the interaction between the two directions. When $f_{xy} = 0$, the $x$- and $y$-curvatures act independently.</div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top:24px;">The Discriminant</h4>
+                <div class="highlight-box" style="margin:12px 0;">
+                    $$D = \det(H) = f_{xx}\,f_{yy} - (f_{xy})^2$$
+                </div>
+
+                <h4 style="margin-top:20px;">The Test</h4>
+                <p style="margin-bottom:8px;">Evaluate $D$ and the diagonal entries at the critical point $(a,b)$:</p>
+                <div class="formula-grid" style="margin-top:12px;">
+                    <div class="formula-tile" style="border-color:var(--green-dark);background:#e6f4ea;">
+                        <h4 style="display:flex;justify-content:space-between;align-items:baseline;"><span>$D > 0$,&nbsp; $f_{xx} > 0$</span> <span style="font-size:0.75em;font-weight:400;color:var(--text-medium);font-style:italic;">or equivalently $f_{yy} > 0$</span></h4>
+                        <div class="math-block">$$\text{Local minimum}$$</div>
+                        <div class="formula-note">Surface curves upward in every direction.</div>
+                    </div>
+                    <div class="formula-tile" style="border-color:#B44;background:#fef0f0;">
+                        <h4 style="display:flex;justify-content:space-between;align-items:baseline;"><span>$D > 0$,&nbsp; $f_{xx} < 0$</span> <span style="font-size:0.75em;font-weight:400;color:var(--text-medium);font-style:italic;">or equivalently $f_{yy} < 0$</span></h4>
+                        <div class="math-block">$$\text{Local maximum}$$</div>
+                        <div class="formula-note">Surface curves downward in every direction.</div>
+                    </div>
+                    <div class="formula-tile" style="border-color:var(--gold);background:var(--gold-pale);">
+                        <h4 style="display:flex;justify-content:space-between;align-items:baseline;">$D < 0$ <span style="font-size:0.75em;font-weight:400;color:var(--text-medium);font-style:italic;">i.e., $f_{xx}\,f_{yy} < (f_{xy})^2$ — twist wins</span></h4>
+                        <div class="math-block">$$\text{Saddle point}$$</div>
+                        <div class="formula-note">Surface curves up in one direction and down in another. The principal curvatures have opposite signs.</div>
+                    </div>
+                    <div class="formula-tile" style="border-color:#999;background:#f0f0f0;">
+                        <h4 style="display:flex;justify-content:space-between;align-items:baseline;">$D = 0$ <span style="font-size:0.75em;font-weight:400;color:var(--text-medium);font-style:italic;">i.e., $f_{xx}\,f_{yy} = (f_{xy})^2$ — exact tie</span></h4>
+                        <div class="math-block">$$\text{Inconclusive}$$</div>
+                        <div class="formula-note">Need higher-order derivatives or other methods.</div>
+                    </div>
+                </div>
+
+                <div class="idea-box" style="margin-top:16px;">
+                    <strong>Why can we check $f_{xx}$ <em>or</em> $f_{yy}$?</strong> The condition $D > 0$ means $f_{xx}\,f_{yy} > (f_{xy})^2 \geq 0$. Since the product $f_{xx}\,f_{yy}$ is strictly positive, <strong>$f_{xx}$ and $f_{yy}$ must have the same sign</strong>. So when $D > 0$, you can check either one — textbooks traditionally use $f_{xx}$, but $f_{yy}$ works just as well.
+                </div>
+
+                <div class="idea-box" style="margin-top:12px;">
+                    <strong>What does $D > 0$ mean visually?</strong> The condition $f_{xx}\,f_{yy} > (f_{xy})^2$ says that the <em>curvature along $x$</em> times the <em>curvature along $y$</em> overwhelms the square of the <em>twisting curvature</em>. Think of it this way: $f_{xx}$ and $f_{yy}$ want the surface to bend consistently (both up or both down), while $f_{xy}$ tries to twist the surface into a saddle. When the straight-line curvatures are strong enough to overpower the twist — that is, when $f_{xx} \cdot f_{yy} > (f_{xy})^2$ — the surface holds its bowl or dome shape and you get a true extremum. When the twist wins ($D < 0$), the surface gets wrung into a saddle no matter what $f_{xx}$ and $f_{yy}$ say individually.
+                </div>
+
+                <div class="idea-box" style="margin-top:12px;">
+                    <strong>What does $D = 0$ mean visually?</strong> The curvature and the twist are in an exact tie: $f_{xx}\,f_{yy} = (f_{xy})^2$. Geometrically, at least one principal curvature is zero — the surface is flat in some direction, like the ridge of a mountain or the crease of a valley. The quadratic approximation can't tell whether the surface eventually curves up, down, or stays flat along that direction, so the second derivative test has nothing to say. You need to look at higher-order terms (or use other reasoning) to classify the point. Classic examples: $f = x^4$ has a minimum at the origin with $D = 0$, but $f = x^3$ has neither a max nor a min there — both give $D = 0$.
+                </div>
+
+                <h4 style="margin-top:24px;">Why Does the Determinant Work? Principal Curvatures</h4>
+                <p style="margin-top:8px;">The Hessian matrix encodes how the surface bends at a critical point. The <strong>eigenvalues</strong> of $H$ are the <strong>principal curvatures</strong> $\kappa_1$ and $\kappa_2$: the maximum and minimum curvatures over all directions through the point.</p>
+
+                <div class="highlight-box" style="margin:12px 0;">
+                    $$D = \det(H) = \kappa_1 \cdot \kappa_2$$
+                </div>
+
+                <p>The <strong>principal curvature vectors</strong> (the eigenvectors of $H$) point in the directions where bending is strongest and weakest. Now the test becomes intuitive:</p>
+
+                <div class="formula-grid" style="margin-top:12px;">
+                    <div class="formula-tile" style="border-color:var(--green-dark);background:#e6f4ea;">
+                        <h4>$D > 0$: Both curvatures same sign</h4>
+                        <div class="formula-note">$\kappa_1$ and $\kappa_2$ are both positive (bowl = min) or both negative (dome = max). The surface curves the same way in every direction.</div>
+                    </div>
+                    <div class="formula-tile" style="border-color:#B44;background:#fef0f0;">
+                        <h4>$D < 0$: Curvatures opposite sign</h4>
+                        <div class="formula-note">$\kappa_1 > 0$ and $\kappa_2 < 0$ (or vice versa). The surface curves up along one principal direction and down along the other — a saddle.</div>
+                    </div>
+                </div>
+
+                <div class="idea-box" style="margin-top:16px;">
+                    <strong>The twist term $(f_{xy})^2$:</strong> When the axes aren't aligned with the principal curvature directions, some curvature "leaks" into the off-diagonal entry $f_{xy}$. The determinant $f_{xx}f_{yy} - (f_{xy})^2$ corrects for this by computing the product of the <em>true</em> principal curvatures regardless of axis orientation. That's why $D < 0$ catches saddle points even when $f_{xx}$ and $f_{yy}$ are both positive — the twist is so strong that the actual curvatures have opposite signs.
+                </div>
+
+                <h4 style="margin-top:24px;">Connecting to the Trace</h4>
+                <p style="margin-top:8px;">Two useful invariants of the Hessian:</p>
+                <div class="highlight-box" style="margin:12px 0;">
+                    $$\text{tr}(H) = f_{xx} + f_{yy} = \kappa_1 + \kappa_2 \qquad \det(H) = f_{xx}f_{yy} - (f_{xy})^2 = \kappa_1\,\kappa_2$$
+                </div>
+                <p>The trace gives the <em>sum</em> of principal curvatures (mean curvature direction); the determinant gives the <em>product</em> (Gaussian curvature). Both are independent of how you orient your $x$- and $y$-axes.</p>
+            </div>
+
+            <!-- Section 10: Gradient Rules -->
+            <div class="section-header">
+                <div class="section-number">8</div>
                 <h2>Reference: Gradient Rules</h2>
             </div>
 
@@ -1480,15 +1584,132 @@
                 </div>
             </div>
 
-            <!-- Section F: Bonus Theory - Gradient Rules -->
+            <!-- Section F: Second Derivative Test -->
             <div class="section-header">
                 <div class="section-number">F</div>
+                <h2>Second Derivative Test (Hessian)</h2>
+            </div>
+            <p style="margin-bottom: 20px; color: var(--text-medium);"><strong>Find</strong> all critical points and classify each as a local max, local min, or saddle point.</p>
+
+            <!-- Problem 20 -->
+            <div class="problem-box">
+                <div class="problem-number">Problem 20</div>
+                <p>$$f(x,y) = x^3 + y^3 - 3xy$$</p>
+                <button class="solution-button" onclick="toggleSolution('sol_h1')">Show Solution</button>
+                <div id="sol_h1" class="solution-content">
+                    <p><strong>Step 1:</strong> Find critical points. Set $\nabla f = \mathbf{0}$.</p>
+                    <p>$$f_x = 3x^2 - 3y = 0 \quad \Rightarrow \quad y = x^2$$</p>
+                    <p>$$f_y = 3y^2 - 3x = 0 \quad \Rightarrow \quad x = y^2$$</p>
+                    <p>Substitute $y = x^2$ into $x = y^2$: $x = x^4 \Rightarrow x(x^3 - 1) = 0$.</p>
+                    <p>So $x = 0$ (giving $y = 0$) or $x = 1$ (giving $y = 1$).</p>
+                    <p><strong>Critical points:</strong> $(0,0)$ and $(1,1)$.</p>
+
+                    <p><strong>Step 2:</strong> Compute the Hessian entries.</p>
+                    <p>$$f_{xx} = 6x, \qquad f_{yy} = 6y, \qquad f_{xy} = -3$$</p>
+                    <p>$$D = f_{xx}\,f_{yy} - (f_{xy})^2 = 36xy - 9$$</p>
+
+                    <p><strong>Step 3:</strong> Classify each critical point.</p>
+                    <p><strong>At $(0,0)$:</strong> $D = 36(0)(0) - 9 = -9 < 0 \quad \Rightarrow \quad$ <strong>Saddle point</strong></p>
+                    <p><strong>At $(1,1)$:</strong> $D = 36(1)(1) - 9 = 27 > 0$ and $f_{xx} = 6 > 0 \quad \Rightarrow \quad$ <strong>Local minimum</strong></p>
+                    <p>(Note: we could equally check $f_{yy} = 6 > 0$ — same conclusion, since $D > 0$ guarantees they share the same sign.)</p>
+                </div>
+            </div>
+
+            <!-- Problem 21 -->
+            <div class="problem-box">
+                <div class="problem-number">Problem 21</div>
+                <p>$$f(x,y) = e^{-x}\left(x^2 + y^2\right)$$</p>
+                <button class="solution-button" onclick="toggleSolution('sol_h2')">Show Solution</button>
+                <div id="sol_h2" class="solution-content">
+                    <p><strong>Step 1:</strong> Find critical points.</p>
+                    <p>$$f_x = e^{-x}(2x) + (-e^{-x})(x^2+y^2) = e^{-x}(2x - x^2 - y^2)$$</p>
+                    <p>$$f_y = e^{-x}(2y)$$</p>
+                    <p>From $f_y = 0$: since $e^{-x} \neq 0$, we need $y = 0$.</p>
+                    <p>From $f_x = 0$ with $y = 0$: $2x - x^2 = 0 \Rightarrow x(2-x) = 0$, so $x = 0$ or $x = 2$.</p>
+                    <p><strong>Critical points:</strong> $(0,0)$ and $(2,0)$.</p>
+
+                    <p><strong>Step 2:</strong> Compute the Hessian entries.</p>
+                    <p>$$f_{xx} = e^{-x}(2 - 2x + x^2 + y^2 - 2x) = e^{-x}(x^2 - 4x + 2 + y^2)$$</p>
+                    <p>$$f_{yy} = e^{-x}(2) = 2e^{-x}$$</p>
+                    <p>$$f_{xy} = e^{-x}(2y - 2y) = -2ye^{-x}$$</p>
+                    <p>(At our critical points where $y = 0$: $f_{xy} = 0$.)</p>
+
+                    <p><strong>Step 3:</strong> Classify.</p>
+                    <p><strong>At $(0,0)$:</strong> $f_{xx} = e^0(0-0+2+0) = 2$, $f_{yy} = 2$, $f_{xy} = 0$.</p>
+                    <p>$D = (2)(2) - 0^2 = 4 > 0$ and $f_{xx} = 2 > 0 \quad \Rightarrow \quad$ <strong>Local minimum</strong></p>
+                    <p>$f(0,0) = 0$.</p>
+
+                    <p><strong>At $(2,0)$:</strong> $f_{xx} = e^{-2}(4-8+2) = -2e^{-2}$, $f_{yy} = 2e^{-2}$, $f_{xy} = 0$.</p>
+                    <p>$D = (-2e^{-2})(2e^{-2}) - 0 = -4e^{-4} < 0 \quad \Rightarrow \quad$ <strong>Saddle point</strong></p>
+                    <p>(Here $f_{xx}$ and $f_{yy}$ have <em>opposite</em> signs, consistent with $D < 0$. The principal curvatures point in opposite directions.)</p>
+                </div>
+            </div>
+
+            <!-- Problem 22 -->
+            <div class="problem-box">
+                <div class="problem-number">Problem 22</div>
+                <p>$$f(x,y) = xy - x^3 - y^3$$</p>
+                <button class="solution-button" onclick="toggleSolution('sol_h3')">Show Solution</button>
+                <div id="sol_h3" class="solution-content">
+                    <p><strong>Step 1:</strong> Find critical points.</p>
+                    <p>$$f_x = y - 3x^2 = 0 \quad \Rightarrow \quad y = 3x^2$$</p>
+                    <p>$$f_y = x - 3y^2 = 0 \quad \Rightarrow \quad x = 3y^2$$</p>
+                    <p>Substitute $y = 3x^2$: $x = 3(3x^2)^2 = 27x^4$.</p>
+                    <p>So $x - 27x^4 = 0 \Rightarrow x(1 - 27x^3) = 0$.</p>
+                    <p>$x = 0$ (giving $y = 0$) or $x^3 = 1/27$, so $x = 1/3$ (giving $y = 3(1/9) = 1/3$).</p>
+                    <p><strong>Critical points:</strong> $(0,0)$ and $(1/3, 1/3)$.</p>
+
+                    <p><strong>Step 2:</strong> Compute the Hessian entries.</p>
+                    <p>$$f_{xx} = -6x, \qquad f_{yy} = -6y, \qquad f_{xy} = 1$$</p>
+                    <p>$$D = (-6x)(-6y) - 1 = 36xy - 1$$</p>
+
+                    <p><strong>Step 3:</strong> Classify.</p>
+                    <p><strong>At $(0,0)$:</strong> $D = 0 - 1 = -1 < 0 \quad \Rightarrow \quad$ <strong>Saddle point</strong></p>
+
+                    <p><strong>At $(1/3, 1/3)$:</strong> $D = 36 \cdot \frac{1}{3} \cdot \frac{1}{3} - 1 = 4 - 1 = 3 > 0$ and $f_{xx} = -2 < 0 \quad \Rightarrow \quad$ <strong>Local maximum</strong></p>
+                    <p>$f(1/3,1/3) = \frac{1}{9} - \frac{1}{27} - \frac{1}{27} = \frac{3-1-1}{27} = \frac{1}{27}$.</p>
+                    <p>(Checking $f_{yy} = -2 < 0$ gives the same answer — as expected when $D > 0$.)</p>
+                </div>
+            </div>
+
+            <!-- Problem 23 -->
+            <div class="problem-box">
+                <div class="problem-number">Problem 23</div>
+                <p>$$f(x,y) = x^4 + y^4 - 4xy + 1$$</p>
+                <button class="solution-button" onclick="toggleSolution('sol_h4')">Show Solution</button>
+                <div id="sol_h4" class="solution-content">
+                    <p><strong>Step 1:</strong> Find critical points.</p>
+                    <p>$$f_x = 4x^3 - 4y = 0 \quad \Rightarrow \quad y = x^3$$</p>
+                    <p>$$f_y = 4y^3 - 4x = 0 \quad \Rightarrow \quad x = y^3$$</p>
+                    <p>Substitute: $x = (x^3)^3 = x^9 \Rightarrow x^9 - x = 0 \Rightarrow x(x^8 - 1) = 0$.</p>
+                    <p>Real solutions: $x = 0, \; x = 1, \; x = -1$.</p>
+                    <p><strong>Critical points:</strong> $(0,0)$, $(1,1)$, $(-1,-1)$.</p>
+
+                    <p><strong>Step 2:</strong> Compute the Hessian entries.</p>
+                    <p>$$f_{xx} = 12x^2, \qquad f_{yy} = 12y^2, \qquad f_{xy} = -4$$</p>
+                    <p>$$D = 144x^2y^2 - 16$$</p>
+
+                    <p><strong>Step 3:</strong> Classify.</p>
+                    <p><strong>At $(0,0)$:</strong> $D = 0 - 16 = -16 < 0 \quad \Rightarrow \quad$ <strong>Saddle point</strong></p>
+                    <p>(Even though $f_{xx} = f_{yy} = 0$, the twist $f_{xy} = -4$ dominates — the principal curvatures have opposite signs.)</p>
+
+                    <p><strong>At $(1,1)$:</strong> $D = 144 - 16 = 128 > 0$ and $f_{xx} = 12 > 0 \quad \Rightarrow \quad$ <strong>Local minimum</strong></p>
+                    <p>$f(1,1) = 1 + 1 - 4 + 1 = -1$.</p>
+
+                    <p><strong>At $(-1,-1)$:</strong> $D = 144 - 16 = 128 > 0$ and $f_{xx} = 12 > 0 \quad \Rightarrow \quad$ <strong>Local minimum</strong></p>
+                    <p>$f(-1,-1) = 1 + 1 - 4 + 1 = -1$.</p>
+                </div>
+            </div>
+
+            <!-- Section G: Bonus Theory - Gradient Rules -->
+            <div class="section-header">
+                <div class="section-number">G</div>
                 <h2>Bonus Theory: Gradient Rules (Proofs)</h2>
             </div>
 
             <!-- Problem 10 -->
             <div class="problem-box">
-                <div class="problem-number">Problem 20 (Linearity)</div>
+                <div class="problem-number">Problem 24 (Linearity)</div>
                 <p><strong>Show:</strong> $$\nabla(au+bv)=a\nabla u+b\nabla v$$</p>
                 <button class="solution-button" onclick="toggleSolution('sol16')">Show Solution</button>
                 <div id="sol16" class="solution-content">
@@ -1503,7 +1724,7 @@
 
             <!-- Problem 11 -->
             <div class="problem-box">
-                <div class="problem-number">Problem 21 (Product Rule)</div>
+                <div class="problem-number">Problem 25 (Product Rule)</div>
                 <p><strong>Show:</strong> $$\nabla(uv)=u\nabla v+v\nabla u$$</p>
                 <button class="solution-button" onclick="toggleSolution('sol17')">Show Solution</button>
                 <div id="sol17" class="solution-content">
@@ -1518,7 +1739,7 @@
 
             <!-- Problem 12 -->
             <div class="problem-box">
-                <div class="problem-number">Problem 22 (Quotient Rule)</div>
+                <div class="problem-number">Problem 26 (Quotient Rule)</div>
                 <p><strong>Show:</strong> $$\nabla\!\left(\frac{u}{v}\right) = \frac{v\nabla u-u\nabla v}{v^2}$$</p>
                 <button class="solution-button" onclick="toggleSolution('sol18')">Show Solution</button>
                 <div id="sol18" class="solution-content">
@@ -1533,7 +1754,7 @@
 
             <!-- Problem 13 -->
             <div class="problem-box">
-                <div class="problem-number">Problem 23 (Power Rule)</div>
+                <div class="problem-number">Problem 27 (Power Rule)</div>
                 <p><strong>Show:</strong> $$\nabla(u^n)=nu^{n-1}\nabla u$$</p>
                 <button class="solution-button" onclick="toggleSolution('sol19')">Show Solution</button>
                 <div id="sol19" class="solution-content">
