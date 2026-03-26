@@ -681,80 +681,332 @@
                 </div>
                 <p>This means the gradient must be perpendicular to the constraint curve. If it weren't, you could walk along the constraint and still go uphill.</p>
 
-                <!-- SVG Visual: Mountain + Fence -->
-                <div class="constraint-visual">
-                    <svg viewBox="0 0 460 310" width="460" height="310" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
-                        <!-- Background: mountain contours (level curves) -->
-                        <ellipse cx="230" cy="130" rx="180" ry="120" fill="none" stroke="#d4d4d4" stroke-width="1.5"/>
-                        <ellipse cx="230" cy="130" rx="140" ry="93" fill="none" stroke="#c8c8c8" stroke-width="1.5"/>
-                        <ellipse cx="230" cy="130" rx="100" ry="67" fill="none" stroke="#bbb" stroke-width="1.5"/>
-                        <ellipse cx="230" cy="130" rx="60" ry="40" fill="none" stroke="#aaa" stroke-width="1.5"/>
-                        <ellipse cx="230" cy="130" rx="20" ry="13" fill="none" stroke="#999" stroke-width="1.5"/>
-                        <!-- Peak marker: small X at center instead of text -->
-                        <line x1="226" y1="126" x2="234" y2="134" stroke="#888" stroke-width="1.5"/>
-                        <line x1="234" y1="126" x2="226" y2="134" stroke="#888" stroke-width="1.5"/>
-
-                        <!-- Constraint curve (fence) -->
-                        <path d="M80,220 Q150,100 230,160 Q310,220 400,120" fill="none" stroke="var(--brown-dark)" stroke-width="3"/>
-                        <text x="405" y="115" font-family="Source Sans Pro" font-size="12" fill="var(--brown-dark)" font-weight="700">constraint</text>
-
-                        <!-- Note: center X marks the peak -->
-                        <text x="248" y="123" font-family="Source Sans Pro" font-size="10" fill="#888" font-style="italic">peak</text>
-
-                        <!-- Arrow markers -->
-                        <defs>
-                            <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                                <polygon points="0,0 8,3 0,6" fill="var(--green-dark)"/>
-                            </marker>
-                            <marker id="arrowT" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                                <polygon points="0,0 8,3 0,6" fill="var(--gold)"/>
-                            </marker>
-                            <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                                <polygon points="0,0 8,3 0,6" fill="#B44"/>
-                            </marker>
-                        </defs>
-
-                        <!-- ===== OPTIMAL POINT (gold) ===== -->
-                        <circle cx="217" cy="152" r="7" fill="var(--gold)" stroke="var(--brown-dark)" stroke-width="2"/>
-                        <text x="200" y="170" font-family="Source Sans Pro" font-size="11" fill="var(--brown-dark)" text-anchor="middle" font-weight="700">optimum</text>
-
-                        <!-- Gradient arrow (perpendicular to fence, toward peak) -->
-                        <line x1="217" y1="152" x2="237" y2="117" stroke="var(--green-dark)" stroke-width="2.5" marker-end="url(#arrowG)"/>
-                        <text x="248" y="108" font-family="Source Sans Pro" font-size="12" fill="var(--green-dark)" font-weight="700">$\nabla f$</text>
-
-                        <!-- Tangent direction arrows along fence -->
-                        <line x1="217" y1="152" x2="249" y2="170" stroke="var(--gold)" stroke-width="2" marker-end="url(#arrowT)" stroke-dasharray="5,3"/>
-                        <line x1="217" y1="152" x2="185" y2="134" stroke="var(--gold)" stroke-width="2" marker-end="url(#arrowT)" stroke-dasharray="5,3"/>
-                        <text x="260" y="178" font-family="Source Sans Pro" font-size="10" fill="var(--gold)" font-weight="600">feasible</text>
-                        <text x="165" y="128" font-family="Source Sans Pro" font-size="10" fill="var(--gold)" font-weight="600">feasible</text>
-
-                        <!-- Right angle symbol -->
-                        <polyline points="224,146 230,150 226,156" fill="none" stroke="var(--text-medium)" stroke-width="1.2"/>
-
-                        <!-- ===== LEFT NOT-OPTIMAL POINT (red) ===== -->
-                        <circle cx="138" cy="153" r="5" fill="#B44" stroke="var(--brown-dark)" stroke-width="1.5"/>
-                        <line x1="138" y1="153" x2="170" y2="143" stroke="#B44" stroke-width="2" marker-end="url(#arrowR)"/>
-                        <text x="175" y="139" font-family="Source Sans Pro" font-size="10" fill="#B44" font-weight="600">$\nabla f$</text>
-                        <text x="100" y="146" font-family="Source Sans Pro" font-size="10" fill="#B44" text-anchor="middle">not optimal:</text>
-                        <text x="100" y="158" font-family="Source Sans Pro" font-size="10" fill="#B44" text-anchor="middle">improve by</text>
-                        <text x="100" y="170" font-family="Source Sans Pro" font-size="10" fill="#B44" text-anchor="middle">moving right</text>
-
-                        <!-- ===== RIGHT NOT-OPTIMAL POINT (red) ===== -->
-                        <circle cx="310" cy="185" r="5" fill="#B44" stroke="var(--brown-dark)" stroke-width="1.5"/>
-                        <line x1="310" y1="185" x2="290" y2="150" stroke="#B44" stroke-width="2" marker-end="url(#arrowR)"/>
-                        <text x="278" y="145" font-family="Source Sans Pro" font-size="10" fill="#B44" font-weight="600">$\nabla f$</text>
-                        <text x="348" y="183" font-family="Source Sans Pro" font-size="10" fill="#B44" text-anchor="middle">not optimal:</text>
-                        <text x="348" y="195" font-family="Source Sans Pro" font-size="10" fill="#B44" text-anchor="middle">improve by</text>
-                        <text x="348" y="207" font-family="Source Sans Pro" font-size="10" fill="#B44" text-anchor="middle">moving left</text>
-
-                        <!-- Annotation -->
-                        <text x="230" y="268" font-family="Source Sans Pro" font-size="13" fill="var(--text-dark)" text-anchor="middle" font-weight="600">At the optimum: $\nabla f \perp$ constraint</text>
-                        <text x="230" y="286" font-family="Source Sans Pro" font-size="12" fill="var(--text-medium)" text-anchor="middle">$D_{\mathbf{u}}f = 0$ in every feasible direction</text>
-                    </svg>
+                <!-- Interactive Visual: Mountain + Fence with draggable point -->
+                <div class="constraint-visual" style="position:relative;">
+                    <canvas id="constraintCanvas" width="920" height="680" style="max-width:100%; height:auto; cursor:default; border-radius:8px;"></canvas>
+                    <div style="text-align:center; margin-top:6px; font-size:12px; color:var(--text-medium); font-style:italic;">
+                        Drag the <span style="color:#B44; font-weight:600;">red point</span> along the constraint to explore how the gradient and tangent directions change.
+                    </div>
                 </div>
+                <script>
+                (function() {
+                    const canvas = document.getElementById('constraintCanvas');
+                    const ctx = canvas.getContext('2d');
+                    const W = canvas.width, H = canvas.height;
+                    const S = 2; // scale factor (canvas is 2x for retina clarity)
+
+                    // Colors (matching the worksheet theme)
+                    const COL = {
+                        greenDark: '#3B5323', gold: '#C8A84E', goldLight: '#D4B965',
+                        brownDark: '#3E2C1C', cream: '#FAF6EE', white: '#FFFFFF',
+                        textDark: '#2D2D2D', textMed: '#4A4A4A', red: '#B44444',
+                        contours: ['#d4d4d4','#c8c8c8','#bbbbbb','#aaaaaa','#999999']
+                    };
+
+                    // Peak of the mountain
+                    const peak = {x: 460, y: 260};
+
+                    // Ellipse contour radii (scaled 2x)
+                    const contours = [
+                        {rx:360, ry:240}, {rx:280, ry:186}, {rx:200, ry:134},
+                        {rx:120, ry:80}, {rx:40, ry:26}
+                    ];
+
+                    // Constraint curve: two quadratic Beziers (coords scaled 2x from original)
+                    // Segment 1: (160,440) Q(300,200) (460,320)
+                    // Segment 2: (460,320) Q(620,440) (800,240)
+                    const seg1 = {p0:{x:160,y:440}, p1:{x:300,y:200}, p2:{x:460,y:320}};
+                    const seg2 = {p0:{x:460,y:320}, p1:{x:620,y:440}, p2:{x:800,y:240}};
+
+                    function quadBezier(seg, t) {
+                        const u = 1-t;
+                        return {
+                            x: u*u*seg.p0.x + 2*u*t*seg.p1.x + t*t*seg.p2.x,
+                            y: u*u*seg.p0.y + 2*u*t*seg.p1.y + t*t*seg.p2.y
+                        };
+                    }
+                    function quadBezierTangent(seg, t) {
+                        const u = 1-t;
+                        return {
+                            x: 2*(u*(seg.p1.x - seg.p0.x) + t*(seg.p2.x - seg.p1.x)),
+                            y: 2*(u*(seg.p1.y - seg.p0.y) + t*(seg.p2.y - seg.p1.y))
+                        };
+                    }
+
+                    // Global parameter: tGlobal in [0,2]. [0,1] = seg1, [1,2] = seg2
+                    function getPoint(tGlobal) {
+                        if (tGlobal <= 1) return quadBezier(seg1, tGlobal);
+                        return quadBezier(seg2, tGlobal - 1);
+                    }
+                    function getTangent(tGlobal) {
+                        if (tGlobal <= 1) return quadBezierTangent(seg1, tGlobal);
+                        return quadBezierTangent(seg2, tGlobal - 1);
+                    }
+
+                    // Optimum point parameter (approx where gradient is perpendicular)
+                    // Original optimum was at (217,152) → scaled (434,304). Find closest t.
+                    const optT = 0.877; // pre-computed: gradient ⊥ tangent here
+                    const optPt = getPoint(optT);
+
+                    // Draggable point parameter
+                    let dragT = 0.35; // start on the left portion
+                    let dragging = false;
+
+                    // Find nearest t on curve to a given (mx, my)
+                    function nearestT(mx, my) {
+                        let bestT = 0, bestD = Infinity;
+                        for (let i = 0; i <= 400; i++) {
+                            const t = i / 200; // 0 to 2
+                            const p = getPoint(t);
+                            const d = (p.x-mx)**2 + (p.y-my)**2;
+                            if (d < bestD) { bestD = d; bestT = t; }
+                        }
+                        return bestT;
+                    }
+
+                    // Gradient of the mountain at point (x,y)
+                    // Mountain: f(x,y) = -((x-px)/rx)^2 - ((y-py)/ry)^2
+                    // Gradient points toward peak, scaled by elliptical metric
+                    function gradient(x, y) {
+                        const rx = 360, ry = 240; // outermost contour defines the shape
+                        const gx = 2*(peak.x - x)/(rx*rx);
+                        const gy = 2*(peak.y - y)/(ry*ry);
+                        return {x: gx, y: gy};
+                    }
+
+                    function normalize(v) {
+                        const len = Math.sqrt(v.x*v.x + v.y*v.y);
+                        if (len < 1e-10) return {x:0, y:0};
+                        return {x: v.x/len, y: v.y/len};
+                    }
+
+                    function drawArrow(fromX, fromY, toX, toY, color, lineWidth, dashed) {
+                        ctx.save();
+                        ctx.strokeStyle = color;
+                        ctx.fillStyle = color;
+                        ctx.lineWidth = lineWidth;
+                        if (dashed) ctx.setLineDash([10,6]);
+                        else ctx.setLineDash([]);
+
+                        const dx = toX - fromX, dy = toY - fromY;
+                        const len = Math.sqrt(dx*dx + dy*dy);
+                        const ux = dx/len, uy = dy/len;
+                        const headLen = 14;
+
+                        ctx.beginPath();
+                        ctx.moveTo(fromX, fromY);
+                        ctx.lineTo(toX - ux*headLen, toY - uy*headLen);
+                        ctx.stroke();
+
+                        // Arrowhead
+                        ctx.setLineDash([]);
+                        ctx.beginPath();
+                        const tipX = toX, tipY = toY;
+                        const bx = toX - ux*headLen, by = toY - uy*headLen;
+                        const px1 = bx - uy*6, py1 = by + ux*6;
+                        const px2 = bx + uy*6, py2 = by - ux*6;
+                        ctx.moveTo(tipX, tipY);
+                        ctx.lineTo(px1, py1);
+                        ctx.lineTo(px2, py2);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.restore();
+                    }
+
+                    function drawRightAngle(cx, cy, v1, v2, size) {
+                        const n1 = normalize(v1), n2 = normalize(v2);
+                        const a = {x: cx + n1.x*size, y: cy + n1.y*size};
+                        const b = {x: cx + n1.x*size + n2.x*size, y: cy + n1.y*size + n2.y*size};
+                        const c = {x: cx + n2.x*size, y: cy + n2.y*size};
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.lineTo(c.x, c.y);
+                        ctx.strokeStyle = COL.textMed;
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([]);
+                        ctx.stroke();
+                    }
+
+                    function draw() {
+                        ctx.clearRect(0, 0, W, H);
+
+                        // Background
+                        ctx.fillStyle = COL.white;
+                        ctx.fillRect(0, 0, W, H);
+
+                        // Contour ellipses
+                        contours.forEach((c, i) => {
+                            ctx.beginPath();
+                            ctx.ellipse(peak.x, peak.y, c.rx, c.ry, 0, 0, Math.PI*2);
+                            ctx.strokeStyle = COL.contours[i];
+                            ctx.lineWidth = 2.5;
+                            ctx.setLineDash([]);
+                            ctx.stroke();
+                        });
+
+                        // Peak marker (X)
+                        ctx.strokeStyle = '#888';
+                        ctx.lineWidth = 2.5;
+                        ctx.beginPath(); ctx.moveTo(peak.x-8, peak.y-8); ctx.lineTo(peak.x+8, peak.y+8); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(peak.x+8, peak.y-8); ctx.lineTo(peak.x-8, peak.y+8); ctx.stroke();
+                        ctx.font = '600 20px Source Sans Pro'; ctx.fillStyle = '#888';
+                        ctx.fillText('peak', peak.x+16, peak.y-4);
+
+                        // Constraint curve
+                        ctx.beginPath();
+                        ctx.moveTo(seg1.p0.x, seg1.p0.y);
+                        ctx.quadraticCurveTo(seg1.p1.x, seg1.p1.y, seg1.p2.x, seg1.p2.y);
+                        ctx.quadraticCurveTo(seg2.p1.x, seg2.p1.y, seg2.p2.x, seg2.p2.y);
+                        ctx.strokeStyle = COL.brownDark;
+                        ctx.lineWidth = 5;
+                        ctx.setLineDash([]);
+                        ctx.stroke();
+                        ctx.font = '700 22px Source Sans Pro'; ctx.fillStyle = COL.brownDark;
+                        ctx.fillText('constraint', 808, 236);
+
+                        // ========== OPTIMUM POINT (gold, fixed) ==========
+                        const oP = optPt;
+                        const oTan = getTangent(optT);
+                        const oGrad = gradient(oP.x, oP.y);
+                        const oGradN = normalize(oGrad);
+                        const oTanN = normalize(oTan);
+                        const arrowLen = 70;
+
+                        // Gradient arrow at optimum
+                        drawArrow(oP.x, oP.y, oP.x + oGradN.x*arrowLen, oP.y + oGradN.y*arrowLen, COL.greenDark, 4, false);
+                        ctx.font = '700 22px Source Sans Pro'; ctx.fillStyle = COL.greenDark;
+                        ctx.fillText('\u2207f', oP.x + oGradN.x*arrowLen + 8, oP.y + oGradN.y*arrowLen - 4);
+
+                        // Tangent arrows at optimum (dashed)
+                        drawArrow(oP.x, oP.y, oP.x + oTanN.x*55, oP.y + oTanN.y*55, COL.gold, 3.5, true);
+                        drawArrow(oP.x, oP.y, oP.x - oTanN.x*55, oP.y - oTanN.y*55, COL.gold, 3.5, true);
+                        ctx.font = '600 18px Source Sans Pro'; ctx.fillStyle = COL.gold;
+                        ctx.fillText('feasible', oP.x + oTanN.x*60 + 4, oP.y + oTanN.y*60 + 4);
+                        ctx.fillText('feasible', oP.x - oTanN.x*65 - 40, oP.y - oTanN.y*65);
+
+                        // Right angle at optimum
+                        drawRightAngle(oP.x, oP.y, oGradN, oTanN, 14);
+
+                        // Optimum dot
+                        ctx.beginPath();
+                        ctx.arc(oP.x, oP.y, 7, 0, Math.PI*2);
+                        ctx.fillStyle = COL.gold;
+                        ctx.fill();
+                        ctx.strokeStyle = COL.brownDark;
+                        ctx.lineWidth = 3;
+                        ctx.stroke();
+                        ctx.font = '700 20px Source Sans Pro'; ctx.fillStyle = COL.brownDark;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('optimum', oP.x, oP.y + 28);
+                        ctx.textAlign = 'left';
+
+                        // ========== DRAGGABLE POINT (red) ==========
+                        const dP = getPoint(dragT);
+                        const dTan = getTangent(dragT);
+                        const dGrad = gradient(dP.x, dP.y);
+                        const dGradN = normalize(dGrad);
+                        const dTanN = normalize(dTan);
+                        const dArrowLen = 75;
+
+                        // Gradient arrow at draggable point
+                        drawArrow(dP.x, dP.y, dP.x + dGradN.x*dArrowLen, dP.y + dGradN.y*dArrowLen, COL.greenDark, 4, false);
+                        ctx.font = '700 22px Source Sans Pro'; ctx.fillStyle = COL.greenDark;
+                        ctx.fillText('\u2207f', dP.x + dGradN.x*dArrowLen + 8, dP.y + dGradN.y*dArrowLen - 4);
+
+                        // Unit tangent arrows at draggable point (dashed gold)
+                        drawArrow(dP.x, dP.y, dP.x + dTanN.x*55, dP.y + dTanN.y*55, COL.gold, 3.5, true);
+                        drawArrow(dP.x, dP.y, dP.x - dTanN.x*55, dP.y - dTanN.y*55, COL.gold, 3.5, true);
+                        ctx.font = '600 16px Source Sans Pro'; ctx.fillStyle = COL.gold;
+                        ctx.fillText('\u00fb', dP.x + dTanN.x*60 + 4, dP.y + dTanN.y*60 + 6);
+                        ctx.fillText('\u2212\u00fb', dP.x - dTanN.x*65 - 14, dP.y - dTanN.y*65);
+
+                        // Compute and show the directional derivative projection
+                        const dotProd = dGrad.x * dTanN.x + dGrad.y * dTanN.y;
+                        const projLen = dotProd / Math.sqrt(dGrad.x*dGrad.x + dGrad.y*dGrad.y) * dArrowLen;
+
+                        // Draggable dot
+                        ctx.beginPath();
+                        ctx.arc(dP.x, dP.y, 11, 0, Math.PI*2);
+                        ctx.fillStyle = COL.red;
+                        ctx.fill();
+                        ctx.strokeStyle = COL.brownDark;
+                        ctx.lineWidth = 2.5;
+                        ctx.stroke();
+
+                        // Label for draggable point
+                        ctx.font = '600 18px Source Sans Pro'; ctx.fillStyle = COL.red;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('drag me!', dP.x, dP.y - 18);
+                        ctx.textAlign = 'left';
+
+                        // Info text: directional derivative value
+                        const dfVal = (dGrad.x * dTanN.x + dGrad.y * dTanN.y);
+                        const dfSign = dfVal > 0.0005 ? '> 0  (can improve!)' : dfVal < -0.0005 ? '< 0  (can improve!)' : '\u2248 0  (at optimum!)';
+                        ctx.font = '600 24px Source Sans Pro'; ctx.fillStyle = COL.textDark;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('At red point: D\u1D64f  ' + dfSign, W/2, H - 50);
+                        ctx.font = '500 20px Source Sans Pro'; ctx.fillStyle = COL.textMed;
+                        ctx.fillText('At gold optimum: \u2207f \u22A5 constraint  \u2192  D\u1D64f = 0 in every feasible direction', W/2, H - 22);
+                        ctx.textAlign = 'left';
+                    }
+
+                    // Mouse / touch interaction
+                    function getCanvasCoords(e) {
+                        const rect = canvas.getBoundingClientRect();
+                        const scaleX = W / rect.width;
+                        const scaleY = H / rect.height;
+                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                        return {
+                            x: (clientX - rect.left) * scaleX,
+                            y: (clientY - rect.top) * scaleY
+                        };
+                    }
+
+                    function isNearDragPoint(mx, my) {
+                        const dP = getPoint(dragT);
+                        return (dP.x-mx)**2 + (dP.y-my)**2 < 900; // 30px radius
+                    }
+
+                    canvas.addEventListener('mousedown', function(e) {
+                        const c = getCanvasCoords(e);
+                        if (isNearDragPoint(c.x, c.y)) { dragging = true; canvas.style.cursor = 'grabbing'; }
+                    });
+                    canvas.addEventListener('mousemove', function(e) {
+                        const c = getCanvasCoords(e);
+                        if (dragging) {
+                            dragT = nearestT(c.x, c.y);
+                            draw();
+                        } else {
+                            canvas.style.cursor = isNearDragPoint(c.x, c.y) ? 'grab' : 'default';
+                        }
+                    });
+                    canvas.addEventListener('mouseup', function() { dragging = false; canvas.style.cursor = 'default'; });
+                    canvas.addEventListener('mouseleave', function() { dragging = false; canvas.style.cursor = 'default'; });
+
+                    // Touch events
+                    canvas.addEventListener('touchstart', function(e) {
+                        const c = getCanvasCoords(e);
+                        if (isNearDragPoint(c.x, c.y)) { dragging = true; e.preventDefault(); }
+                    }, {passive: false});
+                    canvas.addEventListener('touchmove', function(e) {
+                        if (dragging) {
+                            e.preventDefault();
+                            const c = getCanvasCoords(e);
+                            dragT = nearestT(c.x, c.y);
+                            draw();
+                        }
+                    }, {passive: false});
+                    canvas.addEventListener('touchend', function() { dragging = false; });
+
+                    // Initial draw
+                    draw();
+                })();
+                </script>
 
                 <div class="idea-box">
-                    <strong>Reading the diagram:</strong> The concentric ellipses are level curves (contour lines) of the objective function, with the peak at the center. The dark curve is the constraint (the fence). At the gold dot (optimum), the gradient $\nabla f$ points straight toward the peak and is perpendicular to the constraint: moving along the fence gives $D_{\mathbf{u}}f = 0$. At the red dot, the gradient has a component along the fence, so you could still improve by walking along it.
+                    <strong>Try it:</strong> Drag the <span style="color:#B44; font-weight:600;">red point</span> along the constraint curve. At each position, two types of vectors are shown: (1) the <span style="color:#3B5323; font-weight:600;">gradient</span> $\nabla f$ (solid green arrow pointing toward the peak), and (2) the <span style="color:#C8A84E; font-weight:600;">unit tangent vectors</span> $\hat{\mathbf{u}}$ along the constraint (dashed gold arrows showing feasible directions). Notice: when the gradient has a component along the fence, you can still improve — the directional derivative $D_{\mathbf{u}}f \neq 0$. Only at the <span style="color:#C8A84E; font-weight:600;">gold optimum</span> is $\nabla f$ perpendicular to the constraint, making $D_{\mathbf{u}}f = 0$ in every feasible direction.
                 </div>
             </div>
 
@@ -789,85 +1041,368 @@
                     <strong>Step 5:</strong> Working this out gives the familiar condition:
                 </div>
 
-                <div class="constraint-visual">
-                    <svg viewBox="0 0 440 310" width="440" height="310" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
-                        <!-- Axes -->
-                        <line x1="60" y1="270" x2="60" y2="10" stroke="#2D2D2D" stroke-width="2"/>
-                        <line x1="60" y1="270" x2="400" y2="270" stroke="#2D2D2D" stroke-width="2"/>
-                        <text x="230" y="298" font-family="Source Sans Pro" font-size="13" fill="#2D2D2D" text-anchor="middle">Good <tspan font-style="italic">x</tspan></text>
-                        <text x="28" y="140" font-family="Source Sans Pro" font-size="13" fill="#2D2D2D" text-anchor="middle" transform="rotate(-90,28,140)">Good <tspan font-style="italic">y</tspan></text>
-
-                        <!-- Arrow markers -->
-                        <defs>
-                            <marker id="arrowGe" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                                <polygon points="0,0 8,3 0,6" fill="var(--green-dark)"/>
-                            </marker>
-                            <marker id="arrowTe" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                                <polygon points="0,0 8,3 0,6" fill="var(--gold)"/>
-                            </marker>
-                            <marker id="arrowRe" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                                <polygon points="0,0 8,3 0,6" fill="#B44"/>
-                            </marker>
-                        </defs>
-
-                        <!-- Higher IC (not feasible, faded) -->
-                        <polyline points="149.0,3.9 152.0,12.6 155.0,20.8 158.1,28.5 161.1,35.7 164.1,42.6 167.1,49.0 170.2,55.1 173.2,60.8 176.2,66.2 179.2,71.4 182.3,76.3 185.3,81.0 188.3,85.5 191.3,89.7 194.4,93.8 197.4,97.7 200.4,101.4 203.5,104.9 206.5,108.3 209.5,111.6 212.5,114.8 215.6,117.8 218.6,120.7 221.6,123.5 224.6,126.2 227.7,128.8 230.7,131.3 233.7,133.7 236.7,136.0 239.8,138.3 242.8,140.5 245.8,142.6 248.8,144.6 251.9,146.6 254.9,148.5 257.9,150.4 260.9,152.2 264.0,153.9 267.0,155.6 270.0,157.3 273.1,158.9 276.1,160.4 279.1,161.9 282.1,163.4 285.2,164.8 288.2,166.2 291.2,167.6 294.2,168.9 297.3,170.2 300.3,171.5 303.3,172.7 306.3,173.9 309.4,175.0 312.4,176.2 315.4,177.3 318.4,178.4 321.5,179.4 324.5,180.5 327.5,181.5 330.6,182.5 333.6,183.4 336.6,184.4 339.6,185.3 342.7,186.2 345.7,187.1 348.7,188.0 351.7,188.8 354.8,189.7 357.8,190.5 360.8,191.3 363.8,192.1 366.9,192.8 369.9,193.6 372.9,194.3 375.9,195.1 379.0,195.8 382.0,196.5" fill="none" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4,4"/>
-                        <text x="386" y="200" font-family="Source Sans Pro" font-size="10" fill="#bbb">$U_3$</text>
-
-                        <!-- Optimal IC (tangent to budget) -->
-                        <polyline points="118.7,7.7 121.7,20.6 124.8,32.2 127.8,42.8 130.8,52.5 133.8,61.5 136.9,69.7 139.9,77.3 142.9,84.3 146.0,90.8 149.0,96.9 152.0,102.6 155.0,107.9 158.1,112.9 161.1,117.6 164.1,122.1 167.1,126.3 170.2,130.2 173.2,133.9 176.2,137.5 179.2,140.8 182.3,144.0 185.3,147.1 188.3,150.0 191.3,152.8 194.4,155.4 197.4,157.9 200.4,160.3 203.5,162.6 206.5,164.9 209.5,167.0 212.5,169.0 215.6,171.0 218.6,172.9 221.6,174.7 224.6,176.5 227.7,178.1 230.7,179.8 233.7,181.3 236.7,182.9 239.8,184.3 242.8,185.8 245.8,187.1 248.8,188.5 251.9,189.7 254.9,191.0 257.9,192.2 260.9,193.4 264.0,194.5 267.0,195.6 270.0,196.7 273.1,197.7 276.1,198.7 279.1,199.7 282.1,200.7 285.2,201.6 288.2,202.5 291.2,203.4 294.2,204.3 297.3,205.1 300.3,205.9 303.3,206.7 306.3,207.5 309.4,208.2 312.4,209.0 315.4,209.7 318.4,210.4 321.5,211.1 324.5,211.8 327.5,212.4 330.6,213.1 333.6,213.7 336.6,214.3 339.6,214.9 342.7,215.5 345.7,216.1 348.7,216.7 351.7,217.2 354.8,217.8 357.8,218.3 360.8,218.8 363.8,219.3 366.9,219.8 369.9,220.3 372.9,220.8 375.9,221.3 379.0,221.7 382.0,222.2" fill="none" stroke="var(--green-light)" stroke-width="2"/>
-                        <text x="386" y="226" font-family="Source Sans Pro" font-size="11" fill="var(--green-light)" font-weight="600">$U^*$</text>
-
-                        <!-- Lower IC -->
-                        <polyline points="88.5,4.8 91.5,30.3 94.5,51.3 97.5,68.9 100.6,83.9 103.6,96.9 106.6,108.1 109.6,118.0 112.7,126.7 115.7,134.5 118.7,141.5 121.7,147.8 124.8,153.5 127.8,158.7 130.8,163.4 133.8,167.8 136.9,171.8 139.9,175.6 142.9,179.0 146.0,182.2 149.0,185.2 152.0,188.0 155.0,190.6 158.1,193.0 161.1,195.3 164.1,197.5 167.1,199.6 170.2,201.5 173.2,203.3 176.2,205.1 179.2,206.7 182.3,208.3 185.3,209.8 188.3,211.2 191.3,212.5 194.4,213.8 197.4,215.1 200.4,216.3 203.5,217.4 206.5,218.5 209.5,219.5 212.5,220.5 215.6,221.5 218.6,222.4 221.6,223.3 224.6,224.2 227.7,225.0 230.7,225.8 233.7,226.6 236.7,227.3 239.8,228.0 242.8,228.7 245.8,229.4 248.8,230.0 251.9,230.7 254.9,231.3 257.9,231.9 260.9,232.4 264.0,233.0 267.0,233.5 270.0,234.1 273.1,234.6 276.1,235.1 279.1,235.6 282.1,236.0 285.2,236.5 288.2,236.9 291.2,237.4 294.2,237.8 297.3,238.2 300.3,238.6 303.3,239.0 306.3,239.4 309.4,239.7 312.4,240.1 315.4,240.5 318.4,240.8 321.5,241.1 324.5,241.5 327.5,241.8 330.6,242.1 333.6,242.4 336.6,242.7 339.6,243.0 342.7,243.3 345.7,243.6 348.7,243.9 351.7,244.1 354.8,244.4 357.8,244.7 360.8,244.9 363.8,245.2 366.9,245.4 369.9,245.6 372.9,245.9 375.9,246.1 379.0,246.3 382.0,246.6" fill="none" stroke="#aaa" stroke-width="1.5"/>
-                        <text x="386" y="251" font-family="Source Sans Pro" font-size="10" fill="#aaa">$U_1$</text>
-
-                        <!-- Budget line -->
-                        <line x1="60" y1="50" x2="340" y2="270" stroke="var(--brown-dark)" stroke-width="2.5"/>
-                        <text x="345" y="275" font-family="Source Sans Pro" font-size="11" fill="var(--brown-dark)" font-weight="600">Budget: $p_x x + p_y y = I$</text>
-                        <text x="55" y="45" font-family="Source Sans Pro" font-size="10" fill="var(--brown-dark)" text-anchor="end">$I/p_y$</text>
-                        <text x="340" y="286" font-family="Source Sans Pro" font-size="10" fill="var(--brown-dark)" text-anchor="middle">$I/p_x$</text>
-
-                        <!-- Optimal point -->
-                        <circle cx="200" cy="160" r="6" fill="var(--gold)" stroke="var(--brown-dark)" stroke-width="2"/>
-
-                        <!-- Gradient arrow at optimum (perpendicular to budget) -->
-                        <line x1="200" y1="160" x2="239" y2="121" stroke="var(--green-dark)" stroke-width="2.5" marker-end="url(#arrowGe)"/>
-                        <text x="247" y="119" font-family="Source Sans Pro" font-size="12" fill="var(--green-dark)" font-weight="700">$\nabla U$</text>
-
-                        <!-- Feasible arrows along budget -->
-                        <line x1="200" y1="160" x2="162" y2="128" stroke="var(--gold)" stroke-width="2" marker-end="url(#arrowTe)" stroke-dasharray="5,3"/>
-                        <line x1="200" y1="160" x2="238" y2="192" stroke="var(--gold)" stroke-width="2" marker-end="url(#arrowTe)" stroke-dasharray="5,3"/>
-
-                        <!-- Right angle symbol -->
-                        <polyline points="206,152 214,158 208,166" fill="none" stroke="var(--text-medium)" stroke-width="1.2"/>
-
-                        <!-- Dashed lines to axes -->
-                        <line x1="200" y1="160" x2="200" y2="270" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
-                        <line x1="200" y1="160" x2="60" y2="160" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
-                        <text x="200" y="283" font-family="Source Sans Pro" font-size="11" fill="#666" text-anchor="middle">$x^*$</text>
-                        <text x="50" y="164" font-family="Source Sans Pro" font-size="11" fill="#666" text-anchor="middle">$y^*$</text>
-
-                        <!-- Non-optimal point on budget -->
-                        <circle cx="130" cy="105" r="4" fill="#B44" stroke="var(--brown-dark)" stroke-width="1.5"/>
-                        <line x1="130" y1="105" x2="173" y2="91" stroke="#B44" stroke-width="2" marker-end="url(#arrowRe)"/>
-                        <text x="178" y="89" font-family="Source Sans Pro" font-size="10" fill="#B44" font-weight="600">$\nabla U$</text>
-                        <text x="163" y="80" font-family="Source Sans Pro" font-size="9.5" fill="#B44">not optimal:</text>
-                        <text x="163" y="91" font-family="Source Sans Pro" font-size="9.5" fill="#B44">improve by buying</text>
-                        <text x="163" y="102" font-family="Source Sans Pro" font-size="9.5" fill="#B44">more Good <tspan font-style="italic">x</tspan></text>
-                        <text x="163" y="113" font-family="Source Sans Pro" font-size="9.5" fill="#B44">and less Good <tspan font-style="italic">y</tspan></text>
-
-                        <!-- Labels -->
-                        <text x="212" y="178" font-family="Source Sans Pro" font-size="11" fill="var(--brown-dark)" font-weight="700">optimum</text>
-
-                        <!-- IC explanation label -->
-                        <text x="355" y="28" font-family="Source Sans Pro" font-size="11" fill="var(--green-light)" font-weight="700" text-anchor="middle">Indifference</text>
-                        <text x="355" y="40" font-family="Source Sans Pro" font-size="11" fill="var(--green-light)" font-weight="700" text-anchor="middle">Curves</text>
-                    </svg>
+                <!-- Interactive Visual: Consumer Optimization with slider -->
+                <div class="constraint-visual" style="position:relative;">
+                    <canvas id="consumerCanvas" width="880" height="640" style="max-width:100%; height:auto; border-radius:8px;"></canvas>
+                    <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:8px;">
+                        <span style="font-size:13px; color:var(--text-medium); font-weight:600;">Slide the non-optimal point:</span>
+                        <input type="range" id="consumerSlider" min="0.04" max="0.96" step="0.005" value="0.25"
+                            style="width:260px; accent-color:#B44444; cursor:pointer;">
+                    </div>
                 </div>
+                <script>
+                (function() {
+                    const canvas = document.getElementById('consumerCanvas');
+                    const ctx = canvas.getContext('2d');
+                    const slider = document.getElementById('consumerSlider');
+                    const W = canvas.width, H = canvas.height;
+
+                    const COL = {
+                        greenDark: '#3B5323', greenLight: '#5A7D3A', gold: '#C8A84E',
+                        brownDark: '#3E2C1C', white: '#FFFFFF',
+                        textDark: '#2D2D2D', textMed: '#4A4A4A', red: '#B44444'
+                    };
+
+                    // Coordinate system: plot area
+                    const pad = {l:120, r:60, t:40, b:80};
+                    const plotW = W - pad.l - pad.r;
+                    const plotH = H - pad.t - pad.b;
+
+                    // Economic coordinates: x in [0, xMax], y in [0, yMax]
+                    // Budget: px*x + py*y = I  →  x + 2y = 100 (for the practice problem preview)
+                    // But for this generic visual: use Cobb-Douglas U = x^0.5 * y^0.5
+                    // Budget: y = (I - px*x)/py. Use I=100, px=1, py=1.5 for nice geometry
+                    const I_val = 100, px = 1, py = 1.5;
+                    const xMax = I_val / px; // = 100
+                    const yMax = I_val / py; // ≈ 66.7
+                    const alpha = 0.5;
+
+                    // Map economic → canvas
+                    function toCanvas(ex, ey) {
+                        return {
+                            x: pad.l + (ex / xMax) * plotW,
+                            y: pad.t + plotH - (ey / yMax) * plotH
+                        };
+                    }
+
+                    // Utility function: U = x^alpha * y^(1-alpha)
+                    function U(x, y) { return Math.pow(x, alpha) * Math.pow(y, 1-alpha); }
+
+                    // Gradient of U
+                    function gradU(x, y) {
+                        if (x < 0.01 || y < 0.01) return {x:0, y:0};
+                        return {
+                            x: alpha * Math.pow(x, alpha-1) * Math.pow(y, 1-alpha),
+                            y: (1-alpha) * Math.pow(x, alpha) * Math.pow(y, -alpha)
+                        };
+                    }
+
+                    function normalize(v) {
+                        const len = Math.sqrt(v.x*v.x + v.y*v.y);
+                        if (len < 1e-12) return {x:0, y:0};
+                        return {x: v.x/len, y: v.y/len};
+                    }
+
+                    // Optimum: alpha * I / px, (1-alpha) * I / py
+                    const optX = alpha * I_val / px;        // = 50
+                    const optY = (1-alpha) * I_val / py;    // ≈ 33.33
+                    const optU = U(optX, optY);
+
+                    // Budget line parametrized: t in [0,1] → x = t*xMax on budget, y = (I-px*x)/py
+                    function budgetPt(t) {
+                        const bx = t * (I_val / px); // x from 0 to I/px
+                        const by = (I_val - px * bx) / py;
+                        return {x: bx, y: by};
+                    }
+
+                    // Draw indifference curve for a given utility level
+                    function drawIC(uLevel, color, lw, dash, label) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = lw;
+                        ctx.setLineDash(dash);
+                        let first = true;
+                        for (let i = 1; i <= 200; i++) {
+                            const ex = (i / 200) * xMax * 1.1;
+                            // y = (uLevel / x^alpha)^(1/(1-alpha))
+                            const ey = Math.pow(uLevel / Math.pow(ex, alpha), 1/(1-alpha));
+                            if (ey < 0 || ey > yMax * 1.3 || isNaN(ey)) continue;
+                            const cp = toCanvas(ex, ey);
+                            if (first) { ctx.moveTo(cp.x, cp.y); first = false; }
+                            else ctx.lineTo(cp.x, cp.y);
+                        }
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+                        if (label) {
+                            // Place label at right edge
+                            const ey_end = Math.pow(uLevel / Math.pow(xMax*0.95, alpha), 1/(1-alpha));
+                            const lp = toCanvas(xMax*0.97, ey_end);
+                            if (lp.y > pad.t && lp.y < pad.t + plotH) {
+                                ctx.font = '600 20px Source Sans Pro'; ctx.fillStyle = color;
+                                ctx.fillText(label, lp.x + 4, lp.y + 6);
+                            }
+                        }
+                    }
+
+                    function drawArrow(fromX, fromY, toX, toY, color, lineWidth, dashed) {
+                        ctx.save();
+                        ctx.strokeStyle = color;
+                        ctx.fillStyle = color;
+                        ctx.lineWidth = lineWidth;
+                        if (dashed) ctx.setLineDash([10,6]);
+                        else ctx.setLineDash([]);
+                        const dx = toX - fromX, dy = toY - fromY;
+                        const len = Math.sqrt(dx*dx + dy*dy);
+                        if (len < 2) { ctx.restore(); return; }
+                        const ux = dx/len, uy = dy/len;
+                        const headLen = 14;
+                        ctx.beginPath();
+                        ctx.moveTo(fromX, fromY);
+                        ctx.lineTo(toX - ux*headLen, toY - uy*headLen);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+                        ctx.beginPath();
+                        ctx.moveTo(toX, toY);
+                        ctx.lineTo(toX - ux*headLen - uy*6, toY - uy*headLen + ux*6);
+                        ctx.lineTo(toX - ux*headLen + uy*6, toY - uy*headLen - ux*6);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.restore();
+                    }
+
+                    function drawRightAngle(cx, cy, v1, v2, size) {
+                        const n1 = normalize(v1), n2 = normalize(v2);
+                        ctx.beginPath();
+                        ctx.moveTo(cx + n1.x*size, cy + n1.y*size);
+                        ctx.lineTo(cx + n1.x*size + n2.x*size, cy + n1.y*size + n2.y*size);
+                        ctx.lineTo(cx + n2.x*size, cy + n2.y*size);
+                        ctx.strokeStyle = COL.textMed;
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([]);
+                        ctx.stroke();
+                    }
+
+                    function draw() {
+                        ctx.clearRect(0, 0, W, H);
+                        ctx.fillStyle = COL.white;
+                        ctx.fillRect(0, 0, W, H);
+
+                        // Axes
+                        ctx.strokeStyle = COL.textDark;
+                        ctx.lineWidth = 2.5;
+                        ctx.setLineDash([]);
+                        ctx.beginPath();
+                        ctx.moveTo(pad.l, pad.t);
+                        ctx.lineTo(pad.l, pad.t + plotH);
+                        ctx.lineTo(pad.l + plotW, pad.t + plotH);
+                        ctx.stroke();
+
+                        ctx.font = '600 22px Source Sans Pro'; ctx.fillStyle = COL.textDark;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Good x', pad.l + plotW/2, H - 16);
+                        ctx.save();
+                        ctx.translate(30, pad.t + plotH/2);
+                        ctx.rotate(-Math.PI/2);
+                        ctx.fillText('Good y', 0, 0);
+                        ctx.restore();
+                        ctx.textAlign = 'left';
+
+                        // Slider value → red point parameter
+                        const sliderT = parseFloat(slider.value);
+
+                        // Red point on budget
+                        const rPt = budgetPt(sliderT);
+                        const rU = U(rPt.x, rPt.y);
+
+                        // Draw ICs: lower, optimal, higher (not feasible)
+                        const lowerU = optU * 0.65;
+                        const higherU = optU * 1.35;
+                        drawIC(lowerU, '#aaa', 2.5, [], 'U\u2081');
+                        drawIC(optU, COL.greenLight, 3.5, [], 'U*');
+                        drawIC(higherU, '#ccc', 2.5, [8,6], 'U\u2083');
+                        // IC through the red point
+                        if (Math.abs(rU - optU) > 0.5) {
+                            drawIC(rU, COL.red + '66', 2, [6,4], '');
+                        }
+
+                        // Budget line
+                        const blStart = toCanvas(0, I_val/py);
+                        const blEnd = toCanvas(I_val/px, 0);
+                        ctx.beginPath();
+                        ctx.moveTo(blStart.x, blStart.y);
+                        ctx.lineTo(blEnd.x, blEnd.y);
+                        ctx.strokeStyle = COL.brownDark;
+                        ctx.lineWidth = 4;
+                        ctx.setLineDash([]);
+                        ctx.stroke();
+
+                        // Budget labels
+                        ctx.font = '600 18px Source Sans Pro'; ctx.fillStyle = COL.brownDark;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Budget: p\u2093x + p\u1D67y = I', blEnd.x - 20, blEnd.y + 36);
+                        ctx.font = '500 16px Source Sans Pro';
+                        ctx.textAlign = 'end';
+                        ctx.fillText('I/p\u1D67', blStart.x - 8, blStart.y + 5);
+                        ctx.textAlign = 'center';
+                        ctx.fillText('I/p\u2093', blEnd.x, blEnd.y + 20);
+                        ctx.textAlign = 'left';
+
+                        // IC label
+                        ctx.font = '700 18px Source Sans Pro'; ctx.fillStyle = COL.greenLight;
+                        ctx.fillText('Indifference Curves', W - 200, pad.t + 30);
+
+                        // Budget direction (tangent to budget line in canvas coords)
+                        const budgetDir = {x: blEnd.x - blStart.x, y: blEnd.y - blStart.y};
+                        const budgetDirN = normalize(budgetDir);
+                        const arrowLen = 65;
+
+                        // ===== OPTIMUM POINT (gold) =====
+                        const oC = toCanvas(optX, optY);
+                        const oGrad = gradU(optX, optY);
+                        // Convert gradient to canvas direction: dx_canvas = dex * scale, dy_canvas = -dey * scale
+                        const scX = plotW / xMax, scY = plotH / yMax;
+                        const oGradCanvas = {x: oGrad.x * scX, y: -oGrad.y * scY};
+                        const oGradN = normalize(oGradCanvas);
+
+                        // Gradient at optimum
+                        drawArrow(oC.x, oC.y, oC.x + oGradN.x*arrowLen, oC.y + oGradN.y*arrowLen, COL.greenDark, 3.5, false);
+                        ctx.font = '700 20px Source Sans Pro'; ctx.fillStyle = COL.greenDark;
+                        ctx.fillText('\u2207U', oC.x + oGradN.x*arrowLen + 8, oC.y + oGradN.y*arrowLen - 4);
+
+                        // Tangent arrows at optimum
+                        drawArrow(oC.x, oC.y, oC.x + budgetDirN.x*50, oC.y + budgetDirN.y*50, COL.gold, 3, true);
+                        drawArrow(oC.x, oC.y, oC.x - budgetDirN.x*50, oC.y - budgetDirN.y*50, COL.gold, 3, true);
+
+                        // Right angle
+                        drawRightAngle(oC.x, oC.y, oGradCanvas, budgetDir, 12);
+
+                        // Optimum dot
+                        ctx.beginPath(); ctx.arc(oC.x, oC.y, 7, 0, Math.PI*2);
+                        ctx.fillStyle = COL.gold; ctx.fill();
+                        ctx.strokeStyle = COL.brownDark; ctx.lineWidth = 2.5; ctx.stroke();
+                        ctx.font = '700 18px Source Sans Pro'; ctx.fillStyle = COL.brownDark;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('optimum', oC.x + 4, oC.y + 24);
+
+                        // Dashed lines to axes from optimum
+                        ctx.setLineDash([5,5]); ctx.strokeStyle = '#999'; ctx.lineWidth = 1.5;
+                        ctx.beginPath(); ctx.moveTo(oC.x, oC.y); ctx.lineTo(oC.x, pad.t+plotH); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(oC.x, oC.y); ctx.lineTo(pad.l, oC.y); ctx.stroke();
+                        ctx.setLineDash([]);
+                        ctx.font = '500 16px Source Sans Pro'; ctx.fillStyle = '#666';
+                        ctx.fillText('x*', oC.x, pad.t + plotH + 20);
+                        ctx.textAlign = 'end';
+                        ctx.fillText('y*', pad.l - 8, oC.y + 5);
+                        ctx.textAlign = 'left';
+
+                        // ===== SLIDEABLE RED POINT =====
+                        const rC = toCanvas(rPt.x, rPt.y);
+                        const rGrad = gradU(rPt.x, rPt.y);
+                        const rGradCanvas = {x: rGrad.x * scX, y: -rGrad.y * scY};
+                        const rGradN = normalize(rGradCanvas);
+
+                        // Gradient at red point
+                        drawArrow(rC.x, rC.y, rC.x + rGradN.x*arrowLen, rC.y + rGradN.y*arrowLen, COL.greenDark, 3.5, false);
+                        ctx.font = '700 20px Source Sans Pro'; ctx.fillStyle = COL.greenDark;
+                        ctx.fillText('\u2207U', rC.x + rGradN.x*arrowLen + 8, rC.y + rGradN.y*arrowLen - 4);
+
+                        // Tangent arrows at red point
+                        drawArrow(rC.x, rC.y, rC.x + budgetDirN.x*50, rC.y + budgetDirN.y*50, COL.gold, 3, true);
+                        drawArrow(rC.x, rC.y, rC.x - budgetDirN.x*50, rC.y - budgetDirN.y*50, COL.gold, 3, true);
+
+                        // Red dot
+                        ctx.beginPath(); ctx.arc(rC.x, rC.y, 9, 0, Math.PI*2);
+                        ctx.fillStyle = COL.red; ctx.fill();
+                        ctx.strokeStyle = COL.brownDark; ctx.lineWidth = 2; ctx.stroke();
+
+                        // Directional derivative readout — use parameter distance to optimum (t=0.5)
+                        const optParam = 0.5;
+                        const paramDist = sliderT - optParam;
+                        let dfSign;
+                        if (Math.abs(paramDist) < 0.012) {
+                            dfSign = '\u2248 0  (at the optimum!)';
+                        } else if (paramDist < 0) {
+                            dfSign = '> 0  (buy more x, less y)';
+                        } else {
+                            dfSign = '< 0  (buy more y, less x)';
+                        }
+
+                        ctx.font = '600 22px Source Sans Pro'; ctx.fillStyle = COL.textDark;
+                        ctx.textAlign = 'left';
+                        ctx.fillText('At red point: D\u1D64U  ' + dfSign, pad.l, H - 38);
+                        ctx.font = '500 18px Source Sans Pro'; ctx.fillStyle = COL.textMed;
+                        ctx.fillText('U(red) = ' + rU.toFixed(1) + '   vs   U*(gold) = ' + optU.toFixed(1), pad.l, H - 12);
+                    }
+
+                    slider.addEventListener('input', draw);
+
+                    // Drag interaction on canvas (syncs with slider)
+                    let consDragging = false;
+
+                    function consCanvasCoords(e) {
+                        const rect = canvas.getBoundingClientRect();
+                        const sx = W / rect.width, sy = H / rect.height;
+                        const cx = e.touches ? e.touches[0].clientX : e.clientX;
+                        const cy = e.touches ? e.touches[0].clientY : e.clientY;
+                        return {x: (cx - rect.left)*sx, y: (cy - rect.top)*sy};
+                    }
+
+                    function nearRedPt(mx, my) {
+                        const t = parseFloat(slider.value);
+                        const rPt = budgetPt(t);
+                        const rC = toCanvas(rPt.x, rPt.y);
+                        return (rC.x-mx)**2 + (rC.y-my)**2 < 1200;
+                    }
+
+                    function projectToBudget(mx, my) {
+                        // Project mouse point onto budget line in canvas coords
+                        const blS = toCanvas(0, I_val/py);
+                        const blE = toCanvas(I_val/px, 0);
+                        const dx = blE.x - blS.x, dy = blE.y - blS.y;
+                        const len2 = dx*dx + dy*dy;
+                        let t = ((mx - blS.x)*dx + (my - blS.y)*dy) / len2;
+                        t = Math.max(0.04, Math.min(0.96, t));
+                        return t;
+                    }
+
+                    canvas.addEventListener('mousedown', function(e) {
+                        const c = consCanvasCoords(e);
+                        if (nearRedPt(c.x, c.y)) { consDragging = true; canvas.style.cursor = 'grabbing'; }
+                    });
+                    canvas.addEventListener('mousemove', function(e) {
+                        const c = consCanvasCoords(e);
+                        if (consDragging) {
+                            const t = projectToBudget(c.x, c.y);
+                            slider.value = t;
+                            draw();
+                        } else {
+                            canvas.style.cursor = nearRedPt(c.x, c.y) ? 'grab' : 'default';
+                        }
+                    });
+                    canvas.addEventListener('mouseup', function() { consDragging = false; canvas.style.cursor = 'default'; });
+                    canvas.addEventListener('mouseleave', function() { consDragging = false; canvas.style.cursor = 'default'; });
+
+                    canvas.addEventListener('touchstart', function(e) {
+                        const c = consCanvasCoords(e);
+                        if (nearRedPt(c.x, c.y)) { consDragging = true; e.preventDefault(); }
+                    }, {passive: false});
+                    canvas.addEventListener('touchmove', function(e) {
+                        if (consDragging) {
+                            e.preventDefault();
+                            const c = consCanvasCoords(e);
+                            const t = projectToBudget(c.x, c.y);
+                            slider.value = t;
+                            draw();
+                        }
+                    }, {passive: false});
+                    canvas.addEventListener('touchend', function() { consDragging = false; });
+
+                    draw();
+                })();
+                </script>
 
                 <div class="idea-box" style="margin-bottom:16px;">
-                    <strong>Reading the diagram:</strong> Each curved line is an <strong>indifference curve</strong>: a level curve of the happiness function $U(x,y)$. Every point on the same curve gives equal happiness (different combinations of $x$ and $y$ that make you equally satisfied). Curves further from the origin represent higher happiness. The budget line shows what you can afford. The optimum is where the highest reachable indifference curve just touches the budget line: $\nabla U \perp$ budget, so $D_{\mathbf{u}}U = 0$ along the budget.
+                    <strong>Try it:</strong> Slide the <span style="color:#B44; font-weight:600;">red point</span> along the budget line. At each position you see the <span style="color:#3B5323; font-weight:600;">gradient</span> $\nabla U$ (solid green) and the <span style="color:#C8A84E; font-weight:600;">feasible directions</span> (dashed gold) along the budget. When $\nabla U$ has a component along the budget, $D_{\mathbf{u}}U \neq 0$ and you can do better by rearranging spending. Only at the <span style="color:#C8A84E; font-weight:600;">gold optimum</span> is $\nabla U \perp$ budget, making $D_{\mathbf{u}}U = 0$. The faint red curve shows the indifference curve through the current red point — notice it's always below the green $U^*$ curve except at the optimum where they coincide.
                 </div>
 
                 <div class="idea-box" style="margin-bottom:16px; border-left: 4px solid var(--gold);">
@@ -880,6 +1415,53 @@
 
                 <div class="idea-box">
                     <strong>Connection:</strong> The "equal bang for your buck" rule from introductory economics is just the directional derivative condition $D_{\mathbf{u}}U = 0$ along the budget constraint. Every dollar spent on $x$ gives the same marginal utility as every dollar spent on $y$.
+                </div>
+
+                <!-- Practice Problem: Utility Maximization -->
+                <div style="margin-top:24px; padding:20px; background:var(--cream); border:2px solid var(--gold); border-radius:10px;">
+                    <h4 style="color:var(--green-dark); margin-bottom:12px;">Practice Problem: Utility Maximization</h4>
+
+                    <p><strong>Given:</strong></p>
+                    <p>$U(x,y) = \tfrac{1}{2}\ln(x) + \tfrac{1}{2}\ln(y)$ &nbsp;(utility function)</p>
+                    <p>$x + 2y = 100$ &nbsp;(budget constraint, with $p_x = 1$, $p_y = 2$, $I = 100$)</p>
+
+                    <p style="margin-top:12px;"><strong>Find</strong> the optimal consumption bundle $(x^*, y^*)$ using the directional derivative / gradient perpendicularity condition.</p>
+
+                    <div style="margin-top:16px;">
+                        <button id="practiceRevealBtn" onclick="var sol=document.getElementById('practiceSolution'); if(sol.style.display==='none'){sol.style.display='block';this.textContent='Hide Solution';}else{sol.style.display='none';this.textContent='Show Solution';}"
+                            style="background:var(--green-dark); color:white; border:none; padding:10px 24px; border-radius:6px; font-family:'Source Sans Pro',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition: background 0.2s;">
+                            Show Solution
+                        </button>
+                    </div>
+
+                    <div id="practiceSolution" style="display:none; margin-top:16px;">
+                        <div style="border-left:4px solid var(--green-dark); padding-left:16px; margin-bottom:12px;">
+                            <p><strong>Step 1: Compute the gradient.</strong></p>
+                            <div class="math-block">$$\nabla U = \left\langle \frac{\partial U}{\partial x},\; \frac{\partial U}{\partial y} \right\rangle = \left\langle \frac{1}{2x},\; \frac{1}{2y} \right\rangle$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 2: Identify the feasible direction.</strong></p>
+                            <p>The budget constraint is $g(x,y) = x + 2y = 100$. The gradient of the constraint is $\nabla g = \langle 1, 2 \rangle$, so the budget line has direction $\mathbf{v} = \langle -2, 1 \rangle$ (perpendicular to $\nabla g$).</p>
+
+                            <p style="margin-top:12px;"><strong>Step 3: Set $D_{\mathbf{u}}U = 0$ along the budget.</strong></p>
+                            <p>At the optimum, $\nabla U \cdot \mathbf{v} = 0$:</p>
+                            <div class="math-block">$$\left\langle \frac{1}{2x},\; \frac{1}{2y} \right\rangle \cdot \langle -2, 1 \rangle = 0$$</div>
+                            <div class="math-block">$$-\frac{1}{x} + \frac{1}{2y} = 0 \quad \Longrightarrow \quad \frac{1}{2y} = \frac{1}{x} \quad \Longrightarrow \quad x = 2y$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 4: Substitute into the constraint.</strong></p>
+                            <div class="math-block">$$2y + 2y = 100 \quad \Longrightarrow \quad y = 25, \quad x = 50$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 5: Verify the "equal bang for your buck" condition.</strong></p>
+                            <div class="math-block">$$\frac{MU_x}{p_x} = \frac{1/(2 \cdot 50)}{1} = \frac{1}{100} \qquad \frac{MU_y}{p_y} = \frac{1/(2 \cdot 25)}{2} = \frac{1}{100} \quad \checkmark$$</div>
+                        </div>
+
+                        <div class="highlight-box" style="background:var(--gold-pale); border-color:var(--gold);">
+                            <strong>Answer:</strong> &nbsp; $x^* = 50, \quad y^* = 25, \quad U^* = \tfrac{1}{2}\ln 50 + \tfrac{1}{2}\ln 25 \approx 3.611$
+                        </div>
+
+                        <div class="idea-box" style="margin-top:12px;">
+                            <strong>Interpretation:</strong> You spend half your income on each good: $p_x \cdot x^* = 1 \cdot 50 = 50$ and $p_y \cdot y^* = 2 \cdot 25 = 50$. This is because the exponents are equal ($\tfrac{1}{2}$ each), so you value both goods equally and split your budget 50/50 — despite good $y$ being twice as expensive.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -940,6 +1522,60 @@
 
                 <div class="idea-box" style="margin-top:16px;">
                     <strong>What does $\lambda$ mean?</strong> The multiplier $\lambda$ measures the <em>sensitivity</em> of the optimal value to the constraint. If $f^*$ is the optimal value when the constraint is $g = k$, then $\lambda \approx \frac{df^*}{dk}$. In the consumer problem: $\lambda$ tells you how much extra utility one more dollar of income would buy — the marginal value of relaxing the constraint.
+                </div>
+
+                <!-- Practice: Same utility max problem solved via Lagrange -->
+                <div style="margin-top:24px; padding:20px; background:var(--cream); border:2px solid var(--green-dark); border-radius:10px;">
+                    <h4 style="color:var(--green-dark); margin-bottom:12px;">Practice: Utility Max via Lagrange Multipliers</h4>
+                    <p><strong>Same problem as Section 5:</strong></p>
+                    <p>$$\max_{x,y}\; U(x,y) = \tfrac{1}{2}\ln(x) + \tfrac{1}{2}\ln(y) \quad \text{subject to} \quad g(x,y) = x + 2y = 100$$</p>
+                    <p style="margin-top:8px;">Now solve it using the Lagrange multiplier method $\nabla U = \lambda\,\nabla g$.</p>
+
+                    <div style="margin-top:16px;">
+                        <button id="lagrangeRevealBtn" onclick="var sol=document.getElementById('lagrangeSolution'); if(sol.style.display==='none'){sol.style.display='block';this.textContent='Hide Solution';}else{sol.style.display='none';this.textContent='Show Solution';}"
+                            style="background:var(--green-dark); color:white; border:none; padding:10px 24px; border-radius:6px; font-family:'Source Sans Pro',sans-serif; font-size:14px; font-weight:600; cursor:pointer;">
+                            Show Solution
+                        </button>
+                    </div>
+
+                    <div id="lagrangeSolution" style="display:none; margin-top:16px;">
+                        <div style="border-left:4px solid var(--green-dark); padding-left:16px; margin-bottom:12px;">
+                            <p><strong>Step 1: Write down $\nabla U = \lambda\,\nabla g$.</strong></p>
+                            <p>$$\nabla U = \left\langle \frac{1}{2x},\; \frac{1}{2y} \right\rangle, \qquad \nabla g = \langle 1,\; 2 \rangle$$</p>
+                            <p>The system is:</p>
+                            <div class="math-block">
+                                $$\frac{1}{2x} = \lambda \cdot 1 \qquad \cdots (1)$$
+                                $$\frac{1}{2y} = \lambda \cdot 2 \qquad \cdots (2)$$
+                                $$x + 2y = 100 \qquad \cdots (3)$$
+                            </div>
+                            <p>3 equations, 3 unknowns ($x, y, \lambda$).</p>
+
+                            <p style="margin-top:12px;"><strong>Step 2: Solve for $\lambda$ from each gradient equation.</strong></p>
+                            <p>From (1): $\;\lambda = \dfrac{1}{2x}$</p>
+                            <p>From (2): $\;\lambda = \dfrac{1}{4y}$</p>
+                            <p>Set equal:</p>
+                            <div class="math-block">$$\frac{1}{2x} = \frac{1}{4y} \quad\Longrightarrow\quad 4y = 2x \quad\Longrightarrow\quad x = 2y$$</div>
+                            <p>This is the same tangency condition we found in Section 5 — but now it emerged from the algebra $\nabla U = \lambda\,\nabla g$ rather than from the geometric argument.</p>
+
+                            <p style="margin-top:12px;"><strong>Step 3: Substitute into the constraint.</strong></p>
+                            <div class="math-block">$$2y + 2y = 100 \quad\Longrightarrow\quad y^* = 25, \quad x^* = 50$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 4: Find $\lambda$.</strong></p>
+                            <div class="math-block">$$\lambda = \frac{1}{2x^*} = \frac{1}{2(50)} = \frac{1}{100} = 0.01$$</div>
+                        </div>
+
+                        <div class="highlight-box" style="background:var(--gold-pale); border-color:var(--gold);">
+                            <strong>Answer:</strong> &nbsp; $x^* = 50, \quad y^* = 25, \quad \lambda = \dfrac{1}{100}$
+                        </div>
+
+                        <div class="idea-box" style="margin-top:12px;">
+                            <strong>Interpreting $\lambda$:</strong> Since $\lambda = \frac{1}{100} = 0.01$, if your income increased from $\$100$ to $\$101$, your utility would increase by approximately $0.01$. This is the <em>marginal value of income</em> — exactly $\frac{dU^*}{dI}$.
+                        </div>
+
+                        <div class="idea-box" style="margin-top:12px; border-left:4px solid var(--gold);">
+                            <strong>Same answer, different method:</strong> In Section 5 we used the geometric condition $D_{\mathbf{u}}U = 0$ (gradient perpendicular to budget). Here we used the algebraic condition $\nabla U = \lambda\,\nabla g$. Both give $x = 2y$ — because they express the same underlying idea. Lagrange multipliers just package it into a systematic recipe and give us $\lambda$ as a bonus.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1045,6 +1681,60 @@
                     $$\text{tr}(H) = f_{xx} + f_{yy} = \kappa_1 + \kappa_2 \qquad \det(H) = f_{xx}f_{yy} - (f_{xy})^2 = \kappa_1\,\kappa_2$$
                 </div>
                 <p>The trace gives the <em>sum</em> of principal curvatures (mean curvature direction); the determinant gives the <em>product</em> (Gaussian curvature). Both are independent of how you orient your $x$- and $y$-axes.</p>
+
+                <!-- Practice: Confirm utility max is a maximum via bordered Hessian -->
+                <div style="margin-top:24px; padding:20px; background:var(--cream); border:2px solid var(--green-dark); border-radius:10px;">
+                    <h4 style="color:var(--green-dark); margin-bottom:12px;">Practice: Confirming Our Utility Max Is a Maximum</h4>
+                    <p><strong>Same problem:</strong></p>
+                    <p>$$\max\; U(x,y) = \tfrac{1}{2}\ln(x) + \tfrac{1}{2}\ln(y) \quad \text{s.t.} \quad g(x,y) = x + 2y = 100$$</p>
+                    <p style="margin-top:8px;">We found $(x^*, y^*) = (50, 25)$ via Lagrange multipliers. Use the <strong>bordered Hessian</strong> to confirm this is a constrained maximum, not a minimum.</p>
+
+                    <div style="margin-top:16px;">
+                        <button id="hessianRevealBtn" onclick="var sol=document.getElementById('hessianSolution'); if(sol.style.display==='none'){sol.style.display='block';this.textContent='Hide Solution';}else{sol.style.display='none';this.textContent='Show Solution';}"
+                            style="background:var(--green-dark); color:white; border:none; padding:10px 24px; border-radius:6px; font-family:'Source Sans Pro',sans-serif; font-size:14px; font-weight:600; cursor:pointer;">
+                            Show Solution
+                        </button>
+                    </div>
+
+                    <div id="hessianSolution" style="display:none; margin-top:16px;">
+                        <div style="border-left:4px solid var(--green-dark); padding-left:16px; margin-bottom:12px;">
+                            <p><strong>Why the bordered Hessian?</strong> The standard Hessian test ($D = f_{xx}f_{yy} - f_{xy}^2$) classifies <em>unconstrained</em> critical points. For <em>constrained</em> optimization, we need the <strong>bordered Hessian</strong>, which accounts for the constraint by incorporating the gradient of $g$.</p>
+
+                            <p style="margin-top:12px;"><strong>Step 1: Form the Lagrangian.</strong></p>
+                            <div class="math-block">$$\mathcal{L}(x,y,\lambda) = \tfrac{1}{2}\ln x + \tfrac{1}{2}\ln y - \lambda(x + 2y - 100)$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 2: Compute the second-order partial derivatives of $\mathcal{L}$.</strong></p>
+                            <div class="math-block">$$\mathcal{L}_{xx} = -\frac{1}{2x^2}, \qquad \mathcal{L}_{yy} = -\frac{1}{2y^2}, \qquad \mathcal{L}_{xy} = 0$$</div>
+                            <p>At $(50, 25)$:</p>
+                            <div class="math-block">$$\mathcal{L}_{xx} = -\frac{1}{5000}, \qquad \mathcal{L}_{yy} = -\frac{1}{1250}, \qquad \mathcal{L}_{xy} = 0$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 3: Write the bordered Hessian.</strong></p>
+                            <p>The constraint partials are $g_x = 1$, $g_y = 2$.</p>
+                            <div class="math-block">$$\bar{H} = \begin{pmatrix} 0 & g_x & g_y \\ g_x & \mathcal{L}_{xx} & \mathcal{L}_{xy} \\ g_y & \mathcal{L}_{xy} & \mathcal{L}_{yy} \end{pmatrix} = \begin{pmatrix} 0 & 1 & 2 \\ 1 & -\frac{1}{5000} & 0 \\ 2 & 0 & -\frac{1}{1250} \end{pmatrix}$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 4: Compute the determinant.</strong></p>
+                            <p>Expanding along the first row:</p>
+                            <div class="math-block">$$\det(\bar{H}) = 0 \cdot (\cdots) - 1\cdot\left(1\cdot\left(-\frac{1}{1250}\right) - 0\cdot 2\right) + 2\cdot\left(1\cdot 0 - \left(-\frac{1}{5000}\right)\cdot 2\right)$$</div>
+                            <div class="math-block">$$= -1\cdot\left(-\frac{1}{1250}\right) + 2\cdot\left(\frac{2}{5000}\right) = \frac{1}{1250} + \frac{4}{5000} = \frac{4}{5000} + \frac{4}{5000} = \frac{8}{5000} = \frac{1}{625}$$</div>
+
+                            <p style="margin-top:12px;"><strong>Step 5: Apply the bordered Hessian test.</strong></p>
+                            <p>For a problem with $n = 2$ variables and $1$ constraint:</p>
+                            <div class="highlight-box" style="margin:12px 0;">
+                                If $\det(\bar{H}) > 0$ $\;\Longrightarrow\;$ constrained <strong>maximum</strong><br>
+                                If $\det(\bar{H}) < 0$ $\;\Longrightarrow\;$ constrained <strong>minimum</strong>
+                            </div>
+                            <p>We have $\det(\bar{H}) = \dfrac{1}{625} > 0$.</p>
+                        </div>
+
+                        <div class="highlight-box" style="background:var(--gold-pale); border-color:var(--gold);">
+                            <strong>Conclusion:</strong> &nbsp; $\det(\bar{H}) = \dfrac{1}{625} > 0$ &nbsp;$\Longrightarrow$&nbsp; $(50, 25)$ is a constrained <strong>maximum</strong>. $\checkmark$
+                        </div>
+
+                        <div class="idea-box" style="margin-top:12px;">
+                            <strong>Intuition check:</strong> This makes sense — $\ln$ is a concave function, so $U = \frac{1}{2}\ln x + \frac{1}{2}\ln y$ is concave everywhere. Maximizing a concave function on a convex constraint (a line) always gives a unique global maximum. The bordered Hessian confirms this algebraically.
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Section 10: Gradient Rules -->
@@ -1581,6 +2271,53 @@
                     <p><strong>Step 3:</strong> The unique candidate is $\left(-\frac{5}{3},\;\frac{1}{3},\;\frac{7}{3}\right)$.</p>
                     <p>$$f = \frac{25}{9} + \frac{1}{9} + \frac{49}{9} = \frac{75}{9} = \frac{25}{3} \approx 8.3333$$</p>
                     <p>The intersection of two planes in $\mathbb{R}^3$ is a line (unbounded), so this is the <strong>minimum</strong> (closest point on the line to the origin). There is no maximum — the line extends to infinity.</p>
+                </div>
+            </div>
+
+            <!-- Section E2: Consumer Optimization (Utility Maximization) -->
+            <div class="section-header">
+                <div class="section-number">E+</div>
+                <h2>Consumer Optimization</h2>
+            </div>
+            <p style="margin-bottom: 20px; color: var(--text-medium);"><strong>Apply</strong> the gradient perpendicularity / Lagrange multiplier conditions to find the utility-maximizing consumption bundle.</p>
+
+            <!-- Problem 19b -->
+            <div class="problem-box">
+                <div class="problem-number">Problem 19b</div>
+                <p>A consumer has utility function and budget constraint:</p>
+                <p>$$U(x,y) = \tfrac{1}{2}\ln(x) + \tfrac{1}{2}\ln(y)$$</p>
+                <p>$$x + 2y = 100 \qquad (p_x = 1,\; p_y = 2,\; I = 100)$$</p>
+                <p style="margin-top:8px;">Find the optimal consumption bundle $(x^*, y^*)$ and the maximum utility $U^*$. Verify the "equal bang for your buck" condition.</p>
+                <button class="solution-button" onclick="toggleSolution('sol19b')">Show Solution</button>
+                <div id="sol19b" class="solution-content">
+                    <p><strong>Key:</strong></p>
+                    <p>$U(x,y)$ = utility &nbsp;|&nbsp; $x, y$ = quantities of goods 1 and 2 &nbsp;|&nbsp; $p_x = 1, p_y = 2$ = prices &nbsp;|&nbsp; $I = 100$ = income</p>
+
+                    <p style="margin-top:12px;"><strong>Step 1: Compute the gradient of $U$.</strong></p>
+                    <p>$$\nabla U = \left\langle \frac{\partial U}{\partial x},\; \frac{\partial U}{\partial y} \right\rangle = \left\langle \frac{1}{2x},\; \frac{1}{2y} \right\rangle$$</p>
+
+                    <p style="margin-top:12px;"><strong>Step 2: Identify the feasible direction along the constraint.</strong></p>
+                    <p>The budget constraint is $g(x,y) = x + 2y = 100$, so $\nabla g = \langle 1, 2 \rangle$.</p>
+                    <p>The budget line has direction $\mathbf{v} = \langle -2, 1 \rangle$ (perpendicular to $\nabla g$).</p>
+
+                    <p style="margin-top:12px;"><strong>Step 3: Set $D_{\mathbf{u}}U = 0$ along the budget (equivalently, $\nabla U = \lambda \nabla g$).</strong></p>
+                    <p>$$\nabla U \cdot \mathbf{v} = 0 \quad\Longrightarrow\quad \frac{1}{2x}(-2) + \frac{1}{2y}(1) = 0$$</p>
+                    <p>$$-\frac{1}{x} + \frac{1}{2y} = 0 \quad\Longrightarrow\quad \frac{1}{2y} = \frac{1}{x} \quad\Longrightarrow\quad x = 2y$$</p>
+
+                    <p style="margin-top:12px;"><strong>Step 4: Substitute into the constraint.</strong></p>
+                    <p>$$2y + 2y = 100 \quad\Longrightarrow\quad y^* = 25, \quad x^* = 50$$</p>
+
+                    <p style="margin-top:12px;"><strong>Step 5: Verify "equal bang for your buck."</strong></p>
+                    <p>$$\frac{MU_x}{p_x} = \frac{1/(2 \cdot 50)}{1} = \frac{1}{100} \qquad \frac{MU_y}{p_y} = \frac{1/(2 \cdot 25)}{2} = \frac{1}{100} \quad \checkmark$$</p>
+
+                    <p style="margin-top:12px;"><strong>Step 6: Lagrange multiplier interpretation.</strong></p>
+                    <p>From $\nabla U = \lambda \nabla g$: $\;\frac{1}{2x} = \lambda \cdot 1 \;\Rightarrow\; \lambda = \frac{1}{100}$.</p>
+                    <p>This means one extra dollar of income would increase utility by approximately $\frac{1}{100} = 0.01$.</p>
+
+                    <p style="margin-top:16px; padding:10px; background:var(--gold-pale); border-radius:6px; border-left:4px solid var(--gold);">
+                        <strong>Answer:</strong> &nbsp; $x^* = 50, \quad y^* = 25, \quad U^* = \tfrac{1}{2}\ln 50 + \tfrac{1}{2}\ln 25 \approx 3.6109, \quad \lambda = 0.01$
+                    </p>
+                    <p style="margin-top:8px; color:var(--text-medium); font-size:13px;"><strong>Interpretation:</strong> You spend half your income on each good ($p_x x^* = 50$ and $p_y y^* = 50$). Equal exponents ($\frac{1}{2}$, $\frac{1}{2}$) mean equal budget shares, regardless of prices.</p>
                 </div>
             </div>
 
