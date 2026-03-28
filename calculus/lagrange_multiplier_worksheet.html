@@ -51,7 +51,7 @@ body { font-family: 'Source Serif 4', serif; background: var(--cream); color: va
   padding: 26px 40px 30px;
 }
 .header-top img {
-  height: 64px; width: auto; border-radius: 10px;
+  height: 64px; width: 64px; border-radius: 10px; object-fit: contain; flex-shrink: 0;
 }
 .header-text { flex: 1; }
 .eyebrow {
@@ -436,7 +436,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
       <li>
         <div>
           <strong style="color:var(--green-dark);">Classify</strong><br>
-          <span style="font-size:14px; color:var(--text-medium);">Largest $f$ = maximum. Smallest $f$ = minimum. Anything in between = constrained saddle point.</span>
+          <span style="font-size:14px; color:var(--text-medium);">Largest $f$ = global maximum. Smallest $f$ = global minimum. Other critical points may be local extrema or constrained saddle points — check $f''$ along the constraint or compare values to classify.</span>
         </div>
       </li>
     </ol>
@@ -524,11 +524,82 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
 
   <div class="section-header">
     <div class="section-number">1</div>
+    <h2>Rectangle of Maximum Area</h2>
+  </div>
+
+  <div class="problem-box">
+    <div class="problem-number">Problem 1 — Proof</div>
+    <p>Use Lagrange multipliers to prove that the rectangle with maximum area for a given perimeter $p$ is a square.</p>
+    <button class="solution-button" onclick="toggleSolution('sol6',this)">
+      <span>Show Solution</span><span class="arrow">▼</span>
+    </button>
+    <div class="solution-content" id="sol6">
+      <h4>Givens</h4>
+      <ul>
+        <li>$x, y$ = side lengths of the rectangle</li>
+        <li><strong>Objective:</strong> maximize $f(x,y) = xy$ (area)</li>
+        <li><strong>Constraint:</strong> $g(x,y) = 2x + 2y - p = 0$ (perimeter)</li>
+      </ul>
+      <h4>Gradients</h4>
+      $$\nabla f = \langle y,\, x\rangle, \qquad \nabla g = \langle 2,\, 2\rangle$$
+      <h4>Lagrange System: $\nabla f = \lambda\,\nabla g$</h4>
+      <p>Component equations:</p>
+      $$y = 2\lambda \qquad (1)$$
+      $$x = 2\lambda \qquad (2)$$
+      $$2x + 2y = p \qquad (3)$$
+      <h4>Solving</h4>
+      <p>From (1) and (2): $x = y = 2\lambda$. Substituting into (3):</p>
+      $$2(2\lambda) + 2(2\lambda) = p \implies \lambda = \frac{p}{8}, \quad x = y = \frac{p}{4}$$
+      <div class="highlight-box">
+        <strong>Conclusion:</strong> The only critical point has $x = y = p/4$, so the rectangle is a <strong>square</strong> with area $A = p^2/16$. Since $f = xy \to 0$ at the boundary of the feasible region (where either side length shrinks to zero), this critical point must be the maximum. $\square$
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-number">2</div>
+    <h2>Triangle of Maximum Area — Heron's Formula</h2>
+  </div>
+
+  <div class="problem-box">
+    <div class="problem-number">Problem 2 — Proof</div>
+    <p>Use Lagrange multipliers to prove that the triangle with maximum area for a given perimeter $p$ is equilateral.</p>
+    <p style="font-size:14px; color:var(--text-medium);"><em>Hint:</em> Use Heron's formula $A = \sqrt{s(s-x)(s-y)(s-z)}$ where $s = p/2$ and $x, y, z$ are the side lengths.</p>
+    <button class="solution-button" onclick="toggleSolution('sol7',this)">
+      <span>Show Solution</span><span class="arrow">▼</span>
+    </button>
+    <div class="solution-content" id="sol7">
+      <h4>Givens</h4>
+      <ul>
+        <li>$x, y, z$ = side lengths, $s = p/2$ (semi-perimeter, a constant)</li>
+        <li><strong>Objective:</strong> maximize $A^2 = s(s-x)(s-y)(s-z)$ (equivalent to maximizing $A$)</li>
+        <li><strong>Constraint:</strong> $x + y + z = 2s$ (perimeter)</li>
+      </ul>
+      <h4>Substitution</h4>
+      <p>Let $u = s - x$, $v = s - y$, $w = s - z$. Then:</p>
+      $$u + v + w = 3s - (x+y+z) = 3s - 2s = s$$
+      <p>Maximize $f(u,v,w) = s \cdot u\,v\,w$ subject to $g(u,v,w) = u + v + w - s = 0$.</p>
+      <h4>Lagrange System</h4>
+      $$\frac{\partial f}{\partial u} = s\,vw = \lambda, \qquad \frac{\partial f}{\partial v} = s\,uw = \lambda, \qquad \frac{\partial f}{\partial w} = s\,uv = \lambda$$
+      <h4>Solving</h4>
+      <p>From the first two equations: $s\,vw = s\,uw \implies v = u$ (since $w, s > 0$).</p>
+      <p>From the last two: $s\,uw = s\,uv \implies w = v$.</p>
+      <p>So $u = v = w = s/3$, which means:</p>
+      $$x = s - u = s - \frac{s}{3} = \frac{2s}{3} = \frac{p}{3}$$
+      <p>and likewise $y = z = p/3$.</p>
+      <div class="highlight-box">
+        <strong>Conclusion:</strong> All three sides are equal, so the triangle is <strong>equilateral</strong> with area $A = \dfrac{p^2\sqrt{3}}{36}$. Since $A \to 0$ at the boundary (degenerate triangles where any side reaches zero), this critical point must be the maximum. $\square$
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-number">3</div>
     <h2>Closest Point on a Cone</h2>
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 1</div>
+    <div class="problem-number">Problem 3</div>
     <p>Find the points on the cone $z^2 = x^2 + y^2$ closest to the point $(4, 2, 1)$.</p>
     <button class="solution-button" onclick="toggleSolution('sol1',this)">
       <span>Show Solution</span><span class="arrow">▼</span>
@@ -556,12 +627,12 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="section-header">
-    <div class="section-number">2</div>
+    <div class="section-number">4</div>
     <h2>Extreme Values on a Disk</h2>
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 2</div>
+    <div class="problem-number">Problem 4</div>
     <p>Find the extreme values of $f(x,y) = x^2 + y^2 + 4x - 4y$ on the region $x^2 + y^2 \leq 9$.</p>
     <button class="solution-button" onclick="toggleSolution('sol2',this)">
       <span>Show Solution</span><span class="arrow">▼</span>
@@ -584,12 +655,12 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="section-header">
-    <div class="section-number">3</div>
-    <h2>Optimizing on a Circle — Saddle Point Example</h2>
+    <div class="section-number">5</div>
+    <h2>Optimizing on a Circle — Not Every Critical Point Is a Global Extremum</h2>
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 3 — Interactive</div>
+    <div class="problem-number">Problem 5 — Interactive</div>
     <p>Find the extreme values of $f(x,y) = x^2 + y$ subject to $x^2 + y^2 = 1$.</p>
 
     <div style="margin-top:15px;">
@@ -619,88 +690,131 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
         <tbody>
           <tr><td>$(\pm\sqrt{3}/2,\ 1/2)$</td><td>$5/4$</td><td><span class="badge badge-red">Maximum</span></td></tr>
           <tr><td>$(0,\ -1)$</td><td>$-1$</td><td><span class="badge badge-green">Minimum</span></td></tr>
-          <tr><td>$(0,\ 1)$</td><td>$1$</td><td><span class="badge badge-gold">Constrained saddle point</span></td></tr>
+          <tr><td>$(0,\ 1)$</td><td>$1$</td><td><span class="badge badge-gold">Local minimum</span></td></tr>
         </tbody>
       </table>
-      <div class="idea-box"><strong>Why is $(0,1)$ a saddle?</strong> The level curve $x^2+y=1$ <em>crosses</em> the circle at $(0,1)$ rather than being tangent to it. So nearby points on the circle have $f$ both above and below $1$ — it cannot be a max or min. Drag the slider to $c=1$ to see this crossing.</div>
+      <div class="idea-box"><strong>Why is $(0,1)$ a local min, not a global one?</strong> Moving in either direction along the circle from $(0,1)$, $f$ increases ($f'' > 0$ there) — so it <em>is</em> a local minimum. But the global minimum is at $(0,-1)$ with $f = -1$, which is much lower. The level curve $x^2+y=1$ crosses the circle at $(0,1)$; drag the slider to $c=1$ to see how the curve passes through that point while the tangent level curves at the maxima ($c=5/4$) merely kiss the circle.</div>
+
+      <div style="margin-top:20px;">
+        <h4>3D View — Surface, Constraint, and Critical Points</h4>
+        <p style="font-size:13.5px; color:var(--text-medium); margin-bottom:10px;">Rotate to see the surface $z = x^2 + y$ with the unit circle lifted onto it. The constraint curve rises and dips along the surface — the global max, global min, and local min are visible as marked points on that curve.</p>
+        <div style="border-radius:8px; overflow:hidden; border:2px solid var(--gold-light); box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+          <iframe src="https://www.desmos.com/3d/bpdzo7dtsz?embed" width="100%" height="480" style="border:none; display:block;" allowfullscreen></iframe>
+        </div>
+        <p style="font-size:12px; color:var(--text-medium); margin-top:8px; text-align:center;"><em>Interactive 3D graph — click and drag to rotate, scroll to zoom.</em></p>
+      </div>
     </div>
   </div>
 
   <!-- ====== PROOF-STYLE PROBLEMS ====== -->
 
   <div class="section-header">
-    <div class="section-number">4</div>
-    <h2>Rectangle of Maximum Area</h2>
-  </div>
-
-  <div class="problem-box">
-    <div class="problem-number">Problem 4 — Proof</div>
-    <p>Use Lagrange multipliers to prove that the rectangle with maximum area for a given perimeter $p$ is a square.</p>
-    <button class="solution-button" onclick="toggleSolution('sol6',this)">
-      <span>Show Solution</span><span class="arrow">▼</span>
-    </button>
-    <div class="solution-content" id="sol6">
-      <h4>Givens</h4>
-      <ul>
-        <li>$x, y$ = side lengths of the rectangle</li>
-        <li><strong>Objective:</strong> maximize $f(x,y) = xy$ (area)</li>
-        <li><strong>Constraint:</strong> $g(x,y) = 2x + 2y - p = 0$ (perimeter)</li>
-      </ul>
-      <h4>Gradients</h4>
-      $$\nabla f = \langle y,\, x\rangle, \qquad \nabla g = \langle 2,\, 2\rangle$$
-      <h4>Lagrange System: $\nabla f = \lambda\,\nabla g$</h4>
-      <p>Component equations:</p>
-      $$y = 2\lambda \qquad (1)$$
-      $$x = 2\lambda \qquad (2)$$
-      $$2x + 2y = p \qquad (3)$$
-      <h4>Solving</h4>
-      <p>From (1) and (2): $x = y = 2\lambda$. Substituting into (3):</p>
-      $$2(2\lambda) + 2(2\lambda) = p \implies \lambda = \frac{p}{8}, \quad x = y = \frac{p}{4}$$
-      <div class="highlight-box">
-        <strong>Conclusion:</strong> The only critical point has $x = y = p/4$, so the rectangle is a <strong>square</strong> with area $A = p^2/16$. $\square$
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header">
-    <div class="section-number">5</div>
-    <h2>Triangle of Maximum Area — Heron's Formula</h2>
-  </div>
-
-  <div class="problem-box">
-    <div class="problem-number">Problem 5 — Proof</div>
-    <p>Use Lagrange multipliers to prove that the triangle with maximum area for a given perimeter $p$ is equilateral.</p>
-    <p style="font-size:14px; color:var(--text-medium);"><em>Hint:</em> Use Heron's formula $A = \sqrt{s(s-x)(s-y)(s-z)}$ where $s = p/2$ and $x, y, z$ are the side lengths.</p>
-    <button class="solution-button" onclick="toggleSolution('sol7',this)">
-      <span>Show Solution</span><span class="arrow">▼</span>
-    </button>
-    <div class="solution-content" id="sol7">
-      <h4>Givens</h4>
-      <ul>
-        <li>$x, y, z$ = side lengths, $s = p/2$ (semi-perimeter, a constant)</li>
-        <li><strong>Objective:</strong> maximize $A^2 = s(s-x)(s-y)(s-z)$ (equivalent to maximizing $A$)</li>
-        <li><strong>Constraint:</strong> $x + y + z = 2s$ (perimeter)</li>
-      </ul>
-      <h4>Substitution</h4>
-      <p>Let $u = s - x$, $v = s - y$, $w = s - z$. Then:</p>
-      $$u + v + w = 3s - (x+y+z) = 3s - 2s = s$$
-      <p>Maximize $f(u,v,w) = s \cdot u\,v\,w$ subject to $g(u,v,w) = u + v + w - s = 0$.</p>
-      <h4>Lagrange System</h4>
-      $$\frac{\partial f}{\partial u} = s\,vw = \lambda, \qquad \frac{\partial f}{\partial v} = s\,uw = \lambda, \qquad \frac{\partial f}{\partial w} = s\,uv = \lambda$$
-      <h4>Solving</h4>
-      <p>From the first two equations: $s\,vw = s\,uw \implies v = u$ (since $w, s > 0$).</p>
-      <p>From the last two: $s\,uw = s\,uv \implies w = v$.</p>
-      <p>So $u = v = w = s/3$, which means:</p>
-      $$x = s - u = s - \frac{s}{3} = \frac{2s}{3} = \frac{p}{3}$$
-      <p>and likewise $y = z = p/3$.</p>
-      <div class="highlight-box">
-        <strong>Conclusion:</strong> All three sides are equal, so the triangle is <strong>equilateral</strong> with area $A = \dfrac{p^2\sqrt{3}}{36}$. $\square$
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header">
     <div class="section-number">6</div>
+    <h2>True Constrained Saddle Point on the Sphere</h2>
+  </div>
+
+  <div class="idea-box" style="margin-bottom:20px;">
+    <strong>Why this matters:</strong> On a 1-dimensional constraint curve (like a circle), non-degenerate critical points can only be local maxima or minima — there is no "room" for a saddle. But on a <em>2-dimensional</em> constraint surface (like a sphere), the constraint has two independent directions, so a critical point can go up in one direction and down in another — a <strong>true constrained saddle point</strong>. This problem demonstrates exactly that phenomenon and shows how to detect it.
+  </div>
+
+  <div class="problem-box">
+    <div class="problem-number">Problem 6</div>
+    <p>Find and classify all critical points of $f(x,y,z) = xz$ subject to the constraint $g(x,y,z) = x^2 + y^2 + z^2 - 1 = 0$ (the unit sphere).</p>
+    <button class="solution-button" onclick="toggleSolution('sol11',this)">
+      <span>Show Solution</span><span class="arrow">▼</span>
+    </button>
+    <div class="solution-content" id="sol11">
+      <h4>Givens</h4>
+      <ul>
+        <li>$f(x,y,z) = xz$ — objective function</li>
+        <li>$g(x,y,z) = x^2 + y^2 + z^2 - 1 = 0$ — unit sphere (a 2D surface in $\mathbb{R}^3$)</li>
+        <li>$\nabla f = (z,\; 0,\; x)$, $\quad \nabla g = (2x,\; 2y,\; 2z)$</li>
+      </ul>
+
+      <h4>Lagrange System: $\nabla f = \lambda \nabla g$</h4>
+      $$z = 2\lambda x \qquad (1)$$
+      $$0 = 2\lambda y \qquad (2)$$
+      $$x = 2\lambda z \qquad (3)$$
+
+      <h4>Case 1: $\lambda \neq 0$ (so equation (2) gives $y = 0$)</h4>
+      <p>From (1) and (3): $z = 2\lambda x$ and $x = 2\lambda z$, so $z = 2\lambda(2\lambda z) = 4\lambda^2 z$.</p>
+      <p>If $z \neq 0$: $4\lambda^2 = 1 \implies \lambda = \pm\tfrac{1}{2}$.</p>
+
+      <table>
+        <thead><tr><th>$\lambda$</th><th>Relation</th><th>Constraint $x^2+z^2=1$</th><th>Points</th><th>$f = xz$</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>$+\frac{1}{2}$</td><td>$z = x$</td><td>$2x^2 = 1$</td>
+            <td>$\left(\frac{1}{\sqrt{2}}, 0, \frac{1}{\sqrt{2}}\right)$ and $\left(-\frac{1}{\sqrt{2}}, 0, -\frac{1}{\sqrt{2}}\right)$</td>
+            <td>$\frac{1}{2}$</td>
+          </tr>
+          <tr>
+            <td>$-\frac{1}{2}$</td><td>$z = -x$</td><td>$2x^2 = 1$</td>
+            <td>$\left(\frac{1}{\sqrt{2}}, 0, -\frac{1}{\sqrt{2}}\right)$ and $\left(-\frac{1}{\sqrt{2}}, 0, \frac{1}{\sqrt{2}}\right)$</td>
+            <td>$-\frac{1}{2}$</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Case 2: $\lambda = 0$</h4>
+      <p>Then (1) gives $z = 0$ and (3) gives $x = 0$, so the constraint becomes $y^2 = 1$, giving:</p>
+      <p style="text-align:center;">$(0, 1, 0)$ and $(0, -1, 0)$, both with $f = 0$.</p>
+
+      <h4>Classification</h4>
+      <p>We have six critical points. The four from Case 1 are straightforward:</p>
+      <div class="highlight-box">
+        $$f_{\max} = \tfrac{1}{2} \quad\text{at}\quad \left(\pm\tfrac{1}{\sqrt{2}}, 0, \pm\tfrac{1}{\sqrt{2}}\right) \qquad \text{(global max)}$$
+        $$f_{\min} = -\tfrac{1}{2} \quad\text{at}\quad \left(\pm\tfrac{1}{\sqrt{2}}, 0, \mp\tfrac{1}{\sqrt{2}}\right) \qquad \text{(global min)}$$
+      </div>
+
+      <h4>Why $(0, \pm 1, 0)$ are true saddle points</h4>
+      <p>At $P = (0, 1, 0)$ we have $f(P) = 0$. The sphere near $P$ is a 2D surface, so we can move in two independent directions. Consider small perturbations on the sphere:</p>
+
+      <p><strong>Direction 1 — toward $(\varepsilon, \sqrt{1 - 2\varepsilon^2}, \varepsilon)$:</strong></p>
+      $$f = \varepsilon \cdot \varepsilon = \varepsilon^2 > 0 \quad\text{(f increases)}$$
+
+      <p><strong>Direction 2 — toward $(\varepsilon, \sqrt{1 - 2\varepsilon^2}, -\varepsilon)$:</strong></p>
+      $$f = \varepsilon \cdot (-\varepsilon) = -\varepsilon^2 < 0 \quad\text{(f decreases)}$$
+
+      <p>Since $f$ goes <em>above</em> and <em>below</em> $f(P) = 0$ in different directions on the constraint surface:</p>
+
+      <div class="warning-box">
+        <strong>$(0, \pm 1, 0)$ are true constrained saddle points.</strong> Lagrange correctly identifies them as critical points ($\lambda = 0$), but they are neither maxima nor minima — they are saddle points on the sphere.
+      </div>
+
+      <h4>Summary of all critical points</h4>
+      <table>
+        <thead><tr><th>Point</th><th>$f = xz$</th><th>$\lambda$</th><th>Classification</th></tr></thead>
+        <tbody>
+          <tr><td>$\left(\frac{1}{\sqrt{2}}, 0, \frac{1}{\sqrt{2}}\right)$</td><td>$\frac{1}{2}$</td><td>$+\frac{1}{2}$</td><td><span class="badge badge-red">Global max</span></td></tr>
+          <tr><td>$\left(-\frac{1}{\sqrt{2}}, 0, -\frac{1}{\sqrt{2}}\right)$</td><td>$\frac{1}{2}$</td><td>$+\frac{1}{2}$</td><td><span class="badge badge-red">Global max</span></td></tr>
+          <tr><td>$\left(\frac{1}{\sqrt{2}}, 0, -\frac{1}{\sqrt{2}}\right)$</td><td>$-\frac{1}{2}$</td><td>$-\frac{1}{2}$</td><td><span class="badge badge-green">Global min</span></td></tr>
+          <tr><td>$\left(-\frac{1}{\sqrt{2}}, 0, \frac{1}{\sqrt{2}}\right)$</td><td>$-\frac{1}{2}$</td><td>$-\frac{1}{2}$</td><td><span class="badge badge-green">Global min</span></td></tr>
+          <tr><td>$(0, 1, 0)$</td><td>$0$</td><td>$0$</td><td><span class="badge" style="background:var(--gold-light);color:var(--brown-dark);">Saddle point</span></td></tr>
+          <tr><td>$(0, -1, 0)$</td><td>$0$</td><td>$0$</td><td><span class="badge" style="background:var(--gold-light);color:var(--brown-dark);">Saddle point</span></td></tr>
+        </tbody>
+      </table>
+
+      <h4>3D Visualization</h4>
+      <div style="margin-top:10px;">
+        <iframe src="https://www.desmos.com/3d/9wchmb8bs1?embed" width="100%" height="480" style="border:none; display:block; border-radius:8px;" allowfullscreen></iframe>
+        <p style="font-size:13px; color:var(--text-medium); margin-top:10px; line-height:1.6;">
+          <strong>How to read this graph:</strong><br>
+          &bull; At $c = 0$, the level surface $xz = 0$ is <strong>two intersecting planes</strong> ($x=0$ and $z=0$). The saddle points $(0, \pm 1, 0)$ sit right at this intersection — $f$ is zero there, positive on one side, negative on the other.<br>
+          &bull; Slide to $c = 0.5$: the level surface just <strong>kisses</strong> the sphere at the maxima $(\pm 1/\sqrt{2},\, 0,\, \pm 1/\sqrt{2})$ — no higher value of $f$ exists on the sphere.<br>
+          &bull; Slide to $c = -0.5$: same for the minima $(\pm 1/\sqrt{2},\, 0,\, \mp 1/\sqrt{2})$.<br>
+          &bull; Beyond $|c| = 0.5$, the level surface misses the sphere entirely — those values of $f$ are unattainable.
+        </p>
+      </div>
+
+      <div class="idea-box">
+        <strong>Key insight:</strong> True constrained saddle points require a constraint surface with dimension $\geq 2$ (here, the sphere is 2D). On a 1D constraint curve like a circle, every non-degenerate critical point must be a local max or min — there simply isn't room for a saddle. This is why the circle example in Problem 5 has only maxima and minima, while the sphere here admits genuine saddles.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-number">7</div>
     <h2>The AM-GM Inequality</h2>
   </div>
 
@@ -709,7 +823,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 6</div>
+    <div class="problem-number">Problem 7</div>
     <p><strong>(a)</strong> Find the maximum value of $f(x_1, x_2, \ldots, x_n) = \sqrt[n]{x_1 x_2 \cdots x_n}$ given that $x_1, x_2, \ldots, x_n$ are positive and $x_1 + x_2 + \cdots + x_n = c$.</p>
     <p><strong>(b)</strong> Deduce the AM-GM inequality: for positive numbers $x_1, \ldots, x_n$,</p>
     $$\sqrt[n]{x_1 x_2 \cdots x_n} \leq \frac{x_1 + x_2 + \cdots + x_n}{n}$$
@@ -745,16 +859,16 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="section-header">
-    <div class="section-number">7</div>
+    <div class="section-number">8</div>
     <h2>The Cauchy-Schwarz Inequality</h2>
   </div>
 
   <div class="idea-box" style="margin-bottom:20px;">
-    <strong>Why this matters:</strong> The Cauchy-Schwarz inequality is arguably the single most useful inequality in all of mathematics. It underpins the triangle inequality in every inner product space, proves that correlation coefficients lie in $[-1,1]$, and is the backbone of countless results in linear algebra, probability, and physics. Here, Lagrange multipliers with <em>two constraints</em> give a clean, elegant proof — and the two multipliers $\lambda$, $\mu$ are forced to be $\pm 1/2$.
+    <strong>Why this matters:</strong> The Cauchy-Schwarz inequality is one of the most important inequalities in mathematics. It underpins the triangle inequality in every inner product space, proves that correlation coefficients lie in $[-1,1]$, and is the backbone of countless results in linear algebra, probability, and physics. Here, Lagrange multipliers with <em>two constraints</em> give a clean, elegant proof — and the two multipliers $\lambda$, $\mu$ are forced to be $\pm 1/2$.
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 7</div>
+    <div class="problem-number">Problem 8</div>
     <p><strong>(a)</strong> Maximize $\displaystyle\sum_{i=1}^{n} x_i y_i$ subject to $\displaystyle\sum_{i=1}^{n} x_i^2 = 1$ and $\displaystyle\sum_{i=1}^{n} y_i^2 = 1$.</p>
     <p><strong>(b)</strong> Substitute $x_i = \dfrac{a_i}{\sqrt{\sum a_j^2}}$ and $y_i = \dfrac{b_i}{\sqrt{\sum b_j^2}}$ to prove the Cauchy-Schwarz inequality:</p>
     $$\left|\sum a_i b_i\right| \leq \sqrt{\sum a_i^2}\;\sqrt{\sum b_i^2}$$
@@ -797,7 +911,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="section-header">
-    <div class="section-number">8</div>
+    <div class="section-number">9</div>
     <h2>Deriving OLS Regression via Calculus</h2>
   </div>
 
@@ -806,7 +920,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 8 — Interactive</div>
+    <div class="problem-number">Problem 9 — Interactive</div>
     <p>Given data points $(x_1, y_1), \ldots, (x_n, y_n)$, find the line $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$ that minimizes the sum of squared residuals:</p>
     $$S(\beta_0, \beta_1) = \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2$$
 
@@ -877,6 +991,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
     </div>
   </div>
 
+
 </div>
 
 <!-- ==================== TAB 5: FAILURES ==================== -->
@@ -902,7 +1017,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 4</div>
+    <div class="problem-number">Problem 1</div>
     <p>Maximize $f(x,y) = 2x + 3y$ subject to $\sqrt{x} + \sqrt{y} = 5$, $x,y \geq 0$.</p>
     <div style="margin-top:15px;">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
@@ -944,7 +1059,7 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
   </div>
 
   <div class="problem-box">
-    <div class="problem-number">Problem 5</div>
+    <div class="problem-number">Problem 2</div>
     <p>Maximize $f(x,y) = x$ on the piriform curve $y^2 + x^4 - x^3 = 0$.</p>
     <canvas id="piriformCanvas" height="220" style="width:100%;border-radius:8px;border:1px solid var(--gold-pale);margin-top:12px;"></canvas>
     <button class="solution-button" onclick="toggleSolution('sol5',this)">
@@ -1064,7 +1179,7 @@ function drawP3() {
   else if(pts.length===0&&c<-1) p3info.textContent='Curve below circle — no intersection';
   else if(Math.abs(c-1.25)<0.06) p3info.textContent='c ≈ 5/4 — tangent from above → MAXIMUM';
   else if(Math.abs(c+1)<0.06) p3info.textContent='c = -1 — tangent from below → MINIMUM';
-  else if(Math.abs(c-1)<0.06) p3info.textContent='c = 1 — curve CROSSES circle at (0,1) → SADDLE POINT';
+  else if(Math.abs(c-1)<0.06) p3info.textContent='c = 1 — curve crosses circle at (0,1) → LOCAL MINIMUM (not global)';
   else {
     const ptStr = pts.map(([x,y]) => '('+x.toFixed(2)+', '+y.toFixed(2)+')').join('  and  ');
     p3info.textContent = 'f = c = '+c.toFixed(2)+' at '+ptStr;
