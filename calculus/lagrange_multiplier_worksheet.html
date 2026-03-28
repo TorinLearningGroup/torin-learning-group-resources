@@ -449,27 +449,47 @@ canvas { display: block; width: 100%; border-radius: 8px; border: 1px solid var(
 
   <div class="card" style="padding:24px 28px;">
     <div style="display:grid; grid-template-columns:1fr; gap:18px;">
+
+      <!-- Sensitivity interpretation -->
       <div>
-        <div style="font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--green-dark); margin-bottom:6px;">$\lambda$ is a rate of change</div>
-        <p style="margin:0; font-size:14px; color:var(--text-medium); line-height:1.7;">$\lambda \approx df/dc$, where $c$ is the constraint level. It measures how much the optimal value of $f$ would change if the constraint were relaxed by a small amount.</p>
+        <div style="font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--green-dark); margin-bottom:6px;">$\lambda$ measures how the optimum responds to the constraint</div>
+        <p style="margin:0 0 10px; font-size:14px; color:var(--text-medium); line-height:1.7;">Suppose you optimize $f$ subject to $g(\mathbf{x}) = c$, and let $f^*(c)$ denote the optimal value as a function of the constraint level. Then:</p>
+        <div class="highlight-box" style="margin:0 0 10px; text-align:center;">
+          $$\lambda = \frac{df^*}{dc}$$
+        </div>
+        <p style="margin:0 0 10px; font-size:14px; color:var(--text-medium); line-height:1.7;">If you perturb the constraint from $c$ to $c + \Delta c$, the optimal value shifts by approximately $\lambda \cdot \Delta c$. In other words, $\lambda$ tells you the <strong>rate at which the optimum changes per unit change in the constraint</strong>.</p>
+        <p style="margin:0; font-size:13.5px; color:var(--text-medium); line-height:1.7; font-style:italic;">In economics, $\lambda$ is called the "shadow price" of the constraint — e.g., how much extra profit one more dollar of budget would yield. But the result is purely mathematical and applies in any optimization context.</p>
       </div>
+
+      <!-- Geometric interpretation -->
+      <div style="border-top:1px solid var(--gold-pale); padding-top:18px;">
+        <div style="font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--green-dark); margin-bottom:6px;">Equivalently, $\lambda$ is the gradient ratio</div>
+        <p style="margin:0 0 10px; font-size:14px; color:var(--text-medium); line-height:1.7;">Since $\nabla f = \lambda\,\nabla g$, taking magnitudes gives:</p>
+        <div class="highlight-box" style="margin:0 0 10px; text-align:center;">
+          $$|\lambda| = \frac{\|\nabla f\|}{\|\nabla g\|} = \left|\frac{df^*}{dc}\right|$$
+        </div>
+        <p style="margin:0; font-size:14px; color:var(--text-medium); line-height:1.7;">These are the same quantity through two lenses. The gradient ratio is the <em>local geometry</em> — how fast $f$ is changing relative to $g$ at the optimum. The derivative $df^*/dc$ is the <em>global sensitivity</em> — how the optimum responds to perturbation. They coincide because the local steepness at the contact point completely determines the perturbation response.</p>
+      </div>
+
+      <!-- Sign of lambda -->
       <div style="border-top:1px solid var(--gold-pale); padding-top:18px;">
         <div style="font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--green-dark); margin-bottom:6px;">Reading the sign of $\lambda$</div>
         <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;">
           <div style="background:var(--cream-dark); border-radius:6px; padding:12px 14px; text-align:center;">
             <div style="font-weight:700; color:var(--green-dark); font-size:15px; margin-bottom:4px;">$\lambda > 0$</div>
-            <span style="font-size:12.5px; color:var(--text-medium);">$\nabla f$ and $\nabla g$ point the <strong>same</strong> direction</span>
+            <span style="font-size:12.5px; color:var(--text-medium);">$\nabla f$ and $\nabla g$ point the <strong>same</strong> direction — increasing $c$ <strong>increases</strong> $f^*$</span>
           </div>
           <div style="background:var(--cream-dark); border-radius:6px; padding:12px 14px; text-align:center;">
             <div style="font-weight:700; color:var(--green-dark); font-size:15px; margin-bottom:4px;">$\lambda < 0$</div>
-            <span style="font-size:12.5px; color:var(--text-medium);">$\nabla f$ and $\nabla g$ point in <strong>opposite</strong> directions</span>
+            <span style="font-size:12.5px; color:var(--text-medium);">$\nabla f$ and $\nabla g$ point <strong>opposite</strong> — increasing $c$ <strong>decreases</strong> $f^*$</span>
           </div>
           <div style="background:var(--cream-dark); border-radius:6px; padding:12px 14px; text-align:center;">
             <div style="font-weight:700; color:var(--green-dark); font-size:15px; margin-bottom:4px;">$\lambda = 0$</div>
-            <span style="font-size:12.5px; color:var(--text-medium);">Unconstrained optimum already lies <strong>on</strong> the constraint</span>
+            <span style="font-size:12.5px; color:var(--text-medium);">The unconstrained optimum already satisfies $g = c$ — the constraint is <strong>not active</strong></span>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -1176,9 +1196,6 @@ function drawOLS() {
   const canvas = document.getElementById('olsCanvas');
   if (!canvas) return;
   const w = canvas.parentElement.offsetWidth - 2;
-  canvas.width = w; canvas.height = Math.round(w * 0.65);
-  const ctx = canvas.getContext('2d');
-  const h = canvas.height;
 
   const b1 = parseFloat(olsSlopeSlider.value);
   const b0 = parseFloat(olsIntSlider.value);
@@ -1187,21 +1204,26 @@ function drawOLS() {
 
   // Data points
   const data = [[1,2],[2,4],[3,5],[4,4],[5,5]];
-  const xMin = -0.3, xMax = 6.3, yMin = -0.8, yMax = 7.5;
+
+  // Use EQUAL ranges so 1 unit in x = 1 unit in y (true squares)
+  const xMin = -0.5, xMax = 8.5, yMin = -0.5, yMax = 8.5;
+  const range = xMax - xMin; // same for both axes
+  const h = w; // square canvas
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  const ppu = w / range; // pixels per unit — same for x and y
 
   function toC(x, y) {
-    return [(x - xMin) / (xMax - xMin) * w, h - (y - yMin) / (yMax - yMin) * h];
+    return [(x - xMin) * ppu, h - (y - yMin) * ppu];
   }
 
   ctx.clearRect(0, 0, w, h);
 
   // Grid
   ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 0.5;
-  for (let i = 0; i <= 6; i++) {
+  for (let i = 0; i <= 8; i++) {
     const [gx] = toC(i, 0); ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
-  }
-  for (let j = 0; j <= 7; j++) {
-    const [,gy] = toC(0, j); ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+    const [,gy] = toC(0, i); ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
   }
 
   // Axes
@@ -1212,33 +1234,27 @@ function drawOLS() {
 
   // Axis labels
   ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.font = Math.round(w * 0.025) + 'px sans-serif'; ctx.textAlign = 'center';
-  for (let i = 1; i <= 6; i++) { const [gx] = toC(i, 0); ctx.fillText(i, gx, ay0 + 14); }
-  for (let j = 1; j <= 7; j++) { const [,gy] = toC(0, j); ctx.textAlign = 'right'; ctx.fillText(j, ax0 - 5, gy + 4); }
+  for (let i = 1; i <= 8; i++) { const [gx] = toC(i, 0); ctx.fillText(i, gx, ay0 + 14); }
+  for (let j = 1; j <= 8; j++) { const [,gy] = toC(0, j); ctx.textAlign = 'right'; ctx.fillText(j, ax0 - 5, gy + 4); }
 
-  // Draw squared residual boxes
+  // Draw squared residual boxes — true squares because ppu is equal for both axes
   let SSR = 0;
   data.forEach(([xi, yi]) => {
     const yhat = b0 + b1 * xi;
     const res = yi - yhat;
     SSR += res * res;
     const side = Math.abs(res);
+    const sidePx = side * ppu; // same in x and y pixels
 
-    // Draw the square: from the data point, extending horizontally
     const [px, py] = toC(xi, yi);
     const [, pyhat] = toC(xi, yhat);
-    // Width in data coords = |res|, convert to pixels
-    const [x1] = toC(xi, 0);
-    const [x2] = toC(xi + side, 0);
-    const sqWidth = Math.abs(x2 - x1);
-    const sqHeight = Math.abs(py - pyhat);
+    const top = Math.min(py, pyhat);
 
     ctx.fillStyle = 'rgba(231,115,115,0.2)';
     ctx.strokeStyle = 'rgba(231,115,115,0.5)';
     ctx.lineWidth = 1;
-    const left = Math.min(px, px);
-    const top = Math.min(py, pyhat);
-    ctx.fillRect(px, top, sqWidth, sqHeight);
-    ctx.strokeRect(px, top, sqWidth, sqHeight);
+    ctx.fillRect(px, top, sidePx, sidePx);
+    ctx.strokeRect(px, top, sidePx, sidePx);
 
     // Residual line
     ctx.strokeStyle = 'rgba(231,115,115,0.7)'; ctx.lineWidth = 1.5;
