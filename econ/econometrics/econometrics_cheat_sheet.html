@@ -378,6 +378,56 @@
             display: block;
         }
 
+        /* Tab System Styles */
+        .tab-navigation {
+            display: flex;
+            gap: 6px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            border-bottom: 2px solid var(--gold);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-medium);
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .tab-button:hover {
+            color: var(--gold);
+        }
+
+        .tab-button.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        input[type="range"] {
+            accent-color: #C8702A;
+        }
+
         @media print {
             body { background: white; }
             .card { page-break-inside: avoid; }
@@ -401,6 +451,301 @@
             <div style="font-size: 12px; opacity: 0.85; margin-top: 4px;">Econometrics Midterm</div>
         </div>
     </div>
+
+    <!-- TAB NAVIGATION -->
+    <div class="tab-navigation">
+        <button class="tab-button active" onclick="switchTab('ols-theory-tab')">OLS Theory</button>
+        <button class="tab-button" onclick="switchTab('cheat-sheet-tab')">Cheat Sheet</button>
+    </div>
+
+    <!-- TAB 1: OLS THEORY -->
+    <div id="ols-theory-tab" class="tab-content active">
+    <div class="container">
+
+        <!-- ===================== OLS THEORY: INTERACTIVE VISUAL ===================== -->
+        <div class="section-header">
+            <div class="section-number" style="background-color: var(--gold);">INT</div>
+            <h2>Interactive: Visualizing OLS</h2>
+        </div>
+
+        <div class="section-content">
+            <p>Adjust the slope and intercept sliders below to see how the regression line fits the data. The sum of squared residuals (SSR) is displayed. When you find the OLS minimum, the line passes through the center of the data.</p>
+
+            <div style="margin-top: 20px; max-width: 64%; margin-left: auto; margin-right: auto;">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                <label style="font-size: 13px; color: var(--text-medium); min-width: 120px;">slope $\hat{\beta}_1$ = <span id="olsSlopeVal" style="font-weight: 600;">0.75</span></label>
+                <input type="range" id="olsSlopeSlider" min="-1" max="2" step="0.01" value="0.75" style="flex: 1;">
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                <label style="font-size: 13px; color: var(--text-medium); min-width: 120px;">intercept $\hat{\beta}_0$ = <span id="olsIntVal" style="font-weight: 600;">2.00</span></label>
+                <input type="range" id="olsIntSlider" min="-1" max="6" step="0.01" value="2.00" style="flex: 1;">
+              </div>
+              <canvas id="olsCanvas" height="230" style="width: 100%; border-radius: 8px; border: 1px solid var(--gold-pale);"></canvas>
+              <div style="margin-top: 6px; font-size: 12px; color: var(--green-dark); font-weight: 600;">Optimal OLS values: $\hat{\beta}_1 \approx 0.75$, &ensp; $\hat{\beta}_0 \approx 2.00$</div>
+              <div id="olsInfo" style="margin-top: 8px; font-size: 13px; color: var(--text-medium); min-height: 18px;"></div>
+              <div style="display: flex; gap: 20px; margin-top: 8px; font-size: 12px; color: var(--text-medium); flex-wrap: wrap;">
+                <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 10px; height: 10px; background: #3B5323; border-radius: 50%; display: inline-block;"></span>data points</span>
+                <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 14px; height: 3px; background: #C8A84E; display: inline-block; border-radius: 2px;"></span>regression line</span>
+                <span style="display: flex; align-items: center; gap: 5px;"><span style="width: 10px; height: 10px; background: rgba(231, 115, 115, 0.3); display: inline-block;"></span>squared residuals</span>
+              </div>
+            </div>
+        </div>
+
+
+        <!-- ===================== OLS THEORY: WHAT IS OLS ===================== -->
+        <div class="section-header">
+            <div class="section-number" style="background-color: var(--gold);">OLS</div>
+            <h2>What is Ordinary Least Squares (OLS)?</h2>
+        </div>
+
+        <div class="section-content">
+            <p>Ordinary Least Squares (OLS) is the workhorse estimation method in econometrics. It finds the line of best fit by minimizing the sum of squared residuals:</p>
+
+            $$\min_{\beta_0, \beta_1} S(\beta_0, \beta_1) = \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2$$
+
+            <p style="margin-top: 15px;">The fitted line is $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$, where:</p>
+            <ul style="margin: 10px 0 10px 20px;">
+                <li>$\hat{\beta}_0$ = estimated intercept</li>
+                <li>$\hat{\beta}_1$ = estimated slope</li>
+                <li>The residuals $\hat{u}_i = y_i - \hat{y}_i$ measure prediction error</li>
+            </ul>
+
+            <div class="idea-box">
+                <p><strong>Why minimize squared residuals?</strong> The squared residuals penalize large errors heavily, ensuring the line passes through the center of the data and is not pulled by outliers (too much). The mathematical properties also lead to nice estimator characteristics (BLUE theorem).</p>
+            </div>
+        </div>
+
+        <!-- ===================== OLS THEORY: ASSUMPTIONS ===================== -->
+        <div class="section-header">
+            <div class="section-number" style="background-color: var(--gold);">GM</div>
+            <h2>The Gauss-Markov Assumptions</h2>
+        </div>
+
+        <div class="section-content">
+            <p>These classical assumptions ensure OLS is the Best Linear Unbiased Estimator (BLUE):</p>
+
+            <div class="concept-list">
+                <div class="concept-item" style="background: var(--gold-pale); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Assumption 1: Linearity in Parameters</strong></div>
+                    <p>The population model is linear: $y = \beta_0 + \beta_1 x + u$. The relationship between $y$ and $x$ is additive. This is about the parameters, not the variables (we can include $x^2$, $\log(x)$, etc.).</p>
+                </div>
+
+                <div class="concept-item" style="background: #E8D5C4; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Assumption 2: Random Sampling</strong></div>
+                    <p>We have a random sample $\{(x_i, y_i) : i = 1, \ldots, n\}$ from the population. Observations are independent and identically distributed (i.i.d.). This ensures our sample is representative of the population.</p>
+                </div>
+
+                <div class="concept-item" style="background: var(--gold-pale); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Assumption 3: No Perfect Multicollinearity</strong></div>
+                    <p>The regressor $x$ has sample variation: $\sum_{i=1}^{n}(x_i - \bar{x})^2 > 0$. There are no exact linear relationships among the regressors. This ensures we can uniquely identify and estimate $\beta_1$.</p>
+                </div>
+
+                <div class="concept-item" style="background: #E8D5C4; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Assumption 4: Zero Conditional Mean</strong></div>
+                    <p>$E[u|x] = 0$ (or $\operatorname{Cov}(x, u) = 0$ in the linear case). The error is uncorrelated with the regressor on average. This is <strong>critical</strong> for unbiasedness and is often violated in practice (omitted variables, reverse causality, measurement error).</p>
+                </div>
+
+                <div class="concept-item" style="background: var(--gold-pale); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Assumption 5: Homoskedasticity</strong></div>
+                    <p>$\operatorname{Var}(u|x) = \sigma^2$ (constant variance). The error has the same spread for all values of $x$. If violated, OLS is still unbiased but standard errors are biased, and inference breaks down.</p>
+                </div>
+
+                <div class="concept-item" style="background: #E8D5C4; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Assumption 6: Normality (for CLM)</strong></div>
+                    <p>$u \sim N(0, \sigma^2)$ independently. The errors are normally distributed. This assumption is needed for exact $t$- and $F$-tests in finite samples, but is less critical for large samples due to the Central Limit Theorem.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Which assumptions matter most?</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><strong>Assumptions 1, 2, 3, 4:</strong> Required for unbiasedness of $\hat{\beta}_1$</li>
+                    <li><strong>Assumptions 1–5:</strong> Required for OLS to be BLUE (and for valid standard errors)</li>
+                    <li><strong>Assumption 6:</strong> Required for exact inference in small samples; not needed asymptotically</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ===================== OLS THEORY: DERIVATION ===================== -->
+        <div class="section-header">
+            <div class="section-number" style="background-color: var(--gold);">DRV</div>
+            <h2>Deriving the OLS Estimators</h2>
+        </div>
+
+        <div class="section-content">
+            <p>We minimize the sum of squared residuals to find the OLS estimators:</p>
+
+            <div id="derivation-steps">
+              <div class="deriv-step" id="deriv-step-1" style="background: var(--gold-pale); padding: 18px; border-radius: 8px; margin-bottom: 14px;">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px;">Step 1 — Objective Function</p>
+                <p>We want to find $\hat{\beta}_0$ and $\hat{\beta}_1$ that minimize the sum of squared residuals:</p>
+                $$\text{SSR}(\beta_0, \beta_1) = \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2$$
+              </div>
+
+              <div class="deriv-step" id="deriv-step-2" style="background: #E8F5E9; padding: 18px; border-radius: 8px; margin-bottom: 14px; display: none;">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px;">Step 2 — First-Order Conditions (FOCs)</p>
+                <p>Take partial derivatives and set equal to zero:</p>
+                $$\frac{\partial \, \text{SSR}}{\partial \beta_0} = -2 \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i) = 0$$
+                $$\frac{\partial \, \text{SSR}}{\partial \beta_1} = -2 \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i) x_i = 0$$
+              </div>
+
+              <div class="deriv-step" id="deriv-step-3" style="background: var(--gold-pale); padding: 18px; border-radius: 8px; margin-bottom: 14px; display: none;">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px;">Step 3 — Solve the First FOC for $\hat{\beta}_0$</p>
+                <p>From the first equation, distribute the sum:</p>
+                $$\sum_{i=1}^{n} y_i - n\hat{\beta}_0 - \hat{\beta}_1 \sum_{i=1}^{n} x_i = 0$$
+                <p>Solve for $\hat{\beta}_0$:</p>
+                $$\hat{\beta}_0 = \frac{1}{n}\sum_{i=1}^{n} y_i - \hat{\beta}_1 \cdot \frac{1}{n}\sum_{i=1}^{n} x_i = \bar{y} - \hat{\beta}_1 \bar{x}$$
+                <div class="idea-box" style="margin-top: 10px;">
+                  <p><strong>Key insight:</strong> The intercept adjusts so the regression line always passes through the point $(\bar{x}, \bar{y})$.</p>
+                </div>
+              </div>
+
+              <div class="deriv-step" id="deriv-step-4" style="background: #E8F5E9; padding: 18px; border-radius: 8px; margin-bottom: 14px; display: none;">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px;">Step 4 — Substitute into the Second FOC</p>
+                <p>Plug $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$ into the second FOC:</p>
+                $$\sum_{i=1}^{n} \bigl(y_i - (\bar{y} - \hat{\beta}_1 \bar{x}) - \hat{\beta}_1 x_i\bigr) x_i = 0$$
+                <p>Rearrange:</p>
+                $$\sum_{i=1}^{n} (y_i - \bar{y}) x_i - \hat{\beta}_1 \sum_{i=1}^{n} (x_i - \bar{x}) x_i = 0$$
+              </div>
+
+              <div class="deriv-step" id="deriv-step-5" style="background: var(--gold-pale); padding: 18px; border-radius: 8px; margin-bottom: 14px; display: none;">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px;">Step 5 — Switch to Deviation Form</p>
+                <p>Using the identity $\sum (x_i - \bar{x})\bar{x} = 0$ and letting $\tilde{x}_i = x_i - \bar{x}$, $\tilde{y}_i = y_i - \bar{y}$:</p>
+                $$\sum_{i=1}^{n} \tilde{y}_i \tilde{x}_i = \hat{\beta}_1 \sum_{i=1}^{n} \tilde{x}_i^2$$
+                <p>Solve for $\hat{\beta}_1$:</p>
+                $$\hat{\beta}_1 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n} (x_i - \bar{x})^2}$$
+              </div>
+
+              <div class="deriv-step" id="deriv-step-6" style="background: #E8F5E9; padding: 18px; border-radius: 8px; margin-bottom: 14px; display: none;">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px;">Step 6 — The OLS Estimators</p>
+                <div style="background: white; border: 2px solid var(--gold); border-radius: 8px; padding: 18px; text-align: center;">
+                  $$\boxed{\hat{\beta}_1 = \frac{\operatorname{Cov}(x, y)}{\operatorname{Var}(x)} = \frac{S_{xy}}{S_{xx}}}$$
+                  $$\boxed{\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}}$$
+                </div>
+                <div class="idea-box" style="margin-top: 12px;">
+                  <p><strong>Intuition:</strong> The slope $\hat{\beta}_1$ is the covariance between $x$ and $y$ divided by the variance of $x$. If $x$ and $y$ move together (high covariance) and $x$ varies, then $\hat{\beta}_1$ is large. The intercept is set so the regression line passes through $(\bar{x}, \bar{y})$, the center of the data.</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+                <button onclick="prevDerivStep()" id="deriv-prev-btn" style="background: var(--cream-dark); color: var(--text-medium); border: 1px solid var(--gold-light); padding: 8px 18px; border-radius: 6px; cursor: pointer; font-family: 'Source Sans Pro', sans-serif; font-weight: 600; font-size: 14px; transition: all 0.2s;" disabled>← Previous</button>
+                <button onclick="nextDerivStep()" id="deriv-next-btn" style="background: var(--green-medium); color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-family: 'Source Sans Pro', sans-serif; font-weight: 600; font-size: 14px; transition: all 0.2s;">Next Step →</button>
+                <span id="deriv-step-counter" style="font-size: 13px; color: var(--text-medium); margin-left: 8px;">Step 1 of 6</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+              <button onclick="toggleHessian()" id="hessian-toggle-btn" style="background: var(--cream-dark); color: var(--green-dark); border: 2px solid var(--gold-light); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: 'Source Sans Pro', sans-serif; font-weight: 600; font-size: 14px; transition: all 0.2s;">Show Second-Order Condition (Hessian) ▸</button>
+              <div id="hessian-content" style="display: none; margin-top: 14px; background: var(--gold-pale); padding: 18px; border-radius: 8px; border-left: 4px solid var(--gold);">
+                <p style="font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 10px;">Why is this a minimum and not a maximum?</p>
+                <p>We found a critical point by setting the FOCs to zero. But how do we know it's a minimum? We check the <strong>Hessian matrix</strong> — the matrix of second partial derivatives:</p>
+                $$H = \begin{pmatrix} \dfrac{\partial^2 \text{SSR}}{\partial \beta_0^2} & \dfrac{\partial^2 \text{SSR}}{\partial \beta_0 \partial \beta_1} \\[10pt] \dfrac{\partial^2 \text{SSR}}{\partial \beta_1 \partial \beta_0} & \dfrac{\partial^2 \text{SSR}}{\partial \beta_1^2} \end{pmatrix}$$
+
+                <p style="margin-top: 12px;">Computing each entry:</p>
+                $$\frac{\partial^2 \text{SSR}}{\partial \beta_0^2} = 2n, \qquad \frac{\partial^2 \text{SSR}}{\partial \beta_0 \partial \beta_1} = 2\sum_{i=1}^n x_i, \qquad \frac{\partial^2 \text{SSR}}{\partial \beta_1^2} = 2\sum_{i=1}^n x_i^2$$
+
+                <p style="margin-top: 12px;">So:</p>
+                $$H = \begin{pmatrix} 2n & 2\sum x_i \\ 2\sum x_i & 2\sum x_i^2 \end{pmatrix}$$
+
+                <p style="margin-top: 12px;">For a <strong>minimum</strong>, we need $H$ to be positive definite. We check via the determinant test:</p>
+                <div style="background: white; border: 2px solid var(--gold); border-radius: 8px; padding: 14px; margin: 12px 0;">
+                  <p><strong>Condition 1:</strong> $f_{\beta_0 \beta_0} = 2n > 0$ ✓ &ensp;(always true since $n \geq 1$)</p>
+                  <p style="margin-top: 8px;"><strong>Condition 2:</strong> $D = f_{\beta_0 \beta_0} \cdot f_{\beta_1 \beta_1} - (f_{\beta_0 \beta_1})^2 > 0$</p>
+                  $$D = (2n)\bigl(2\sum x_i^2\bigr) - \bigl(2\sum x_i\bigr)^2 = 4\!\left(n\sum x_i^2 - \bigl(\sum x_i\bigr)^2\right)$$
+                  <p style="margin-top: 8px;">Recognize $n\sum x_i^2 - (\sum x_i)^2 = n \sum (x_i - \bar{x})^2$. This is $> 0$ as long as not all $x_i$ are identical — which is guaranteed by <strong>Assumption 3</strong> (sample variation in $x$).</p>
+                </div>
+                <p style="margin-top: 10px;">Since $f_{\beta_0 \beta_0} > 0$ and $D > 0$, the Hessian is positive definite, confirming our critical point is indeed a <strong>global minimum</strong> of $S(\beta_0, \beta_1)$.</p>
+              </div>
+            </div>
+        </div>
+
+        <!-- ===================== OLS THEORY: PROPERTIES ===================== -->
+        <div class="section-header">
+            <div class="section-number" style="background-color: var(--gold);">PROP</div>
+            <h2>Key Properties of OLS Estimators</h2>
+        </div>
+
+        <div class="section-content">
+            <div class="concept-list">
+                <div class="concept-item" style="background: var(--gold-pale); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Gauss-Markov Theorem (BLUE)</strong></div>
+                    <p>Under Assumptions 1–5, $\hat{\beta}_1$ is the <strong>Best Linear Unbiased Estimator</strong> — BLUE. Each letter means something specific:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li><strong>B — Best:</strong> It has the <em>smallest variance</em> in its class. No competitor can be more precise.</li>
+                        <li><strong>L — Linear:</strong> The estimator is a linear function of the dependent variable $y_i$. That is, $\hat{\beta}_1 = \sum c_i \, y_i$ for some weights $c_i$ that depend only on the $x$ values.</li>
+                        <li><strong>U — Unbiased:</strong> On average across repeated samples, the estimator hits the true parameter: $E[\hat{\beta}_1] = \beta_1$.</li>
+                        <li><strong>E — Estimator:</strong> It is a rule (formula) that maps sample data to a guess of the population parameter.</li>
+                    </ul>
+                    <p>Putting it together: among <em>every possible</em> estimator that is both linear in $y$ and unbiased, OLS has the lowest variance. No other linear unbiased estimator can beat it — that is the content of the Gauss-Markov theorem.</p>
+                </div>
+
+                <div class="concept-item" style="background: #E8D5C4; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Unbiasedness</strong></div>
+                    <p>$E[\hat{\beta}_1] = \beta_1$ and $E[\hat{\beta}_0] = \beta_0$ (under Assumptions 1–4). On average, across repeated samples, our estimates equal the true parameters. This is destroyed if Assumption 4 is violated (e.g., omitted variable bias).</p>
+                </div>
+
+                <div class="concept-item" style="background: var(--gold-pale); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Variance and Standard Error</strong></div>
+                    <p>Under Assumptions 1–5:</p>
+                    $$\operatorname{Var}(\hat{\beta}_1) = \frac{\sigma^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}$$
+                    <p>The standard error is $se(\hat{\beta}_1) = \sqrt{\widehat{\operatorname{Var}}(\hat{\beta}_1)}$. Larger sample variance in $x$ (more spread) means lower variance of the estimator. Larger error variance $\sigma^2$ means less precise estimates.</p>
+                </div>
+
+                <div class="concept-item" style="background: #E8D5C4; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Consistency</strong></div>
+                    <p>As $n \to \infty$, $\hat{\beta}_1 \xrightarrow{p} \beta_1$ (under Assumptions 1–4, if errors are i.i.d.). The estimator converges in probability to the true parameter. Even if homoskedasticity is violated, OLS remains consistent.</p>
+                </div>
+
+                <div class="concept-item" style="background: var(--gold-pale); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Asymptotic Normality</strong></div>
+                    <p>As $n \to \infty$, under suitable conditions:</p>
+                    $$\sqrt{n}(\hat{\beta}_1 - \beta_1) \xrightarrow{d} N\left(0, \frac{\sigma^2}{E[(x - \mu_x)^2]}\right)$$
+                    <p>This allows us to conduct hypothesis tests and construct confidence intervals in large samples, even if errors are not normally distributed (Assumption 6 not needed).</p>
+                </div>
+
+                <div class="concept-item" style="background: #E8D5C4; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-bottom: none;">
+                    <div class="concept-label"><strong>Efficiency of OLS</strong></div>
+                    <p>Among all linear unbiased estimators, OLS minimizes the variance (Gauss-Markov). If additionally $u \sim N(0, \sigma^2)$ (Assumption 6), OLS is also <strong>maximum likelihood estimator (MLE)</strong> and achieves the Cramér-Rao lower bound (asymptotically efficient).</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 20px;">
+                <p><strong>Summary Table:</strong></p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr style="border-bottom: 2px solid var(--gold);">
+                        <th style="text-align: left; padding: 8px; background-color: var(--gold-pale);">Property</th>
+                        <th style="text-align: left; padding: 8px; background-color: var(--gold-pale);">Assumptions Needed</th>
+                        <th style="text-align: left; padding: 8px; background-color: var(--gold-pale);">Implication</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--gold-pale);">
+                        <td style="padding: 8px;">Unbiasedness</td>
+                        <td style="padding: 8px;">1–4</td>
+                        <td style="padding: 8px;">No systematic error across samples</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--gold-pale);">
+                        <td style="padding: 8px;">BLUE</td>
+                        <td style="padding: 8px;">1–5</td>
+                        <td style="padding: 8px;">Smallest variance among linear unbiased estimators</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--gold-pale);">
+                        <td style="padding: 8px;">Consistency</td>
+                        <td style="padding: 8px;">1–4 (modified)</td>
+                        <td style="padding: 8px;">Converges to true value as sample grows</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px;">Normality (for tests)</td>
+                        <td style="padding: 8px;">1–6</td>
+                        <td style="padding: 8px;">Exact $t$- and $F$-tests in small samples</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div> <!-- Close container -->
+    </div> <!-- Close ols-theory-tab -->
+
+        <!-- TAB 2: CHEAT SHEET -->
+    <div id="cheat-sheet-tab" class="tab-content">
 
     <!-- MAIN CONTENT -->
     <div class="container">
@@ -940,6 +1285,10 @@
 
     </div>
 
+    </div> <!-- Close cheat-sheet-tab -->
+
+
+
     <!-- FOOTER -->
     <div class="footer">
         <p>Torin Learning Group: Econometrics Midterm Cheat Sheet</p>
@@ -947,6 +1296,96 @@
     </div>
 
     <script>
+    // ===== DERIVATION STEP-THROUGH =====
+    var derivCurrentStep = 1;
+    var derivTotalSteps = 6;
+
+    function showDerivStep(n) {
+      for (var i = 1; i <= derivTotalSteps; i++) {
+        var el = document.getElementById('deriv-step-' + i);
+        if (el) el.style.display = (i <= n) ? 'block' : 'none';
+      }
+      document.getElementById('deriv-step-counter').textContent = 'Step ' + n + ' of ' + derivTotalSteps;
+      document.getElementById('deriv-prev-btn').disabled = (n <= 1);
+      document.getElementById('deriv-next-btn').disabled = (n >= derivTotalSteps);
+      document.getElementById('deriv-next-btn').textContent = (n >= derivTotalSteps) ? 'Complete ✓' : 'Next Step →';
+      document.getElementById('deriv-next-btn').style.background = (n >= derivTotalSteps) ? 'var(--gold)' : 'var(--green-medium)';
+      // Re-render MathJax
+      if (window.MathJax && MathJax.typesetPromise) {
+        var step = document.getElementById('deriv-step-' + n);
+        if (step) MathJax.typesetPromise([step]);
+      }
+    }
+
+    function nextDerivStep() {
+      if (derivCurrentStep < derivTotalSteps) {
+        derivCurrentStep++;
+        showDerivStep(derivCurrentStep);
+      }
+    }
+
+    function prevDerivStep() {
+      if (derivCurrentStep > 1) {
+        derivCurrentStep--;
+        showDerivStep(derivCurrentStep);
+      }
+    }
+
+    // ===== HESSIAN TOGGLE =====
+    function toggleHessian() {
+      var content = document.getElementById('hessian-content');
+      var btn = document.getElementById('hessian-toggle-btn');
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        btn.textContent = 'Hide Second-Order Condition (Hessian) ▾';
+        btn.style.background = 'var(--gold-pale)';
+        btn.style.borderColor = 'var(--gold)';
+        if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise([content]);
+        }
+      } else {
+        content.style.display = 'none';
+        btn.textContent = 'Show Second-Order Condition (Hessian) ▸';
+        btn.style.background = 'var(--cream-dark)';
+        btn.style.borderColor = 'var(--gold-light)';
+      }
+    }
+
+    // ===== TAB SWITCHING =====
+    function switchTab(tabId) {
+        // Hide all tab content
+        var tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+
+        // Remove active class from all buttons
+        var buttons = document.querySelectorAll('.tab-button');
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // Show the selected tab
+        var selectedTab = document.getElementById(tabId);
+        if (selectedTab) {
+            selectedTab.classList.add('active');
+        }
+
+        // Mark the corresponding button as active
+        event.target.classList.add('active');
+
+        // Retypeset MathJax in the newly visible content
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([selectedTab]);
+        }
+
+        // Redraw OLS canvas if switching to OLS theory tab
+        if (tabId === 'ols-theory-tab') {
+            setTimeout(drawOLS, 100);
+        }
+    }
+
+    // ===== EXISTING DERIVATION TOGGLE =====
     function toggleDerivation() {
         var content = document.getElementById('derivation-content');
         var button = content.previousElementSibling;
@@ -962,6 +1401,139 @@
             }
         }
     }
+
+    // ===== OLS INTERACTIVE VISUALIZATION =====
+    const olsSlopeSlider = document.getElementById('olsSlopeSlider');
+    const olsIntSlider = document.getElementById('olsIntSlider');
+    const olsSlopeVal = document.getElementById('olsSlopeVal');
+    const olsIntVal = document.getElementById('olsIntVal');
+    const olsInfo = document.getElementById('olsInfo');
+    if (olsSlopeSlider) olsSlopeSlider.addEventListener('input', drawOLS);
+    if (olsIntSlider) olsIntSlider.addEventListener('input', drawOLS);
+
+    function drawOLS() {
+      const canvas = document.getElementById('olsCanvas');
+      if (!canvas) return;
+      const w = canvas.parentElement.offsetWidth - 2;
+      const b1 = parseFloat(olsSlopeSlider.value);
+      const b0 = parseFloat(olsIntSlider.value);
+      olsSlopeVal.textContent = b1.toFixed(2);
+      olsIntVal.textContent = b0.toFixed(2);
+      const data = [[1,3],[1.5,3],[2,3.8],[3,3.8],[3.5,5.1],[4,4.7],[5,5.9],[5.5,5.9],[6,6.9],[6.5,6.7],[7,8.6],[6,4.8]];
+      const xMin = -0.5, xMax = 8.5, yMin = -0.5, yMax = 9.5;
+      const xRange = xMax - xMin;
+      const yRange = yMax - yMin;
+      const h = w * (yRange / xRange);
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      const ppuX = w / xRange;
+      const ppuY = h / yRange;
+      function toC(x, y) {
+        return [(x - xMin) * ppuX, h - (y - yMin) * ppuY];
+      }
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i <= 8; i++) {
+        const [gx] = toC(i, 0);
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
+      }
+      for (let j = 0; j <= 9; j++) {
+        const [,gy] = toC(0, j);
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+      ctx.lineWidth = 1;
+      const [ax0, ay0] = toC(0, 0);
+      ctx.beginPath(); ctx.moveTo(0, ay0); ctx.lineTo(w, ay0); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ax0, 0); ctx.lineTo(ax0, h); ctx.stroke();
+      ctx.fillStyle = 'rgba(0,0,0,0.4)';
+      ctx.font = Math.round(w * 0.025) + 'px sans-serif';
+      ctx.textAlign = 'center';
+      for (let i = 1; i <= 8; i++) {
+        const [gx] = toC(i, 0);
+        ctx.fillText(i, gx, ay0 + 14);
+      }
+      for (let j = 1; j <= 9; j++) {
+        const [,gy] = toC(0, j);
+        ctx.textAlign = 'right';
+        ctx.fillText(j, ax0 - 5, gy + 4);
+      }
+      let SSR = 0;
+      let labelInfo = null;
+      data.forEach(([xi, yi], idx) => {
+        const yhat = b0 + b1 * xi;
+        const res = yi - yhat;
+        const resSq = res * res;
+        SSR += resSq;
+        const side = Math.abs(res);
+        const sidePx = side * ppuX;
+        const [px, py] = toC(xi, yi);
+        const [, pyhat] = toC(xi, yhat);
+        const top = Math.min(py, pyhat);
+        ctx.fillStyle = 'rgba(231,115,115,0.2)';
+        ctx.strokeStyle = 'rgba(231,115,115,0.5)';
+        ctx.lineWidth = 1;
+        ctx.fillRect(px, top, sidePx, sidePx);
+        ctx.strokeRect(px, top, sidePx, sidePx);
+        ctx.strokeStyle = 'rgba(231,115,115,0.7)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, pyhat); ctx.stroke();
+        ctx.setLineDash([]);
+        if (idx === 3) {
+          labelInfo = { xi, yi, res, resSq, px, top, sidePx };
+        }
+      });
+      // Label the 4th data point's residual square
+      if (labelInfo) {
+        const m = labelInfo;
+        ctx.fillStyle = 'rgba(180,50,50,0.8)';
+        ctx.font = 'bold ' + Math.round(w * 0.022) + 'px sans-serif';
+        ctx.textAlign = 'left';
+        const labelX = m.px + m.sidePx + 5;
+        const labelY = m.top + m.sidePx * 0.35;
+        ctx.fillText('û² = ' + m.resSq.toFixed(2), labelX, labelY);
+        ctx.font = Math.round(w * 0.019) + 'px sans-serif';
+        ctx.fillText('û = ' + m.res.toFixed(2), labelX, labelY + Math.round(w * 0.028));
+      }
+      // Draw regression line
+      ctx.strokeStyle = '#C8A84E';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      const [lx0, ly0] = toC(xMin, b0 + b1 * xMin);
+      const [lx1, ly1] = toC(xMax, b0 + b1 * xMax);
+      ctx.moveTo(lx0, ly0); ctx.lineTo(lx1, ly1);
+      ctx.stroke();
+      // Draw data points
+      ctx.fillStyle = '#3B5323';
+      data.forEach(([xi, yi]) => {
+        const [px, py] = toC(xi, yi);
+        ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+      });
+      // Mark mean point
+      const [mx, my] = toC(4.25, 5.18);
+      ctx.strokeStyle = '#C8A84E';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(mx, my, 10, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.font = Math.round(w * 0.023) + 'px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('(x̄, ȳ)', mx + 13, my - 4);
+      const optSSR = 5.66;
+      const isOpt = (Math.abs(b1 - 0.75) < 0.03 && Math.abs(b0 - 2.0) < 0.06);
+      if (isOpt) {
+        olsInfo.textContent = 'SSR = ' + SSR.toFixed(2) + ' — this is the OLS minimum! The line passes through (x̄, ȳ) = (4.25, 5.18).';
+      } else {
+        olsInfo.textContent = 'SSR = ' + SSR.toFixed(2) + '  (OLS minimum ≈ 5.66). Difference = +' + (SSR - optSSR).toFixed(2);
+      }
+    }
+
+    // Initialize OLS canvas on page load
+    window.addEventListener('load', function() {
+      drawOLS();
+    });
     </script>
 
 </body>
