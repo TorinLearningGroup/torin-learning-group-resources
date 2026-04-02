@@ -1231,7 +1231,7 @@
             <div class="section-number">3</div>
             <h2>$u$-Substitution</h2>
         </div>
-        <p>The chain rule in reverse, and the single most frequently used technique. If only one method sticks, make it this one.</p>
+        <p>The chain rule in reverse, and the single most frequently used technique. If only one method sticks, make it this one. (The name "substitution" refers to replacing a complicated expression with a single variable $u$, transforming the integral into a simpler one.)</p>
 
         <div class="technique-section" style="background: rgba(139,94,60,0.06); border-left: 4px solid #8B5E3C;">
             <h3>The Method</h3>
@@ -1241,7 +1241,13 @@
                 $$\int f\!\bigl(g(x)\bigr)\,g'(x)\,dx = \int f(u)\,du \quad\text{where } u = g(x),\;\; du = g'(x)\,dx$$
             </div>
 
-            <p style="margin-top:12px;"><strong>How to pick $u$:</strong> Look for a composition (a function inside another function). Good candidates are the "inner" function of a composition, or the piece whose derivative already appears elsewhere in the integrand. If the $du$ you compute differs from what's in the integral by only a constant, you can adjust — constants pull in and out of integrals freely.</p>
+            <p style="margin-top:10px;"><strong>How to apply it:</strong></p>
+            <div style="background: rgba(200,168,78,0.08); border-radius: 8px; padding: 14px 18px; margin: 8px 0 14px;">
+                <p style="margin: 0 0 6px;"><strong>1.</strong> Identify the inner function $u = g(x)$. Look for a function inside another function, or a piece whose derivative appears elsewhere in the integrand.</p>
+                <p style="margin: 0 0 6px;"><strong>2.</strong> Compute $du = g'(x)\,dx$. If it differs from what's in the integral by only a constant, adjust freely (constants pull in and out of integrals).</p>
+                <p style="margin: 0 0 6px;"><strong>3.</strong> Rewrite the entire integral in terms of $u$ and $du$. No $x$'s should remain.</p>
+                <p style="margin: 0;"><strong>4.</strong> Integrate in $u$, then substitute back $u = g(x)$ to return to the original variable. (For definite integrals, convert the bounds to $u$-values instead of substituting back.)</p>
+            </div>
 
             <div class="step-example" style="margin-top:14px;"><span class="step-label">Worked Example — Indefinite</span></div>
             <p><strong>Evaluate</strong> $\displaystyle\int 2x\,e^{x^2}\,dx$</p>
@@ -1286,14 +1292,20 @@
             <div class="section-number">4</div>
             <h2>Integration by Parts</h2>
         </div>
-        <p>The product rule in reverse. Use this when the integrand is a product of two different "types" of function and $u$-sub doesn't fit.</p>
+        <p>The product rule in reverse. Use this when the integrand is a product of two different "types" of function and $u$-sub doesn't fit. (The name "by parts" refers to splitting the integrand into two parts: one you differentiate and one you integrate.)</p>
 
         <div class="technique-section" style="background: rgba(59,83,35,0.06); border-left: 4px solid #3B5323;">
             <h3>The Formula &amp; LIATE</h3>
             <div class="step-concept"><span class="step-label">Concept</span></div>
             <p>From the product rule $d(uv) = u\,dv + v\,du$, we rearrange to get:</p>
             <div class="highlight-box">$$\int u\,dv = uv - \int v\,du$$</div>
-            <p style="margin-top:10px;">The goal is to choose $u$ and $dv$ so that $\int v\,du$ is <em>simpler</em> than the original integral. The <strong>LIATE</strong> heuristic tells you which factor makes a good $u$ — pick from the top of this list:</p>
+            <p style="margin-top:10px;"><strong>How to apply it:</strong></p>
+            <div style="background: rgba(200,168,78,0.08); border-radius: 8px; padding: 14px 18px; margin: 8px 0 14px;">
+                <p style="margin: 0 0 6px;"><strong>1.</strong> Choose $u$ from the integrand (use LIATE below). Everything else is $dv$.</p>
+                <p style="margin: 0 0 6px;"><strong>2.</strong> Differentiate $u$ to get $du$. Integrate $dv$ to get $v$.</p>
+                <p style="margin: 0;"><strong>3.</strong> Plug into the formula: $uv - \int v\,du$. The new integral $\int v\,du$ should be simpler than the original.</p>
+            </div>
+            <p>The <strong>LIATE</strong> heuristic tells you which factor makes a good $u$. Pick from the top of this list:</p>
             <div style="display:grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 10px 0 0 10px; font-size:15px;">
                 <strong>L</strong><span>Logarithmic — $\ln x$, $\log x$</span>
                 <strong>I</strong><span>Inverse trig — $\arctan x$, $\arcsin x$</span>
@@ -1458,7 +1470,13 @@
             <div class="step-concept"><span class="step-label">Concept</span></div>
             <p>When the denominator factors into distinct linear terms like $(x-a)(x-b)$, set up one fraction for each factor:</p>
             <div class="highlight-box">$$\frac{P(x)}{(x-a)(x-b)} = \frac{A}{x-a} + \frac{B}{x-b}$$</div>
-            <p style="margin-top:8px;">Find $A$ and $B$ by the <strong>cover-up method</strong>: to find $A$, "cover up" the $(x-a)$ factor in the original fraction and plug in $x = a$. Each fraction then integrates to a $\ln$ term.</p>
+            <p style="margin-top:10px;"><strong>How to apply it:</strong></p>
+            <div style="background: rgba(200,168,78,0.08); border-radius: 8px; padding: 14px 18px; margin: 8px 0 14px;">
+                <p style="margin: 0 0 6px;"><strong>1.</strong> Factor the denominator completely into linear terms $(x - a)(x - b)\cdots$</p>
+                <p style="margin: 0 0 6px;"><strong>2.</strong> Write one partial fraction $\dfrac{A}{x-a} + \dfrac{B}{x-b} + \cdots$ for each factor.</p>
+                <p style="margin: 0 0 6px;"><strong>3.</strong> Find each constant using the <strong>cover-up method</strong>: to find $A$, "cover up" the $(x-a)$ factor in the original fraction and plug in $x = a$. Repeat for each constant.</p>
+                <p style="margin: 0;"><strong>4.</strong> Integrate the pieces separately: $\displaystyle\int \frac{A}{x-a}\,dx + \int \frac{B}{x-b}\,dx = A\ln|x-a| + B\ln|x-b| + C$.</p>
+            </div>
 
             <div class="step-example" style="margin-top:14px;"><span class="step-label">Worked Example</span></div>
             <p><strong>Evaluate</strong> $\displaystyle\int \frac{5x+1}{(x+1)(x-2)}\,dx$</p>
@@ -1471,7 +1489,7 @@
                     <p style="margin-top:6px;"><strong>Step 3:</strong> Cover-up for $B$: cover the $(x-2)$ factor, plug in $x = 2$:</p>
                     $$B = \frac{5(2)+1}{(2)+1} = \frac{11}{3}$$
                     <p style="margin-top:6px;"><strong>Step 4:</strong> Integrate each piece:</p>
-                    $$= \frac{4}{3}\ln|x+1| + \frac{11}{3}\ln|x-2| + C$$
+                    $$\int \frac{4/3}{x+1}\,dx + \int \frac{11/3}{x-2}\,dx = \frac{4}{3}\ln|x+1| + \frac{11}{3}\ln|x-2| + C$$
                 </div>
             </div>
 
