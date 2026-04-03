@@ -1934,12 +1934,12 @@ function drawVectorField() {
 
     for (let x = step; x < canvas.width; x += step) {
         for (let y = step; y < canvas.height; y += step) {
-            const field = getElectricField(x, y);
+            const field = getFieldForTrace(x, y);
             const mag = Math.hypot(field.Ex, field.Ey);
-
-            if (mag > 10) {
-                const logMag = Math.log10(mag + 1);
+            if (mag > 1e-6) {
+                const logMag = Math.log10(mag + 1e-5) + 5;
                 const arrowLen = Math.min(arrowScale, arrowScale * logMag / 3.5);
+                if (arrowLen < 3) continue;
                 const ux = field.Ex / mag;
                 const uy = field.Ey / mag;
 
