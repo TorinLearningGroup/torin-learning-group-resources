@@ -523,8 +523,8 @@
                 <div class="slider-group">
                     <label>Visualization Mode</label>
                     <div class="mode-buttons">
-                        <button class="mode-btn active" data-mode="vectors" onclick="setVisualizationMode('vectors', this)">Vectors</button>
-                        <button class="mode-btn" data-mode="lines" onclick="setVisualizationMode('lines', this)">Field Lines</button>
+                        <button class="mode-btn" data-mode="vectors" onclick="setVisualizationMode('vectors', this)">Vectors</button>
+                        <button class="mode-btn active" data-mode="lines" onclick="setVisualizationMode('lines', this)">Field Lines</button>
                         <button class="mode-btn" data-mode="equipotential" onclick="setVisualizationMode('equipotential', this)">Equipotentials</button>
                         <button class="mode-btn" data-mode="combined" onclick="setVisualizationMode('combined', this)">Lines + Vectors</button>
                     </div>
@@ -1531,7 +1531,7 @@ function toggleSolution(btn) {
 const KE = 8.99e9; // Coulomb's constant
 
 let charges = [];
-let visualizationMode = 'vectors';
+let visualizationMode = 'lines';
 let showHeatmap = false;
 let testChargeMode = false;
 let testCharge = null;
