@@ -225,16 +225,29 @@ li{margin-bottom:10px;}
 <div class="concept-body"><div class="concept-label">Geometric Sequence</div><p style="margin:0;">Each term is obtained by <strong>multiplying by a constant ratio $r$</strong>. The graph of terms is exponential.</p><p style="margin:4px 0 0;font-size:13px;color:var(--text-medium);">Example: $3, 6, 12, 24, \ldots$ with $r = 2$</p></div>
 </div>
 <div class="concept-item">
-<div class="concept-visual"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" fill="#F3E8FF" rx="6"/><rect x="6" y="10" width="12" height="44" rx="2" fill="#C8A84E" opacity="0.3"/><rect x="20" y="18" width="12" height="36" rx="2" fill="#C8A84E" opacity="0.3"/><rect x="34" y="26" width="12" height="28" rx="2" fill="#C8A84E" opacity="0.3"/><rect x="48" y="34" width="12" height="20" rx="2" fill="#C8A84E" opacity="0.3"/><line x1="12" y1="14" x2="12" y2="50" stroke="#C75050" stroke-width="2.5" stroke-dasharray="3,2"/><line x1="26" y1="22" x2="26" y2="50" stroke="#C75050" stroke-width="2.5" stroke-dasharray="3,2"/><line x1="40" y1="30" x2="40" y2="50" stroke="#C75050" stroke-width="2.5" stroke-dasharray="3,2"/><rect x="6" y="10" width="12" height="8" rx="2" fill="#3B5323"/><rect x="48" y="34" width="12" height="20" rx="2" fill="#3B5323"/><text x="4" y="62" font-size="7" fill="#5C4033" font-family="sans-serif">middle cancels</text></svg></div>
-<div class="concept-body"><div class="concept-label">Telescoping Series</div><p style="margin:0;">A series where most terms <strong>cancel in pairs</strong> when expanded, like a collapsing telescope. Use <strong>partial fraction decomposition</strong> to split terms into a cancelling form — only the first and last pieces survive.</p><p style="margin:4px 0 0;font-size:13px;color:var(--text-medium);">Example: $\displaystyle\sum \frac{1}{k(k+1)} = \sum\!\left(\frac{1}{k}-\frac{1}{k+1}\right)$ telescopes to $1 - \frac{1}{n+1}$</p></div>
-</div>
-<div class="concept-item">
 <div class="concept-visual"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" fill="#FBE9E7" rx="6"/><circle cx="8" cy="32" r="4" fill="#8B5E3C"/><circle cx="22" cy="10" r="4" fill="#8B5E3C"/><circle cx="38" cy="50" r="4" fill="#8B5E3C"/><circle cx="54" cy="20" r="4" fill="#8B5E3C"/><line x1="8" y1="32" x2="22" y2="10" stroke="#C8A84E" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="22" y1="10" x2="38" y2="50" stroke="#C8A84E" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="38" y1="50" x2="54" y2="20" stroke="#C8A84E" stroke-width="1.5" stroke-dasharray="3,2"/><text x="2" y="62" font-size="8" fill="#8B5E3C" font-family="sans-serif">no pattern</text></svg></div>
 <div class="concept-body"><div class="concept-label">Other Sequences (e.g., Fibonacci)</div><p style="margin:0;">Neither arithmetic nor geometric. Often <strong>only definable recursively</strong> — no clean explicit formula. The Fibonacci sequence ($F_n = F_{n-1} + F_{n-2}$) is the most famous example.</p><p style="margin:4px 0 0;font-size:13px;color:var(--text-medium);">Examples: $1, 1, 2, 3, 5, 8, \ldots$ (Fibonacci); $1, 4, 9, 16, \ldots$ (squares)</p></div>
 </div>
 </div>
 
-<div class="section-header"><div class="section-number">4</div><h2>Sequence vs. Series</h2></div>
+<div class="section-header"><div class="section-number">4</div><h2>Types of Series</h2></div>
+<p style="color:var(--text-medium);margin-bottom:14px;">When we <strong>add up</strong> the terms of a sequence, we get a <strong>series</strong>. Each sequence type has a corresponding series with its own behavior.</p>
+<div class="concept-list">
+<div class="concept-item">
+<div class="concept-visual"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" fill="#E8F5E9" rx="6"/><rect x="4" y="38" width="10" height="18" rx="2" fill="#3B5323"/><rect x="18" y="30" width="10" height="26" rx="2" fill="#4A6830"/><rect x="32" y="22" width="10" height="34" rx="2" fill="#5A7D3A"/><rect x="46" y="14" width="10" height="42" rx="2" fill="#3B5323"/><line x1="4" y1="56" x2="56" y2="56" stroke="#C8A84E" stroke-width="1.5"/><text x="4" y="10" font-size="8" fill="#3B5323" font-family="sans-serif">grows forever</text></svg></div>
+<div class="concept-body"><div class="concept-label">Arithmetic Series</div><p style="margin:0;">Sum of an arithmetic sequence. Has a <strong>closed-form formula</strong> for finite sums, but <strong>always diverges</strong> as an infinite series because terms grow linearly.</p><p style="margin:4px 0 0;font-size:13px;color:var(--text-medium);">$\displaystyle\sum_{k=1}^{n}\bigl(a_1+(k-1)d\bigr) = \frac{n(a_1+a_n)}{2}$ &nbsp; | &nbsp; Infinite: always $\pm\infty$</p></div>
+</div>
+<div class="concept-item">
+<div class="concept-visual"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" fill="#FFF8E1" rx="6"/><rect x="4" y="8" width="10" height="48" rx="2" fill="#C8A84E"/><rect x="18" y="20" width="10" height="36" rx="2" fill="#C8A84E" opacity="0.8"/><rect x="32" y="32" width="10" height="24" rx="2" fill="#C8A84E" opacity="0.6"/><rect x="46" y="40" width="10" height="16" rx="2" fill="#C8A84E" opacity="0.4"/><line x1="0" y1="18" x2="60" y2="18" stroke="#3B5323" stroke-width="1.5" stroke-dasharray="3,2"/><text x="4" y="62" font-size="7" fill="#8B6914" font-family="sans-serif">converges if |r|&lt;1</text></svg></div>
+<div class="concept-body"><div class="concept-label">Geometric Series</div><p style="margin:0;">Sum of a geometric sequence. <strong>Converges</strong> when $|r| < 1$ (terms shrink to zero), <strong>diverges</strong> when $|r| \geq 1$.</p><p style="margin:4px 0 0;font-size:13px;color:var(--text-medium);">Finite: $a_1\!\cdot\!\frac{1-r^n}{1-r}$ &nbsp; | &nbsp; Infinite ($|r|<1$): $\frac{a_1}{1-r}$</p></div>
+</div>
+<div class="concept-item">
+<div class="concept-visual"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" fill="#F3E8FF" rx="6"/><rect x="6" y="10" width="12" height="44" rx="2" fill="#C8A84E" opacity="0.3"/><rect x="20" y="18" width="12" height="36" rx="2" fill="#C8A84E" opacity="0.3"/><rect x="34" y="26" width="12" height="28" rx="2" fill="#C8A84E" opacity="0.3"/><rect x="48" y="34" width="12" height="20" rx="2" fill="#C8A84E" opacity="0.3"/><line x1="12" y1="14" x2="12" y2="50" stroke="#C75050" stroke-width="2.5" stroke-dasharray="3,2"/><line x1="26" y1="22" x2="26" y2="50" stroke="#C75050" stroke-width="2.5" stroke-dasharray="3,2"/><line x1="40" y1="30" x2="40" y2="50" stroke="#C75050" stroke-width="2.5" stroke-dasharray="3,2"/><rect x="6" y="10" width="12" height="8" rx="2" fill="#3B5323"/><rect x="48" y="34" width="12" height="20" rx="2" fill="#3B5323"/><text x="4" y="62" font-size="7" fill="#5C4033" font-family="sans-serif">middle cancels</text></svg></div>
+<div class="concept-body"><div class="concept-label">Telescoping Series</div><p style="margin:0;">A series where most terms <strong>cancel in pairs</strong> when expanded, like a collapsing telescope. Use <strong>partial fraction decomposition</strong> to reveal the cancellation — only the first and last pieces survive.</p><p style="margin:4px 0 0;font-size:13px;color:var(--text-medium);">$\displaystyle\sum \frac{1}{k(k+1)} = \sum\!\left(\frac{1}{k}-\frac{1}{k+1}\right)$ telescopes to $1 - \frac{1}{n+1}$</p></div>
+</div>
+</div>
+
+<div class="section-header"><div class="section-number">5</div><h2>Sequence vs. Series</h2></div>
 <div class="card">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
 <div style="text-align:center;padding:20px;background:rgba(59,83,35,0.06);border-radius:10px;">
@@ -473,55 +486,6 @@ li{margin-bottom:10px;}
 
 <div class="card">
 <p><strong>How to read the chart:</strong> Each <span style="color:#3B5323;font-weight:600;">green bar</span> shows the value of $F_n$. Above each bar, the <span style="color:#C8A84E;font-weight:600;">gold number</span> shows the ratio $F_n / F_{n-1}$ — notice how it quickly converges to $\phi \approx 1.618$, the golden ratio. The arrows show how each term is built: $F_n = F_{n-1} + F_{n-2}$.</p>
-</div>
-<!-- ═══ §3 — Telescoping Series Visualizer ═══ -->
-<div class="section-header" style="margin-top: 40px;">
-<div class="section-number">3</div>
-<h2>Telescoping Series — Watch the Cancellation</h2>
-</div>
-
-<div class="card" style="border-left-color: var(--green-dark); margin-bottom: 16px;">
-<p>A <strong>telescoping series</strong> is one where most terms cancel in pairs when you write out the partial sums, like a collapsing telescope. The visualizer below shows exactly which terms survive and which cancel.</p>
-</div>
-
-<div class="viz-container">
-<h3 style="margin-bottom: 8px; font-family: 'Playfair Display', serif; color: var(--green-dark);">Telescoping Cancellation Visualizer</h3>
-<p style="margin-bottom: 12px; color: var(--text-medium);">Choose a series and number of terms. Watch the partial fractions expand and cancel — only the first and last pieces survive.</p>
-<div class="viz-controls">
-    <div class="slider-group">
-        <label>Series</label>
-        <select id="tele-type" onchange="updateTeleViz()" style="padding:6px 10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
-            <option value="reciprocal">∑ 1/[k(k+1)]</option>
-            <option value="threes">∑ 3/[k(k+1)]</option>
-            <option value="consecutive">∑ 1/[k(k+2)]</option>
-            <option value="sqrt">∑ (√(k+1) − √k)</option>
-        </select>
-    </div>
-    <div class="slider-group">
-        <label>Number of terms ($n$)</label>
-        <div class="slider-row">
-            <input type="range" id="tele-n" min="3" max="10" step="1" value="5" oninput="updateTeleViz()">
-            <span class="n-display" id="tele-n-val">5</span>
-        </div>
-    </div>
-</div>
-<div class="viz-canvas-wrap" style="text-align:center;">
-    <canvas id="canvas-tele" width="900" height="400" style="max-width:100%;border-radius:8px;border:1px solid var(--cream-dark);"></canvas>
-</div>
-<div class="readout-panel">
-    <div class="readout-item">
-        <div class="readout-label">Terms that cancel</div>
-        <div class="readout-value" id="tele-cancelled" style="font-size: 16px; color: #C75050;">—</div>
-    </div>
-    <div class="readout-item">
-        <div class="readout-label">Terms that survive</div>
-        <div class="readout-value" id="tele-survive" style="font-size: 16px; color: var(--green-dark);">—</div>
-    </div>
-    <div class="readout-item">
-        <div class="readout-label">Partial Sum $S_n$</div>
-        <div class="readout-value" id="tele-sum" style="font-size: 16px;">—</div>
-    </div>
-</div>
 </div>
 
 </div><!-- end tab-visualizer -->
@@ -834,11 +798,203 @@ li{margin-bottom:10px;}
 </div></div>
 </div></div>
 </div>
+
+<div class="section-header"><div class="section-number">3</div><h2>Arithmetic &amp; Geometric Series in Sigma Notation</h2></div>
+
+<div class="card" style="border-left-color: var(--green-dark); margin-bottom: 16px;">
+<p>Now that we can read and write sigma notation, let's see how our two main series types look in $\Sigma$ form — and when they converge or diverge.</p>
+</div>
+
+<div class="technique-section" style="background:rgba(59,83,35,0.06);border-left:4px solid #3B5323;">
+<h3>Arithmetic Series</h3>
+<div class="step-concept"><span class="step-label">General Form</span>
+<p>An arithmetic sequence $a_k = a_1 + (k-1)d$ gives the <strong>finite</strong> arithmetic series:</p>
+<div class="highlight-box">
+<p>$$\sum_{k=1}^{n}\bigl(a_1 + (k-1)d\bigr) = \frac{n}{2}(2a_1 + (n-1)d) = \frac{n(a_1 + a_n)}{2}$$</p>
+</div>
+</div>
+<div class="step-example"><span class="step-label">Examples</span>
+<button class="example-toggle" onclick="toggleExample(this)"><span class="arrow">&#9654;</span> Show Examples</button>
+<div class="example-body">
+<div class="highlight-box">
+<p><strong>Sum of first $n$ positive integers:</strong></p>
+<p>$$\sum_{k=1}^{n} k = \frac{n(n+1)}{2}$$</p>
+<p style="margin-top:10px;"><strong>Sum of first $n$ odd numbers:</strong></p>
+<p>$$\sum_{k=1}^{n}(2k-1) = 1 + 3 + 5 + \cdots + (2n-1) = n^2$$</p>
+<p style="margin-top:10px;"><strong>Specific example:</strong> $\displaystyle\sum_{k=1}^{50}(3k+2) = \sum_{k=1}^{50}3k + \sum_{k=1}^{50}2 = 3\cdot\frac{50\cdot51}{2}+100 = 3825 + 100 = \mathbf{3925}$</p>
+</div>
+</div>
+</div>
+<div class="step-concept" style="margin-top:12px;"><span class="step-label" style="background:var(--brown-medium);color:var(--gold-light);">Convergence</span>
+<div class="warning-box" style="margin-top:8px;">
+<p><strong>Arithmetic series always diverge</strong> (unless $d = 0$ and $a_1 = 0$). Since the terms don't approach zero — they grow linearly — the partial sums grow without bound:</p>
+<p>$$\sum_{k=1}^{\infty}\bigl(a_1 + (k-1)d\bigr) = \pm\infty \quad \text{(always diverges)}$$</p>
+<p style="margin-top:6px;"><em>Intuition: You're adding bigger and bigger numbers forever. The sum can never settle down.</em></p>
+</div>
+</div>
+</div>
+
+<div class="technique-section" style="background:rgba(200,168,78,0.06);border-left:4px solid #C8A84E; margin-top: 20px;">
+<h3>Geometric Series</h3>
+<div class="step-concept"><span class="step-label">General Form</span>
+<p>A geometric sequence $a_k = a_1 \cdot r^{k-1}$ gives the <strong>finite</strong> geometric series:</p>
+<div class="highlight-box">
+<p>$$\sum_{k=1}^{n} a_1 \cdot r^{k-1} = a_1\cdot\frac{1-r^n}{1-r} \qquad (r \neq 1)$$</p>
+</div>
+<p style="margin-top:10px;">And the <strong>infinite</strong> geometric series (when it converges):</p>
+<div class="highlight-box">
+<p>$$\sum_{k=1}^{\infty} a_1 \cdot r^{k-1} = \frac{a_1}{1-r} \qquad \text{only if } |r| < 1$$</p>
+</div>
+</div>
+<div class="step-example"><span class="step-label">Examples</span>
+<button class="example-toggle" onclick="toggleExample(this)"><span class="arrow">&#9654;</span> Show Examples</button>
+<div class="example-body">
+<div class="highlight-box">
+<p><strong>Converges</strong> ($|r| < 1$):</p>
+<p>$$\sum_{k=0}^{\infty}\left(\frac{1}{2}\right)^k = \frac{1}{1-\frac{1}{2}} = 2$$</p>
+<p>$$\sum_{k=1}^{\infty}\frac{3}{4^k} = \frac{\frac{3}{4}}{1-\frac{1}{4}} = \frac{3/4}{3/4} = 1$$</p>
+<p style="margin-top:12px;"><strong>Diverges</strong> ($|r| \geq 1$):</p>
+<p>$$\sum_{k=0}^{\infty} 2^k = 1 + 2 + 4 + 8 + \cdots = \infty$$</p>
+<p>$$\sum_{k=0}^{\infty} (-1)^k = 1 - 1 + 1 - 1 + \cdots \quad \text{(oscillates, diverges)}$$</p>
+</div>
+</div>
+</div>
+<div class="step-concept" style="margin-top:12px;"><span class="step-label" style="background:var(--brown-medium);color:var(--gold-light);">Convergence</span>
+<div class="highlight-box" style="margin-top:8px; border-left: 4px solid var(--green-dark);">
+<p><strong>The geometric series $\displaystyle\sum_{k=1}^{\infty} a_1 r^{k-1}$ converges if and only if $|r| < 1$.</strong></p>
+<table style="width:100%;margin-top:10px;border-collapse:collapse;font-size:15px;">
+<tr style="border-bottom:1px solid var(--cream-dark);">
+<td style="padding:6px 10px;font-weight:600;">$|r| < 1$</td>
+<td style="padding:6px 10px;color:var(--green-dark);font-weight:600;">Converges</td>
+<td style="padding:6px 10px;">Terms shrink to 0 → sum settles to $\frac{a_1}{1-r}$</td>
+</tr>
+<tr style="border-bottom:1px solid var(--cream-dark);">
+<td style="padding:6px 10px;font-weight:600;">$|r| > 1$</td>
+<td style="padding:6px 10px;color:#C75050;font-weight:600;">Diverges</td>
+<td style="padding:6px 10px;">Terms grow → sum blows up to $\pm\infty$</td>
+</tr>
+<tr style="border-bottom:1px solid var(--cream-dark);">
+<td style="padding:6px 10px;font-weight:600;">$r = 1$</td>
+<td style="padding:6px 10px;color:#C75050;font-weight:600;">Diverges</td>
+<td style="padding:6px 10px;">Every term equals $a_1$ → sum $= n \cdot a_1 \to \infty$</td>
+</tr>
+<tr>
+<td style="padding:6px 10px;font-weight:600;">$r = -1$</td>
+<td style="padding:6px 10px;color:#C75050;font-weight:600;">Diverges</td>
+<td style="padding:6px 10px;">Terms alternate $+a_1, -a_1$ → partial sums oscillate forever</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+<div class="technique-section" style="background:rgba(139,94,60,0.06);border-left:4px solid var(--brown-medium); margin-top: 20px;">
+<h3>Side-by-Side Summary</h3>
+<div class="highlight-box">
+<table style="width:100%;border-collapse:collapse;font-size:15px;">
+<tr style="border-bottom:2px solid var(--brown-medium);">
+<td style="padding:8px 10px;font-weight:700;"></td>
+<td style="padding:8px 10px;font-weight:700;">Arithmetic</td>
+<td style="padding:8px 10px;font-weight:700;">Geometric</td>
+</tr>
+<tr style="border-bottom:1px solid var(--cream-dark);">
+<td style="padding:8px 10px;font-weight:600;">Sigma form</td>
+<td style="padding:8px 10px;">$\displaystyle\sum_{k=1}^{n}\bigl(a_1+(k-1)d\bigr)$</td>
+<td style="padding:8px 10px;">$\displaystyle\sum_{k=1}^{n} a_1 r^{k-1}$</td>
+</tr>
+<tr style="border-bottom:1px solid var(--cream-dark);">
+<td style="padding:8px 10px;font-weight:600;">Finite sum</td>
+<td style="padding:8px 10px;">$\frac{n(a_1+a_n)}{2}$</td>
+<td style="padding:8px 10px;">$a_1\cdot\frac{1-r^n}{1-r}$</td>
+</tr>
+<tr style="border-bottom:1px solid var(--cream-dark);">
+<td style="padding:8px 10px;font-weight:600;">Infinite sum</td>
+<td style="padding:8px 10px;color:#C75050;">Always diverges</td>
+<td style="padding:8px 10px;">$\frac{a_1}{1-r}$ only if $|r|<1$</td>
+</tr>
+<tr>
+<td style="padding:8px 10px;font-weight:600;">Key test</td>
+<td style="padding:8px 10px;">Terms grow → no chance</td>
+<td style="padding:8px 10px;">$|r|<1$? → converges</td>
+</tr>
+</table>
+</div>
+
+<div class="step-practice" style="margin-top:14px;"><span class="step-label">Practice</span>
+<div class="practice-box">
+<p><strong>(a)</strong> Write $6 + 12 + 24 + 48 + \cdots + 6144$ in sigma notation and evaluate.</p>
+<p><strong>(b)</strong> Does $\displaystyle\sum_{k=1}^{\infty}\frac{5}{3^k}$ converge or diverge? If it converges, find the sum.</p>
+<p><strong>(c)</strong> Does $\displaystyle\sum_{k=1}^{\infty}(4k+1)$ converge or diverge? Explain.</p>
+<p><strong>(d)</strong> Write $\displaystyle\sum_{k=0}^{\infty}7\!\left(-\frac{2}{5}\right)^k$ and determine if it converges. If so, find the sum.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solutions</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> Geometric: $a_1=6$, $r=2$. When $6\cdot 2^{k-1}=6144$: $2^{k-1}=1024$, so $k=11$.</p>
+<p>$\displaystyle\sum_{k=1}^{11}6\cdot 2^{k-1}=6\cdot\frac{1-2^{11}}{1-2}=6\cdot\frac{-2047}{-1}=\mathbf{12{,}282}$</p>
+<p style="margin-top:10px;"><strong>(b)</strong> Geometric with $a_1=\frac{5}{3}$, $r=\frac{1}{3}$. Since $|r|=\frac{1}{3}<1$, it <strong>converges</strong>:</p>
+<p>$\displaystyle S=\frac{5/3}{1-1/3}=\frac{5/3}{2/3}=\mathbf{\frac{5}{2}}$</p>
+<p style="margin-top:10px;"><strong>(c)</strong> Arithmetic with $d=4$. The terms $5, 9, 13, 17, \ldots$ grow without bound, so it <strong>diverges</strong>.</p>
+<p style="margin-top:10px;"><strong>(d)</strong> Geometric with $a_1=7$, $r=-\frac{2}{5}$. Since $|r|=\frac{2}{5}<1$, it <strong>converges</strong>:</p>
+<p>$\displaystyle S=\frac{7}{1-(-2/5)}=\frac{7}{7/5}=\mathbf{5}$</p>
+</div></div>
+</div></div>
+</div>
+
 </div><!-- end tab-sigma -->
 
 <!-- TAB: TELESCOPING -->
 <div id="tab-telescoping" class="tab-content">
-<div class="section-header"><div class="section-number">1</div><h2>Partial Fraction Decomposition</h2></div>
+
+<!-- ═══ §1 — Telescoping Series Visualizer ═══ -->
+<div class="section-header">
+<div class="section-number">1</div>
+<h2>Telescoping Series — Watch the Cancellation</h2>
+</div>
+
+<div class="card" style="border-left-color: var(--green-dark); margin-bottom: 16px;">
+<p>A <strong>telescoping series</strong> is one where most terms cancel in pairs when you write out the partial sums, like a collapsing telescope. The visualizer below shows exactly which terms survive and which cancel.</p>
+</div>
+
+<div class="viz-container">
+<h3 style="margin-bottom: 8px; font-family: 'Playfair Display', serif; color: var(--green-dark);">Telescoping Cancellation Visualizer</h3>
+<p style="margin-bottom: 12px; color: var(--text-medium);">Choose a series and number of terms. Watch the partial fractions expand and cancel — only the first and last pieces survive.</p>
+<div class="viz-controls">
+    <div class="slider-group">
+        <label>Series</label>
+        <select id="tele-type" onchange="updateTeleViz()" style="padding:6px 10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
+            <option value="reciprocal">∑ 1/[k(k+1)]</option>
+            <option value="threes">∑ 3/[k(k+1)]</option>
+            <option value="consecutive">∑ 1/[k(k+2)]</option>
+            <option value="sqrt">∑ (√(k+1) − √k)</option>
+        </select>
+    </div>
+    <div class="slider-group">
+        <label>Number of terms ($n$)</label>
+        <div class="slider-row">
+            <input type="range" id="tele-n" min="3" max="10" step="1" value="5" oninput="updateTeleViz()">
+            <span class="n-display" id="tele-n-val">5</span>
+        </div>
+    </div>
+</div>
+<div class="viz-canvas-wrap" style="text-align:center;">
+    <canvas id="canvas-tele" width="900" height="400" style="max-width:100%;border-radius:8px;border:1px solid var(--cream-dark);"></canvas>
+</div>
+<div class="readout-panel">
+    <div class="readout-item">
+        <div class="readout-label">Terms that cancel</div>
+        <div class="readout-value" id="tele-cancelled" style="font-size: 16px; color: #C75050;">—</div>
+    </div>
+    <div class="readout-item">
+        <div class="readout-label">Terms that survive</div>
+        <div class="readout-value" id="tele-survive" style="font-size: 16px; color: var(--green-dark);">—</div>
+    </div>
+    <div class="readout-item">
+        <div class="readout-label">Partial Sum $S_n$</div>
+        <div class="readout-value" id="tele-sum" style="font-size: 16px;">—</div>
+    </div>
+</div>
+</div>
+
+<div class="section-header"><div class="section-number">2</div><h2>Partial Fraction Decomposition</h2></div>
 <div class="technique-section" style="background:rgba(59,83,35,0.06);border-left:4px solid #3B5323;">
 <h3>Splitting rational terms into telescoping form</h3>
 <div class="step-concept"><span class="step-label">Concept</span>
@@ -856,7 +1012,7 @@ li{margin-bottom:10px;}
 </div>
 </div>
 
-<div class="section-header"><div class="section-number">2</div><h2>Evaluating a Telescoping Series</h2></div>
+<div class="section-header"><div class="section-number">3</div><h2>Evaluating a Telescoping Series</h2></div>
 <div class="technique-section" style="background:rgba(200,168,78,0.06);border-left:4px solid #C8A84E;">
 <h3>Write, cancel, identify survivors</h3>
 <div class="step-concept"><span class="step-label">Concept</span>
@@ -1315,6 +1471,8 @@ function switchTab(name,btn){
   if(name==='visualizer'){
     if(typeof updateViz==='function') setTimeout(updateViz,50);
     if(typeof updateFibViz==='function') setTimeout(updateFibViz,50);
+  }
+  if(name==='telescoping'){
     if(typeof updateTeleViz==='function') setTimeout(updateTeleViz,50);
   }
 }
