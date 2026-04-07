@@ -549,6 +549,15 @@
                 <div style="display: flex; gap: 8px;">
                     <button class="toggle-btn" id="heatmapToggle" onclick="toggleHeatmap()">Voltage Coloring</button>
                     <button class="toggle-btn" id="testChargeToggle" onclick="toggleTestCharge()">Test Charge Mode</button>
+                    <button class="toggle-btn" id="plateToggle" onclick="togglePlates()">Parallel Plates</button>
+                </div>
+
+                <div class="slider-group" id="plateSepGroup" style="display:none;">
+                    <label>Plate Separation</label>
+                    <div class="slider-row">
+                        <input type="range" id="plateSepSlider" min="80" max="500" value="340" step="10" oninput="updatePlateSep()">
+                        <span class="n-display" id="plateSepDisplay">340</span>
+                    </div>
                 </div>
             </div>
 
@@ -1540,6 +1549,8 @@ let lineDensity = 16;
 let gridResolution = 15;
 let selectedChargeIndex = -1;
 let isDraggingCharge = false;
+let plateMode = false;
+const plate = { xPos: 180, xNeg: 520, yTop: 120, yBot: 380, voltage: 5000 }; // V across plates
 
 const canvas = document.getElementById('fieldCanvas');
 const ctx = canvas.getContext('2d');
@@ -1767,6 +1778,31 @@ function getElectricField(x, y) {
             Ey += E * uy;
         }
     }
+    if (plateMode) {
+        const pf = plateFieldAt(x, y);
+        Ex += pf.Ex * 5e3;
+        Ey += pf.Ey * 5e3;
+    }
+    return { Ex, Ey };
+}
+
+// Model plates as two oppositely-charged line segments (gives uniform field
+// between, fringing outside). Returns field in arbitrary units.
+function plateFieldAt(x, y) {
+    let Ex = 0, Ey = 0;
+    const N = 24;
+    const ySpan = plate.yBot - plate.yTop;
+    for (let i = 0; i < N; i++) {
+        const py = plate.yTop + (i + 0.5) * ySpan / N;
+        // + plate
+        let dx = x - plate.xPos, dy = y - py;
+        let r2 = dx*dx + dy*dy;
+        if (r2 > 25) { const r = Math.sqrt(r2); Ex += dx/(r2*r); Ey += dy/(r2*r); }
+        // - plate
+        dx = x - plate.xNeg; dy = y - py;
+        r2 = dx*dx + dy*dy;
+        if (r2 > 25) { const r = Math.sqrt(r2); Ex -= dx/(r2*r); Ey -= dy/(r2*r); }
+    }
     return { Ex, Ey };
 }
 
@@ -1779,7 +1815,54 @@ function getVoltage(x, y) {
         const r = Math.hypot(dx, dy);
         if (r > 2) V += KE * q / r;
     }
+    if (plateMode) {
+        const d = plate.xNeg - plate.xPos;
+        if (y > plate.yTop && y < plate.yBot) {
+            if (x <= plate.xPos) V += plate.voltage / 2;
+            else if (x >= plate.xNeg) V += -plate.voltage / 2;
+            else V += plate.voltage / 2 - (plate.voltage * (x - plate.xPos) / d);
+        }
+    }
     return V;
+}
+
+function togglePlates() {
+    plateMode = !plateMode;
+    document.getElementById('plateToggle').classList.toggle('active', plateMode);
+    document.getElementById('plateSepGroup').style.display = plateMode ? '' : 'none';
+    redrawCanvas();
+}
+
+function updatePlateSep() {
+    const sep = parseInt(document.getElementById('plateSepSlider').value);
+    document.getElementById('plateSepDisplay').textContent = sep;
+    const cx = 350;
+    plate.xPos = cx - sep / 2;
+    plate.xNeg = cx + sep / 2;
+    redrawCanvas();
+}
+
+function drawPlates() {
+    if (!plateMode) return;
+    // Positive plate (left, red)
+    ctx.fillStyle = 'rgba(220, 50, 50, 0.85)';
+    ctx.fillRect(plate.xPos - 6, plate.yTop, 12, plate.yBot - plate.yTop);
+    // Negative plate (right, blue)
+    ctx.fillStyle = 'rgba(50, 80, 220, 0.85)';
+    ctx.fillRect(plate.xNeg - 6, plate.yTop, 12, plate.yBot - plate.yTop);
+    // Labels
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 18px Source Sans Pro';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (let y = plate.yTop + 20; y < plate.yBot; y += 40) {
+        ctx.fillText('+', plate.xPos, y);
+        ctx.fillText('−', plate.xNeg, y);
+    }
+    ctx.fillStyle = '#3B5323';
+    ctx.font = 'bold 12px Source Sans Pro';
+    ctx.fillText('+V', plate.xPos, plate.yTop - 10);
+    ctx.fillText('−V', plate.xNeg, plate.yTop - 10);
 }
 
 function voltageToColor(V) {
@@ -1843,9 +1926,14 @@ function redrawCanvas() {
         drawEquipotentials();
     }
 
-    // Draw charges
-    for (let i = 0; i < charges.length; i++) {
-        drawCharge(charges[i], i === selectedChargeIndex);
+    // Draw plates
+    drawPlates();
+
+    // Draw charges (hidden in plate mode)
+    if (!plateMode) {
+        for (let i = 0; i < charges.length; i++) {
+            drawCharge(charges[i], i === selectedChargeIndex);
+        }
     }
 
     // Draw test charge (+1 µC positive test charge)
@@ -1967,6 +2055,26 @@ function drawVectorField() {
 function drawFieldLines() {
     ctx.lineWidth = 2;
 
+    if (plateMode) {
+        const numLines = Math.max(8, lineDensity);
+        const ySpan = plate.yBot - plate.yTop;
+        // Lines starting just to the right of the + plate (interior + fringing)
+        for (let i = 0; i < numLines; i++) {
+            const y = plate.yTop + (i + 0.5) / numLines * ySpan;
+            traceAndDrawFieldLine(plate.xPos + 7, y, 1, -1);
+        }
+        // A few extra lines from top/bottom edges of + plate to capture fringing
+        const edgeLines = 6;
+        for (let i = 0; i < edgeLines; i++) {
+            const t = (i + 0.5) / edgeLines;
+            const angTop = Math.PI + t * Math.PI / 2; // upper-left fan
+            const angBot = Math.PI - t * Math.PI / 2; // lower-left fan
+            traceAndDrawFieldLine(plate.xPos + 8 * Math.cos(angTop), plate.yTop + 8 * Math.sin(angTop), 1, -1);
+            traceAndDrawFieldLine(plate.xPos + 8 * Math.cos(angBot), plate.yBot + 8 * Math.sin(angBot), 1, -1);
+        }
+        return;
+    }
+
     const hasPositive = charges.some(c => c.sign === '+');
     const hasNegative = charges.some(c => c.sign === '-');
 
@@ -2010,18 +2118,23 @@ function drawFieldLines() {
 // Compute field in pixel-space for line tracing (no SI constants)
 function getFieldForTrace(x, y) {
     let Ex = 0, Ey = 0;
-    for (let i = 0; i < charges.length; i++) {
-        const qSign = charges[i].sign === '-' ? -1 : 1;
-        const qMag = Math.abs(charges[i].charge);
-        const dx = x - charges[i].x;
-        const dy = y - charges[i].y;
-        const r2 = dx * dx + dy * dy;
-        if (r2 < 25) continue; // avoid singularity (r < 5)
-        const r = Math.sqrt(r2);
-        // E = q / r^2, direction = (dx, dy) / r  (points away from positive)
-        const Emag = qSign * qMag / r2;
-        Ex += Emag * (dx / r);
-        Ey += Emag * (dy / r);
+    if (!plateMode) {
+        for (let i = 0; i < charges.length; i++) {
+            const qSign = charges[i].sign === '-' ? -1 : 1;
+            const qMag = Math.abs(charges[i].charge);
+            const dx = x - charges[i].x;
+            const dy = y - charges[i].y;
+            const r2 = dx * dx + dy * dy;
+            if (r2 < 25) continue;
+            const r = Math.sqrt(r2);
+            const Emag = qSign * qMag / r2;
+            Ex += Emag * (dx / r);
+            Ey += Emag * (dy / r);
+        }
+    } else {
+        const pf = plateFieldAt(x, y);
+        Ex += pf.Ex * 4000;
+        Ey += pf.Ey * 4000;
     }
     return { Ex, Ey };
 }
