@@ -444,8 +444,8 @@
                 <div class="control-group">
                     <label>Function</label>
                     <select id="funcSelect">
-                        <option value="x2">f(x) = x&#178;</option>
                         <option value="sinx">f(x) = sin(x)</option>
+                        <option value="x2">f(x) = x&#178;</option>
                         <option value="cosx">f(x) = cos(x)</option>
                         <option value="expneg">f(x) = e&#8315;&#739;</option>
                         <option value="sqrtx">f(x) = &#8730;x</option>
@@ -455,17 +455,17 @@
                 </div>
                 <div class="control-group">
                     <label>a (lower)</label>
-                    <input type="number" id="boundA" value="0" step="0.5">
+                    <input type="number" id="boundA" value="-3" step="0.5">
                 </div>
                 <div class="control-group">
                     <label>b (upper)</label>
-                    <input type="number" id="boundB" value="3" step="0.5">
+                    <input type="number" id="boundB" value="3" step="0.5" data-default="3">
                 </div>
                 <div class="control-group">
                     <label>Sum Type</label>
                     <div class="sum-type-buttons">
-                        <button class="sum-type-btn active" data-type="left">Left</button>
-                        <button class="sum-type-btn" data-type="right">Right</button>
+                        <button class="sum-type-btn active" data-type="right">Right</button>
+                        <button class="sum-type-btn" data-type="left">Left</button>
                         <button class="sum-type-btn" data-type="midpoint">Mid</button>
                         <button class="sum-type-btn" data-type="trapezoid">Trapezoid</button>
                     </div>
@@ -3016,11 +3016,12 @@ function drawViz() {
 
     ctx.fillStyle = rectOverColor; ctx.fillRect(W - pad.r - 180, pad.t + 8, 14, 14);
     ctx.strokeStyle = rectBorderOver; ctx.strokeRect(W - pad.r - 180, pad.t + 8, 14, 14);
-    ctx.fillStyle = '#5C4033'; ctx.font = '12px Source Sans Pro'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#5C4033'; ctx.font = 'bold 13px Source Sans Pro'; ctx.textAlign = 'left';
     ctx.fillText('Overestimate', W - pad.r - 160, pad.t + 20);
 
     ctx.fillStyle = rectUnderColor; ctx.fillRect(W - pad.r - 180, pad.t + 28, 14, 14);
     ctx.strokeStyle = rectBorderUnder; ctx.strokeRect(W - pad.r - 180, pad.t + 28, 14, 14);
+    ctx.fillStyle = '#5C4033'; ctx.font = 'bold 13px Source Sans Pro';
     ctx.fillText('Underestimate', W - pad.r - 160, pad.t + 40);
 
     const approx = riemannSum(fn, a, b, n, sumType);
