@@ -43,6 +43,10 @@ body{font-family:"Source Sans Pro",sans-serif;background-color:var(--cream);colo
 .section-header h2{font-family:"Playfair Display",serif;font-size:24px;color:var(--brown-dark);margin:0;}
 .card{background-color:white;border-radius:8px;padding:20px;margin-bottom:20px;border-left:5px solid var(--gold);box-shadow:0 2px 8px rgba(0,0,0,0.08);}
 .highlight-box{background-color:var(--white);border-left:5px solid var(--green-dark);border-radius:6px;padding:15px;margin:15px 0;font-family:"Source Serif 4",serif;color:var(--green-dark);box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+#tab-sigma .technique-section .highlight-box{background-color:rgba(255,253,245,0.7);}
+#tab-sigma .technique-section[style*="rgba(59,83,35"] .highlight-box{background-color:rgba(59,83,35,0.05);border-left-color:#3B5323;}
+#tab-sigma .technique-section[style*="rgba(200,168,78"] .highlight-box{background-color:rgba(200,168,78,0.08);border-left-color:#C8A84E;}
+#tab-sigma .technique-section[style*="rgba(139,94,60"] .highlight-box{background-color:rgba(139,94,60,0.06);border-left-color:var(--brown-medium);}
 .highlight-box p{color:var(--brown-dark);}
 .idea-box{background-color:#E8F5E9;border-left:5px solid var(--green-light);border-radius:6px;padding:15px;margin:15px 0;}
 .warning-box{background-color:#FFEBEE;border-left:5px solid #E57373;border-radius:6px;padding:15px;margin:15px 0;}
@@ -63,8 +67,8 @@ body{font-family:"Source Sans Pro",sans-serif;background-color:var(--cream);colo
 .example-toggle,.solution-toggle{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:6px;padding:7px 14px;margin-top:10px;font-family:"Source Sans Pro",sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.2s;}
 .example-toggle{background:var(--green-dark);color:white;}
 .example-toggle:hover{background:var(--green-medium);}
-.solution-toggle{background:var(--gold);color:var(--brown-dark);}
-.solution-toggle:hover{background:var(--gold-light);}
+.solution-toggle{background:var(--green-dark);color:#fff;}
+.solution-toggle:hover{background:#4A6830;}
 .example-toggle .arrow,.solution-toggle .arrow{transition:transform 0.25s;display:inline-block;}
 .example-toggle.open .arrow,.solution-toggle.open .arrow{transform:rotate(90deg);}
 .example-body,.solution-body{display:none;margin-top:10px;padding:14px 18px;background:rgba(255,255,255,0.7);border-radius:6px;border:1px solid rgba(59,83,35,0.15);}
@@ -272,39 +276,59 @@ li{margin-bottom:10px;}
 <div class="section-header"><div class="section-number">1</div><h2>Arithmetic Sequences &amp; Series</h2></div>
 <div class="formula-grid">
 <div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
+<h4>Recursive Rule</h4><p>$$a_1 = c,\quad a_n = a_{n-1} + d$$</p>
+<p class="formula-note">Each term is obtained by adding the constant $d$ to the previous term</p>
+</div>
+<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
 <h4>$n$th Term (Explicit)</h4><p>$$a_n = a_1 + (n-1)d$$</p>
 <p class="formula-note">$a_1$ = first term, $d$ = common difference, $n$ = term number</p>
 </div>
-<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;">
-<h4>Sum of First $n$ Terms</h4><p>$$S_n = \frac{n}{2}(a_1 + a_n) = \frac{n}{2}[2a_1 + (n-1)d]$$</p>
-<p class="formula-note">Use the first form when $a_n$ is known; the second when only $a_1$ and $d$ are given</p>
+<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;grid-column:1 / -1;">
+<h4>Sum of the Series</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;margin-top:6px;">
+<div style="text-align:center;">
+<p style="margin:0 0 4px;font-weight:600;color:var(--green-dark);">Finite</p>
+<p style="margin:0;">$$S_n = \frac{n}{2}(a_1 + a_n) = \frac{n}{2}[2a_1 + (n-1)d]$$</p>
 </div>
-<div class="formula-tile" style="background:rgba(139,94,60,0.08);border-color:#8B5E3C;">
+<div style="text-align:center;border-left:2px dashed rgba(139,94,60,0.35);padding-left:18px;">
+<p style="margin:0 0 4px;font-weight:600;color:var(--green-dark);">Infinite</p>
+<p style="margin:0;">$$S_\infty = \pm\infty \quad \text{(always diverges)}$$</p>
+</div>
+</div>
+<p class="formula-note" style="margin-top:10px;">Finite form: use the first when $a_n$ is known, the second when only $a_1$ and $d$ are given. Infinite arithmetic series always diverge (unless $a_1 = d = 0$) because terms grow linearly.</p>
+</div>
+<div class="formula-tile" style="background:rgba(139,94,60,0.08);border-color:#8B5E3C;grid-column:1 / -1;">
 <h4>Common Difference</h4><p>$$d = a_n - a_{n-1}$$</p>
 <p class="formula-note">Constant gap between consecutive terms; can be positive, negative, or zero</p>
-</div>
-<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
-<h4>Recursive Rule</h4><p>$$a_1 = c,\quad a_n = a_{n-1} + d$$</p>
-<p class="formula-note">Each term is obtained by adding the constant $d$ to the previous term</p>
 </div>
 </div>
 
 <div class="section-header"><div class="section-number">2</div><h2>Geometric Sequences &amp; Series</h2></div>
 <div class="formula-grid">
-<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;">
+<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
+<h4>Recursive Rule</h4><p>$$a_1 = c,\quad a_n = r \cdot a_{n-1}$$</p>
+<p class="formula-note">Each term is obtained by multiplying the previous term by the constant ratio $r$</p>
+</div>
+<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
 <h4>$n$th Term (Explicit)</h4><p>$$a_n = a_1 \cdot r^{\,n-1}$$</p>
 <p class="formula-note">$a_1$ = first term, $r$ = common ratio. Valid for $r \neq 0$</p>
 </div>
-<div class="formula-tile" style="background:rgba(139,94,60,0.08);border-color:#8B5E3C;">
-<h4>Sum of First $n$ Terms</h4><p>$$S_n = a_1 \cdot \frac{1 - r^n}{1 - r}, \quad r \neq 1$$</p>
-<p class="formula-note">If $r = 1$, all terms are equal so $S_n = n \cdot a_1$</p>
+<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;grid-column:1 / -1;">
+<h4>Sum of the Series</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;margin-top:6px;">
+<div style="text-align:center;">
+<p style="margin:0 0 4px;font-weight:600;color:var(--green-dark);">Finite</p>
+<p style="margin:0;">$$S_n = a_1 \cdot \dfrac{1 - r^n}{1 - r}, \quad r \neq 1$$</p>
 </div>
-<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
-<h4>Infinite Sum</h4><p>$$S_\infty = \frac{a_1}{1 - r}, \quad |r| &lt; 1$$</p>
-<p class="formula-note">Only exists when $|r| &lt; 1$. Diverges when $|r| \geq 1$</p>
+<div style="text-align:center;border-left:2px dashed rgba(139,94,60,0.35);padding-left:18px;">
+<p style="margin:0 0 4px;font-weight:600;color:var(--green-dark);">Infinite</p>
+<p style="margin:0;">$$S_\infty = \dfrac{a_1}{1 - r}, \quad |r| &lt; 1$$</p>
 </div>
-<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;">
-<h4>Common Ratio</h4><p>$$r = \frac{a_n}{a_{n-1}}$$</p>
+</div>
+<p class="formula-note" style="margin-top:10px;">Finite: if $r = 1$ all terms are equal so $S_n = n \cdot a_1$. Infinite: only converges when $|r| &lt; 1$; diverges when $|r| \geq 1$.</p>
+</div>
+<div class="formula-tile" style="background:rgba(139,94,60,0.08);border-color:#8B5E3C;grid-column:1 / -1;">
+<h4>Common Ratio</h4><p>$$r = \dfrac{a_n}{a_{n-1}}$$</p>
 <p class="formula-note">Ratio between consecutive terms — must be constant throughout the sequence</p>
 </div>
 </div>
@@ -336,7 +360,10 @@ li{margin-bottom:10px;}
 
 <div class="idea-box"><p style="margin-bottom:0;"><strong>The big idea:</strong> If a fraction has a <em>factorable denominator</em>, you can split it into one fraction per factor. This works for any rational expression, not just series terms.</p></div>
 
-<h3 style="font-family:'Playfair Display',serif;margin:24px 0 10px;color:var(--green-dark);font-size:18px;">Example 1: Decompose $\dfrac{7}{(x+1)(x-4)}$</h3>
+<button class="example-toggle" onclick="toggleExample(this)" style="margin-top:14px;"><span class="arrow">&#9654;</span> Show Worked Examples</button>
+<div class="example-body">
+
+<h3 style="font-family:'Playfair Display',serif;margin:6px 0 10px;color:var(--green-dark);font-size:18px;">Example 1: Decompose $\dfrac{7}{(x+1)(x-4)}$</h3>
 
 <p><strong>Step 1 — Set up the decomposition.</strong> One fraction per factor in the denominator:</p>
 <div class="highlight-box">
@@ -390,6 +417,7 @@ li{margin-bottom:10px;}
 </div>
 
 <div class="warning-box" style="margin-top:12px;"><p style="margin-bottom:0;"><strong>Connection to telescoping:</strong> PFD is a general technique, but in this course we use it specifically to rewrite series terms into a form where consecutive terms cancel. Not every PFD result telescopes — it only works when the decomposition gives you $f(k) - f(k+\text{something})$.</p></div>
+</div><!-- end example-body -->
 </div>
 </div><!-- end tab-formulas -->
 
@@ -801,8 +829,8 @@ li{margin-bottom:10px;}
 
 <div class="section-header"><div class="section-number">3</div><h2>Arithmetic &amp; Geometric Series in Sigma Notation</h2></div>
 
-<div class="card" style="border-left-color: var(--green-dark); margin-bottom: 16px;">
-<p>Now that we can read and write sigma notation, let's see how our two main series types look in $\Sigma$ form — and when they converge or diverge.</p>
+<div class="technique-section" style="background:rgba(59,83,35,0.06);border-left:4px solid #3B5323;margin-bottom:16px;">
+<p style="margin:0;">Now that we can read and write sigma notation, let's see how our two main series types look in $\Sigma$ form — and when they converge or diverge.</p>
 </div>
 
 <div class="technique-section" style="background:rgba(59,83,35,0.06);border-left:4px solid #3B5323;">
@@ -920,24 +948,70 @@ li{margin-bottom:10px;}
 </table>
 </div>
 
-<div class="step-practice" style="margin-top:14px;"><span class="step-label">Practice</span>
+</div>
+
+<div class="section-header"><div class="section-number">4</div><h2>Sigma Notation Properties</h2></div>
+<div class="technique-section" style="background:rgba(59,83,35,0.06);border-left:4px solid #3B5323;">
+<p>Sigma is a <strong>linear operator</strong> — it plays nicely with constants and with sums/differences. These properties let you break complicated sums into pieces you already know how to handle.</p>
+
+<h3 style="margin-top:14px;">Linearity Properties</h3>
+<div class="formula-grid">
+<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
+<h4>Sum of a Constant</h4><p>$$\sum_{k=1}^{n} c = c \cdot n$$</p>
+<p class="formula-note">Adding the constant $c$ to itself $n$ times.</p>
+</div>
+<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;">
+<h4>Constant Multiple</h4><p>$$\sum_{k=1}^{n} c\cdot a_k = c\sum_{k=1}^{n} a_k$$</p>
+<p class="formula-note">Constants factor out of the sum.</p>
+</div>
+<div class="formula-tile" style="background:rgba(59,83,35,0.08);border-color:#3B5323;grid-column:1 / -1;">
+<h4>Sum / Difference Rule</h4><p>$$\sum_{k=1}^{n}(a_k \pm b_k) = \sum_{k=1}^{n} a_k \pm \sum_{k=1}^{n} b_k$$</p>
+<p class="formula-note">You can split (or combine) sums term-by-term, just like you can with integrals and derivatives.</p>
+</div>
+</div>
+
+<h3 style="margin-top:18px;">Useful Closed Forms</h3>
+<p>These three identities appear all over the place and are worth memorizing:</p>
+<div class="formula-grid">
+<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;">
+<h4>Sum of First $n$ Integers</h4><p>$$\sum_{k=1}^{n} k = \frac{n(n+1)}{2}$$</p>
+<p class="formula-note">Gauss's famous trick — this is just an arithmetic series with $a_1 = 1$, $d = 1$.</p>
+</div>
+<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;">
+<h4>Sum of First $n$ Squares</h4><p>$$\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6}$$</p>
+<p class="formula-note">Used constantly in Riemann sums and discrete math.</p>
+</div>
+<div class="formula-tile" style="background:rgba(200,168,78,0.10);border-color:#C8A84E;grid-column:1 / -1;">
+<h4>Sum of First $n$ Cubes <span style="font-size:11px;color:var(--brown-medium);font-weight:normal;">(bonus)</span></h4><p>$$\sum_{k=1}^{n} k^3 = \left[\frac{n(n+1)}{2}\right]^2 = \left(\sum_{k=1}^{n} k\right)^{\!2}$$</p>
+<p class="formula-note">A surprising identity: the sum of the first $n$ cubes equals the <em>square</em> of the sum of the first $n$ integers.</p>
+</div>
+</div>
+
+<div class="idea-box" style="margin-top:14px;"><p style="margin-bottom:0;"><strong>Worked mini-example:</strong> $\displaystyle\sum_{k=1}^{20}(3k^2 - 2k + 5) = 3\sum_{k=1}^{20} k^2 - 2\sum_{k=1}^{20} k + \sum_{k=1}^{20} 5 = 3\cdot\frac{20\cdot 21\cdot 41}{6} - 2\cdot\frac{20\cdot 21}{2} + 5(20) = 8610 - 420 + 100 = \mathbf{8290}$.</p></div>
+</div>
+
+<div class="section-header"><div class="section-number">5</div><h2>Practice</h2></div>
+<div class="technique-section" style="background:rgba(139,94,60,0.06);border-left:4px solid var(--brown-medium);">
 <div class="practice-box">
 <p><strong>(a)</strong> Write $6 + 12 + 24 + 48 + \cdots + 6144$ in sigma notation and evaluate.</p>
 <p><strong>(b)</strong> Does $\displaystyle\sum_{k=1}^{\infty}\frac{5}{3^k}$ converge or diverge? If it converges, find the sum.</p>
 <p><strong>(c)</strong> Does $\displaystyle\sum_{k=1}^{\infty}(4k+1)$ converge or diverge? Explain.</p>
 <p><strong>(d)</strong> Write $\displaystyle\sum_{k=0}^{\infty}7\!\left(-\frac{2}{5}\right)^k$ and determine if it converges. If so, find the sum.</p>
+<p><strong>(e)</strong> Use the linearity properties and closed forms to evaluate $\displaystyle\sum_{k=1}^{15}(2k^2 + 4k - 3)$.</p>
 <button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solutions</button>
 <div class="solution-body"><div class="highlight-box">
 <p><strong>(a)</strong> Geometric: $a_1=6$, $r=2$. When $6\cdot 2^{k-1}=6144$: $2^{k-1}=1024$, so $k=11$.</p>
 <p>$\displaystyle\sum_{k=1}^{11}6\cdot 2^{k-1}=6\cdot\frac{1-2^{11}}{1-2}=6\cdot\frac{-2047}{-1}=\mathbf{12{,}282}$</p>
-<p style="margin-top:10px;"><strong>(b)</strong> Geometric with $a_1=\frac{5}{3}$, $r=\frac{1}{3}$. Since $|r|=\frac{1}{3}<1$, it <strong>converges</strong>:</p>
+<p style="margin-top:10px;"><strong>(b)</strong> Geometric with $a_1=\frac{5}{3}$, $r=\frac{1}{3}$. Since $|r|=\frac{1}{3}&lt;1$, it <strong>converges</strong>:</p>
 <p>$\displaystyle S=\frac{5/3}{1-1/3}=\frac{5/3}{2/3}=\mathbf{\frac{5}{2}}$</p>
 <p style="margin-top:10px;"><strong>(c)</strong> Arithmetic with $d=4$. The terms $5, 9, 13, 17, \ldots$ grow without bound, so it <strong>diverges</strong>.</p>
-<p style="margin-top:10px;"><strong>(d)</strong> Geometric with $a_1=7$, $r=-\frac{2}{5}$. Since $|r|=\frac{2}{5}<1$, it <strong>converges</strong>:</p>
+<p style="margin-top:10px;"><strong>(d)</strong> Geometric with $a_1=7$, $r=-\frac{2}{5}$. Since $|r|=\frac{2}{5}&lt;1$, it <strong>converges</strong>:</p>
 <p>$\displaystyle S=\frac{7}{1-(-2/5)}=\frac{7}{7/5}=\mathbf{5}$</p>
+<p style="margin-top:10px;"><strong>(e)</strong> Split using linearity:</p>
+<p>$\displaystyle\sum_{k=1}^{15}(2k^2+4k-3) = 2\sum_{k=1}^{15}k^2 + 4\sum_{k=1}^{15}k - \sum_{k=1}^{15}3$</p>
+<p>$= 2\cdot\frac{15\cdot 16\cdot 31}{6} + 4\cdot\frac{15\cdot 16}{2} - 3(15) = 2(1240) + 4(120) - 45 = 2480 + 480 - 45 = \mathbf{2915}$</p>
 </div></div>
 </div></div>
-</div>
 
 </div><!-- end tab-sigma -->
 
@@ -1044,13 +1118,15 @@ li{margin-bottom:10px;}
 
 <!-- TAB: PRACTICE -->
 <div id="tab-practice" class="tab-content">
-<div class="section-header"><div class="section-number">1</div><h2>Mixed Practice Problems</h2></div>
 <div id="practice-container">
+
+<!-- ═══ §1 ARITHMETIC ═══ -->
+<div class="section-header"><div class="section-number">1</div><h2>Arithmetic Practice</h2></div>
 
 <div class="card">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
 <div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">1</div>
-<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Arithmetic</span>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Arithmetic — Basics</span>
 </div>
 <p>An arithmetic sequence has first term $a_1 = -5$ and common difference $d = 4$.</p>
 <p><strong>(a)</strong> Write the explicit formula. <strong>(b)</strong> Find $a_{30}$. <strong>(c)</strong> Find $S_{30}$.</p>
@@ -1065,35 +1141,7 @@ li{margin-bottom:10px;}
 <div class="card">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
 <div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">2</div>
-<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Geometric</span>
-</div>
-<p>A geometric sequence has $a_1 = 729$ and $r = \frac{1}{3}$.</p>
-<p><strong>(a)</strong> Write the first five terms. <strong>(b)</strong> Find $S_6$. <strong>(c)</strong> Does $S_\infty$ exist? If so, find it.</p>
-<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
-<div class="solution-body"><div class="highlight-box">
-<p><strong>(a)</strong> $729, 243, 81, 27, 9$</p>
-<p><strong>(b)</strong> $S_6=729\cdot\frac{1-(1/3)^6}{2/3}=\frac{3}{2}(729-1)=\frac{3(728)}{2}=\mathbf{1092}$</p>
-<p><strong>(c)</strong> $|r|=\frac{1}{3}&lt;1$, so $S_\infty=\frac{729}{1-1/3}=\frac{729}{2/3}=\mathbf{1093.5}$</p>
-</div></div>
-</div>
-
-<div class="card">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">3</div>
-<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Sigma Notation</span>
-</div>
-<p>Evaluate: &nbsp; <strong>(a)</strong> $\displaystyle\sum_{k=1}^{10}(5k-2)$ &nbsp;&nbsp; <strong>(b)</strong> $\displaystyle\sum_{k=0}^{6} 4\cdot\left(\frac{1}{2}\right)^k$</p>
-<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
-<div class="solution-body"><div class="highlight-box">
-<p><strong>(a)</strong> $a_1=3, a_{10}=48$; $S_{10}=\frac{10}{2}(3+48)=5(51)=\mathbf{255}$</p>
-<p><strong>(b)</strong> $a_1=4, r=\frac{1}{2}$, 7 terms; $S_7=4\cdot\frac{1-(1/2)^7}{1/2}=8\cdot\frac{127}{128}=\frac{127}{16}\approx\mathbf{7.9375}$</p>
-</div></div>
-</div>
-
-<div class="card">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">4</div>
-<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Word Problem — Arithmetic</span>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Arithmetic — Word Problem</span>
 </div>
 <p>A theater has 30 rows. The first row has 20 seats, and each subsequent row has 2 more seats.</p>
 <p><strong>(a)</strong> How many seats are in the 30th row? <strong>(b)</strong> What is the total seating capacity?</p>
@@ -1107,8 +1155,45 @@ li{margin-bottom:10px;}
 
 <div class="card">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">3</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Arithmetic Series — Sum</span>
+</div>
+<p>Find each arithmetic series sum.</p>
+<p><strong>(a)</strong> Finite: $4 + 9 + 14 + 19 + \cdots + 104$</p>
+<p><strong>(b)</strong> Finite: The sum of the first 50 positive even integers.</p>
+<p><strong>(c)</strong> Infinite: $\displaystyle\sum_{k=1}^{\infty}(3k-2)$ &nbsp;— does it converge? If so, to what?</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> Arithmetic with $a_1=4$, $d=5$. Solve $4+(n-1)(5)=104 \Rightarrow n=21$.</p>
+<p>$S_{21}=\dfrac{21}{2}(4+104)=\dfrac{21(108)}{2}=\mathbf{1134}$</p>
+<p style="margin-top:10px;"><strong>(b)</strong> $2+4+6+\cdots+100$ with $a_1=2$, $d=2$, $n=50$, $a_{50}=100$.</p>
+<p>$S_{50}=\dfrac{50}{2}(2+100)=25(102)=\mathbf{2550}$</p>
+<p style="margin-top:10px;"><strong>(c)</strong> Arithmetic with $d=3$; terms $1, 4, 7, 10, \ldots$ grow without bound, so this <strong>diverges</strong> to $+\infty$. Infinite arithmetic series always diverge (unless $a_1 = d = 0$) since the terms don't approach zero.</p>
+</div></div>
+</div>
+
+<!-- ═══ §2 GEOMETRIC ═══ -->
+<div class="section-header" style="margin-top:30px;"><div class="section-number">2</div><h2>Geometric Practice</h2></div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">4</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Geometric — Basics</span>
+</div>
+<p>A geometric sequence has $a_1 = 729$ and $r = \frac{1}{3}$.</p>
+<p><strong>(a)</strong> Write the first five terms. <strong>(b)</strong> Find $S_6$. <strong>(c)</strong> Does $S_\infty$ exist? If so, find it.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> $729, 243, 81, 27, 9$</p>
+<p><strong>(b)</strong> $S_6=729\cdot\frac{1-(1/3)^6}{2/3}=\frac{3}{2}(729-1)=\frac{3(728)}{2}=\mathbf{1092}$</p>
+<p><strong>(c)</strong> $|r|=\frac{1}{3}&lt;1$, so $S_\infty=\frac{729}{1-1/3}=\frac{729}{2/3}=\mathbf{1093.5}$</p>
+</div></div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
 <div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">5</div>
-<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Word Problem — Geometric</span>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Geometric — Word Problem</span>
 </div>
 <p>A rubber ball is dropped from 80 m. After each bounce it rises to $\frac{3}{4}$ of its previous height.</p>
 <p><strong>(a)</strong> How high does it rise after the 5th bounce? <strong>(b)</strong> What total distance does it travel before coming to rest?</p>
@@ -1124,6 +1209,77 @@ li{margin-bottom:10px;}
 <div class="card">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
 <div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">6</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Geometric Series — Sum</span>
+</div>
+<p>Find each geometric series sum.</p>
+<p><strong>(a)</strong> Finite: $\displaystyle 5 + 10 + 20 + 40 + \cdots + 2560$</p>
+<p><strong>(b)</strong> Infinite: $\displaystyle 12 + 4 + \frac{4}{3} + \frac{4}{9} + \cdots$</p>
+<p><strong>(c)</strong> Infinite: $\displaystyle \sum_{k=1}^{\infty} 8\!\left(\frac{5}{4}\right)^{k-1}$ &nbsp;— does it converge? If so, to what?</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> $a_1=5$, $r=2$. Solve $5\cdot 2^{n-1}=2560 \Rightarrow 2^{n-1}=512 \Rightarrow n=10$.</p>
+<p>$S_{10}=5\cdot\dfrac{1-2^{10}}{1-2}=5\cdot\dfrac{-1023}{-1}=\mathbf{5115}$</p>
+<p style="margin-top:10px;"><strong>(b)</strong> $a_1=12$, $r=\frac{1}{3}$. Since $|r|&lt;1$, converges to $S_\infty=\dfrac{12}{1-1/3}=\dfrac{12}{2/3}=\mathbf{18}$.</p>
+<p style="margin-top:10px;"><strong>(c)</strong> $r=\frac{5}{4}$, $|r|=1.25&gt;1$ $\Rightarrow$ <strong>diverges</strong>. No finite sum.</p>
+</div></div>
+</div>
+
+<!-- ═══ §3 SIGMA NOTATION ═══ -->
+<div class="section-header" style="margin-top:30px;"><div class="section-number">3</div><h2>Sigma Notation Practice</h2></div>
+<div class="technique-section" style="background:rgba(139,94,60,0.06);border-left:4px solid var(--brown-medium);margin-bottom:16px;">
+<p style="margin:0;">The following problems focus specifically on reading, writing, and evaluating expressions in $\Sigma$ notation. Review the <em>Sigma Notation</em> tab if you need a refresher before attempting them.</p>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">7</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Sigma Notation — Evaluate</span>
+</div>
+<p>Evaluate each sum: &nbsp; <strong>(a)</strong> $\displaystyle\sum_{k=1}^{10}(5k-2)$ &nbsp;&nbsp; <strong>(b)</strong> $\displaystyle\sum_{k=0}^{6} 4\cdot\left(\frac{1}{2}\right)^k$</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> $a_1=3, a_{10}=48$; $S_{10}=\frac{10}{2}(3+48)=5(51)=\mathbf{255}$</p>
+<p><strong>(b)</strong> $a_1=4, r=\frac{1}{2}$, 7 terms; $S_7=4\cdot\frac{1-(1/2)^7}{1/2}=8\cdot\frac{127}{128}=\frac{127}{16}\approx\mathbf{7.9375}$</p>
+</div></div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">8</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Sigma Notation — Rewrite</span>
+</div>
+<p>Rewrite each sum in sigma notation (there may be more than one valid answer):</p>
+<p><strong>(a)</strong> $7 + 11 + 15 + 19 + \cdots + 79$ &nbsp;&nbsp; <strong>(b)</strong> $\displaystyle 2 - \frac{2}{3} + \frac{2}{9} - \frac{2}{27} + \cdots$ (infinite)</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> Arithmetic with $a_1=7$, $d=4$, so $a_k = 4k+3$. Last term: $4k+3=79 \Rightarrow k=19$.</p>
+<p>$\displaystyle\sum_{k=1}^{19}(4k+3)$</p>
+<p style="margin-top:10px;"><strong>(b)</strong> Geometric with $a_1=2$, $r=-\frac{1}{3}$, so $a_k = 2\left(-\frac{1}{3}\right)^{k-1}$.</p>
+<p>$\displaystyle\sum_{k=1}^{\infty} 2\left(-\frac{1}{3}\right)^{k-1}$ &nbsp; — converges since $|r|=\frac{1}{3}&lt;1$; sum $= \frac{2}{1-(-1/3)} = \mathbf{\frac{3}{2}}$</p>
+</div></div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">9</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Sigma Notation — Convergence</span>
+</div>
+<p>For each series, state whether it converges or diverges. If it converges, find the sum.</p>
+<p><strong>(a)</strong> $\displaystyle\sum_{k=1}^{\infty}(2k-1)$ &nbsp;&nbsp; <strong>(b)</strong> $\displaystyle\sum_{k=0}^{\infty} 9\!\left(\frac{2}{5}\right)^k$ &nbsp;&nbsp; <strong>(c)</strong> $\displaystyle\sum_{k=1}^{\infty} \left(\frac{4}{3}\right)^k$</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> Arithmetic ($d=2$), terms grow without bound $\Rightarrow$ <strong>diverges</strong>.</p>
+<p><strong>(b)</strong> Geometric with $a_1=9$, $r=\frac{2}{5}$. Since $|r|&lt;1$, <strong>converges</strong> to $\frac{9}{1-2/5}=\frac{9}{3/5}=\mathbf{15}$.</p>
+<p><strong>(c)</strong> Geometric with $r=\frac{4}{3}$. Since $|r|&gt;1$, <strong>diverges</strong>.</p>
+</div></div>
+</div>
+
+<!-- ═══ §4 TELESCOPING ═══ -->
+<div class="section-header" style="margin-top:30px;"><div class="section-number">4</div><h2>Telescoping Series Practice</h2></div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">10</div>
 <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Telescoping</span>
 </div>
 <p>Evaluate $\displaystyle\sum_{k=1}^{n}\frac{2}{k(k+2)}$ and use the result to find the sum when $n=100$.</p>
@@ -1136,24 +1292,37 @@ li{margin-bottom:10px;}
 </div></div>
 </div>
 
-<div class="card">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">7</div>
-<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Recursive Rules</span>
-</div>
-<p>A sequence is defined by $a_1=3$ and $a_n = 2a_{n-1}+1$.</p>
-<p><strong>(a)</strong> Find the first five terms. <strong>(b)</strong> Is this sequence arithmetic, geometric, or neither?</p>
-<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
-<div class="solution-body"><div class="highlight-box">
-<p><strong>(a)</strong> $3, 7, 15, 31, 63$</p>
-<p><strong>(b)</strong> Differences: $4, 8, 16, 32$ — not constant. Ratios: $7/3, 15/7, \ldots$ — not constant.</p>
-<p><em>Neither arithmetic nor geometric.</em> (Grows roughly as $2^n-1$.)</p>
-</div></div>
-</div>
+<!-- ═══ §5 FIBONACCI / RECURSIVE ═══ -->
+<div class="section-header" style="margin-top:30px;"><div class="section-number">5</div><h2>Fibonacci &amp; Recursive Sequences</h2></div>
 
 <div class="card">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">8</div>
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">11</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Fibonacci</span>
+</div>
+<p>The Fibonacci sequence is defined recursively by $F_1 = 1$, $F_2 = 1$, and $F_n = F_{n-1} + F_{n-2}$ for $n \geq 3$.</p>
+<p><strong>(a)</strong> List the first ten terms $F_1, F_2, \ldots, F_{10}$.</p>
+<p><strong>(b)</strong> Compute the ratios $\dfrac{F_{n+1}}{F_n}$ for $n = 1, \ldots, 9$ to four decimal places. What value are they approaching?</p>
+<p><strong>(c)</strong> Is the Fibonacci sequence arithmetic, geometric, or neither? Justify.</p>
+<p><strong>(d)</strong> Use the identity $\displaystyle\sum_{k=1}^{n} F_k = F_{n+2} - 1$ to evaluate $F_1 + F_2 + \cdots + F_{10}$.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body"><div class="highlight-box">
+<p><strong>(a)</strong> $1, 1, 2, 3, 5, 8, 13, 21, 34, 55$</p>
+<p style="margin-top:8px;"><strong>(b)</strong> Ratios $F_{n+1}/F_n$:</p>
+<p>$\tfrac{1}{1}=1.0000,\ \tfrac{2}{1}=2.0000,\ \tfrac{3}{2}=1.5000,\ \tfrac{5}{3}\approx 1.6667,\ \tfrac{8}{5}=1.6000,$</p>
+<p>$\tfrac{13}{8}=1.6250,\ \tfrac{21}{13}\approx 1.6154,\ \tfrac{34}{21}\approx 1.6190,\ \tfrac{55}{34}\approx 1.6176$</p>
+<p>They approach the <strong>golden ratio</strong> $\varphi = \dfrac{1+\sqrt{5}}{2}\approx\mathbf{1.6180}$.</p>
+<p style="margin-top:8px;"><strong>(c)</strong> <em>Neither.</em> Differences $0,1,1,2,3,5,\ldots$ are not constant (so not arithmetic), and ratios are not constant either (so not geometric). Fibonacci is a purely recursive sequence — it has no simple closed-form rule using only rational operations (though Binet's formula $F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}$ uses irrational numbers).</p>
+<p style="margin-top:8px;"><strong>(d)</strong> $\displaystyle\sum_{k=1}^{10} F_k = F_{12} - 1 = 144 - 1 = \mathbf{143}$. Check: $1+1+2+3+5+8+13+21+34+55 = 143$ ✓</p>
+</div></div>
+</div>
+
+<!-- ═══ §6 MIXED CHALLENGE ═══ -->
+<div class="section-header" style="margin-top:30px;"><div class="section-number">6</div><h2>Mixed Challenge</h2></div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">12</div>
 <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Mixed Challenge</span>
 </div>
 <p>The sum of the first $n$ terms of a series is $S_n = 3n^2 + 5n$.</p>
@@ -2133,7 +2302,6 @@ window.addEventListener('load',function(){
   updateFibViz();
   updateSpiralViz();
   updateTeleViz();
-  shuffleProblems('practice-container');
   if(window.MathJax&&MathJax.typeset)setTimeout(function(){MathJax.typeset();},300);
 });
 </script>
