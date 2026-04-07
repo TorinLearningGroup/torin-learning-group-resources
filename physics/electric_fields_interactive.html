@@ -1545,6 +1545,8 @@ let showHeatmap = false;
 let testChargeMode = false;
 let testCharge = null;
 let testChargePinned = false;
+let testChargeAnimating = false;
+let testChargeAnimId = null;
 let lineDensity = 16;
 let gridResolution = 15;
 let selectedChargeIndex = -1;
@@ -1604,15 +1606,15 @@ canvas.addEventListener('mousedown', function(e) {
         }
     }
 
-    // Test charge: click to pin, click again to unpin
+    // Test charge: click to release it and let it move along the field
     if (testChargeMode) {
-        if (testChargePinned) {
-            // Unpin — it'll start following the cursor again
+        if (testChargeAnimating) {
+            stopTestChargeAnim();
             testChargePinned = false;
         } else {
-            // Pin at this location
             testCharge = { x: x, y: y };
             testChargePinned = true;
+            startTestChargeAnim();
         }
         redrawCanvas();
         updateReadout(x, y);
@@ -1824,6 +1826,41 @@ function getVoltage(x, y) {
         }
     }
     return V;
+}
+
+function startTestChargeAnim() {
+    testChargeAnimating = true;
+    function step() {
+        if (!testChargeAnimating || !testCharge) return;
+        const f = getFieldForTrace(testCharge.x, testCharge.y);
+        const mag = Math.hypot(f.Ex, f.Ey);
+        if (mag > 1e-8) {
+            const speed = 1.8;
+            testCharge.x += (f.Ex / mag) * speed;
+            testCharge.y += (f.Ey / mag) * speed;
+        }
+        // Stop if off-canvas or hitting a charge
+        if (testCharge.x < 0 || testCharge.x > canvas.width || testCharge.y < 0 || testCharge.y > canvas.height) {
+            stopTestChargeAnim();
+            return;
+        }
+        for (let i = 0; i < charges.length; i++) {
+            if (Math.hypot(testCharge.x - charges[i].x, testCharge.y - charges[i].y) < 14) {
+                stopTestChargeAnim();
+                return;
+            }
+        }
+        redrawCanvas();
+        updateReadout(testCharge.x, testCharge.y);
+        testChargeAnimId = requestAnimationFrame(step);
+    }
+    testChargeAnimId = requestAnimationFrame(step);
+}
+
+function stopTestChargeAnim() {
+    testChargeAnimating = false;
+    if (testChargeAnimId) cancelAnimationFrame(testChargeAnimId);
+    testChargeAnimId = null;
 }
 
 function togglePlates() {
@@ -2271,6 +2308,8 @@ let gravShowPotential = false;
 let gravTestMassMode = false;
 let gravTestMass = null;
 let gravTestMassPinned = false;
+let gravTestMassAnimating = false;
+let gravTestMassAnimId = null;
 let gravLineDensity = 16;
 let gravGridRes = 15;
 let gravSelectedIdx = -1;
@@ -2509,11 +2548,13 @@ gravCanvas.addEventListener('mousedown', function(e) {
     }
 
     if (gravTestMassMode) {
-        if (gravTestMassPinned) {
+        if (gravTestMassAnimating) {
+            stopGravTestMassAnim();
             gravTestMassPinned = false;
         } else {
             gravTestMass = { x: x, y: y };
             gravTestMassPinned = true;
+            startGravTestMassAnim();
         }
         redrawGravCanvas();
         updateGravReadout(x, y);
@@ -2532,6 +2573,38 @@ gravCanvas.addEventListener('mousedown', function(e) {
 
 gravCanvas.addEventListener('mouseup', function() { gravDragging = false; });
 gravCanvas.addEventListener('mouseleave', function() { gravDragging = false; });
+
+function startGravTestMassAnim() {
+    gravTestMassAnimating = true;
+    function step() {
+        if (!gravTestMassAnimating || !gravTestMass) return;
+        const f = getGravField(gravTestMass.x, gravTestMass.y);
+        const mag = Math.hypot(f.gx, f.gy);
+        if (mag > 1e-12) {
+            const speed = 1.8;
+            gravTestMass.x += (f.gx / mag) * speed;
+            gravTestMass.y += (f.gy / mag) * speed;
+        }
+        if (gravTestMass.x < 0 || gravTestMass.x > gravCanvas.width || gravTestMass.y < 0 || gravTestMass.y > gravCanvas.height) {
+            stopGravTestMassAnim(); return;
+        }
+        for (let i = 0; i < gravMasses.length; i++) {
+            if (Math.hypot(gravTestMass.x - gravMasses[i].x, gravTestMass.y - gravMasses[i].y) < 16) {
+                stopGravTestMassAnim(); return;
+            }
+        }
+        redrawGravCanvas();
+        updateGravReadout(gravTestMass.x, gravTestMass.y);
+        gravTestMassAnimId = requestAnimationFrame(step);
+    }
+    gravTestMassAnimId = requestAnimationFrame(step);
+}
+
+function stopGravTestMassAnim() {
+    gravTestMassAnimating = false;
+    if (gravTestMassAnimId) cancelAnimationFrame(gravTestMassAnimId);
+    gravTestMassAnimId = null;
+}
 
 function redrawGravCanvas() {
     gCtx.fillStyle = 'white';
