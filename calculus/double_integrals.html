@@ -1226,8 +1226,7 @@
         <div class="example-body" style="text-align: left;">
             <div style="background: rgba(59,83,35,0.06); border-radius: 8px; padding: 18px 22px; line-height: 1.8;">
                 <p>A computer can't take limits to infinity, so it does exactly what the visualizer above shows: divide the region into a finite polar grid of $N_r \times N_\theta$ patches, evaluate $f$ at the midpoint of each patch, multiply by the patch area $\bar{r}\,\Delta r\,\Delta\theta$, and sum everything up. That's numerical integration in polar coordinates.</p>
-                <p style="margin-top: 12px;">Every patch contributes to the sum, including the tiny ones near the origin. At the innermost ring, the patches are pie-slice shaped (the inner arc shrinks to a point). Their exact area is the sector formula $\frac{1}{2}r^2\,\Delta\theta$, and our rectangle approximation $\bar{r}\,\Delta r\,\Delta\theta$ actually gives exactly the same answer there (since $\bar{r} = \Delta r/2$, so $\frac{1}{2}\Delta r \cdot \Delta r \cdot \Delta\theta = \frac{1}{2}(\Delta r)^2 \Delta\theta$). As you increase $N_r$, these inner patches get thinner and closer to the origin, so their contribution shrinks toward zero, matching the continuous math where $dA = r\,dr\,d\theta = 0$ at $r = 0$.</p>
-                <p style="margin-top: 12px;">The outer rings do the heavy lifting. The same $\Delta r$ and $\Delta\theta$ produce a much larger patch at $r = 1.8$ than at $r = 0.2$. That's the $r$ factor at work, and it's exactly why the computer multiplies each sample by $\bar{r}$, not just by $\Delta r\,\Delta\theta$.</p>
+                <p style="margin-top: 12px;">The outer rings do the heavy lifting. The same $\Delta r$ and $\Delta\theta$ produce a much larger patch at $r = 1.8$ than at $r = 0.2$. That's the $r$ factor at work, and it's exactly why the computer multiplies each sample by $\bar{r}$, not just by $\Delta r\,\Delta\theta$. (Wondering whether the tiny inner patches cause trouble? See the dropdown below.)</p>
             </div>
         </div>
         </div>
@@ -1253,7 +1252,7 @@
             <div class="highlight-box">
                 $$\iint_R f(x,y)\,dA = \int_\alpha^\beta \int_{r_1(\theta)}^{r_2(\theta)} f(r\cos\theta,\, r\sin\theta)\;\underbrace{r\,dr\,d\theta}_{dA}$$
             </div>
-            <p>The $r$ in $r\,dr\,d\theta$ is <strong>not optional</strong>. It is the <em>Jacobian</em> of the transformation from Cartesian to polar coordinates, and it corrects for the fact that polar patches are wider at larger $r$. Forgetting this $r$ is the most common polar integration mistake.</p>
+            <p>The $r$ in $r\,dr\,d\theta$ is <strong>not optional</strong>. It is the <em>Jacobian determinant</em> of the polar-to-Cartesian transformation — the formal reason behind the area scaling you saw above. Forgetting this $r$ is the most common polar integration mistake.</p>
 
             <div style="text-align: center;">
             <button class="example-toggle" onclick="toggleExample(this)" style="display: inline-block;">
