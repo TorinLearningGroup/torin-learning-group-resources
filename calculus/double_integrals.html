@@ -1254,6 +1254,41 @@
                 $$\iint_R f(x,y)\,dA = \int_\alpha^\beta \int_{r_1(\theta)}^{r_2(\theta)} f(r\cos\theta,\, r\sin\theta)\;\underbrace{r\,dr\,d\theta}_{dA}$$
             </div>
             <p>The $r$ in $r\,dr\,d\theta$ is <strong>not optional</strong>. It is the <em>Jacobian</em> of the transformation from Cartesian to polar coordinates, and it corrects for the fact that polar patches are wider at larger $r$. Forgetting this $r$ is the most common polar integration mistake.</p>
+
+            <div style="text-align: center;">
+            <button class="example-toggle" onclick="toggleExample(this)" style="display: inline-block;">
+                <span class="arrow">&#9654;</span> Where does the $r$ formally come from?
+            </button>
+            <div class="example-body" style="text-align: left;">
+                <div style="background: rgba(59,83,35,0.06); border-radius: 8px; padding: 18px 22px; line-height: 1.8;">
+                    <p style="margin-bottom: 10px;"><strong>The Jacobian Determinant</strong></p>
+                    <p>When we change variables in a double integral, we need to know how the coordinate transformation <em>scales area</em>. In linear algebra, the determinant of a $2\times 2$ matrix tells us how that linear map scales area. But our polar-to-Cartesian map isn't linear — it's a smooth, nonlinear transformation. The <strong>Jacobian matrix</strong> is the <em>best linear approximation</em> of that transformation at each point (its matrix of partial derivatives), so its determinant gives us the <em>local</em> area-scaling factor.</p>
+                    <p style="margin-top: 10px;">The polar coordinate transformation is:</p>
+                    <div class="highlight-box" style="margin: 12px 0;">
+                        $$x = r\cos\theta, \qquad y = r\sin\theta$$
+                    </div>
+                    <p>The <strong>Jacobian matrix</strong> collects all partial derivatives of this transformation:</p>
+                    <div class="highlight-box" style="margin: 12px 0;">
+                        $$J = \begin{pmatrix} \dfrac{\partial x}{\partial r} & \dfrac{\partial x}{\partial \theta} \\[8pt] \dfrac{\partial y}{\partial r} & \dfrac{\partial y}{\partial \theta} \end{pmatrix} = \begin{pmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & \phantom{-}r\cos\theta \end{pmatrix}$$
+                    </div>
+                    <p>Its determinant gives the local area-scaling factor:</p>
+                    <div class="highlight-box" style="margin: 12px 0;">
+                        $$\det(J) = (\cos\theta)(r\cos\theta) - (-r\sin\theta)(\sin\theta) = r\cos^2\!\theta + r\sin^2\!\theta = r$$
+                    </div>
+                    <p style="margin-top: 10px;">So the general change-of-variables formula</p>
+                    <div class="highlight-box" style="margin: 12px 0;">
+                        $$\iint f(x,y)\,dx\,dy \;=\; \iint f\!\bigl(r\cos\theta,\, r\sin\theta\bigr)\;\bigl|\!\det(J)\bigr|\;dr\,d\theta$$
+                    </div>
+                    <p>becomes, since $|\!\det(J)| = r$ (with $r \ge 0$):</p>
+                    <div class="highlight-box" style="margin: 12px 0;">
+                        $$\iint f(x,y)\,dx\,dy \;=\; \iint f(r\cos\theta,\, r\sin\theta)\;\, r\;dr\,d\theta$$
+                    </div>
+                    <div class="idea-box" style="margin-top: 14px;">
+                        <strong>Linear-algebra intuition:</strong> In $\mathbb{R}^2$, the determinant of a $2 \times 2$ matrix tells you how much a linear map stretches (or shrinks) every unit square. The Jacobian matrix is the <em>best linear approximation</em> of our transformation at each point, so its determinant tells us the local area-scaling factor. Since polar "grid squares" at radius $r$ are $r$ times as wide (in the $\theta$-direction) as the corresponding Cartesian unit, the scaling factor is exactly $r$.
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
 
         <!-- ═══ §6 — Key Terms ═══ -->
