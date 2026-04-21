@@ -169,6 +169,7 @@ li{margin-bottom:10px;}
 <button class="tab-button" data-group="techniques" onclick="switchTab('parametric',this)">Parametric</button>
 <button class="tab-button" data-group="techniques" onclick="switchTab('applied',this)">Applied Models</button>
 <button class="tab-button" data-group="practice" onclick="switchTab('practice',this)">Practice</button>
+<button class="tab-button" data-group="practice" onclick="switchTab('challenge',this)">AP Challenge</button>
 </div>
 
 <!-- TAB: OVERVIEW -->
@@ -2640,6 +2641,543 @@ li{margin-bottom:10px;}
 </div>
 
 </div><!-- end practice -->
+
+<!-- TAB: AP CHALLENGE -->
+<div id="tab-challenge" class="tab-content">
+
+<div class="key-insight" style="margin-bottom:24px;">
+<strong>AP Precalculus — Challenge Round</strong>
+<p style="margin-top:8px;">These problems are designed to push your understanding beyond routine computation. They combine multiple concepts, require careful reasoning about domains and symmetry, and mirror the style and difficulty of AP Precalculus exam free-response questions. No calculator unless stated.</p>
+</div>
+
+<div class="section-header"><div class="section-number">1</div><h2>Polar Curve Analysis</h2></div>
+<div id="challenge-container">
+
+<div class="card" style="border-left-color: var(--green-dark);">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">1</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Polar Intersections &amp; the Pole</span>
+</div>
+<p>Consider the polar curves $r_1 = 2\sin\theta$ and $r_2 = 1$.</p>
+<p><strong>(a)</strong> Find all points of intersection by solving $r_1 = r_2$ algebraically. Express your answers as polar coordinates.</p>
+<p><strong>(b)</strong> A student claims: "The origin must also be an intersection because $r_1 = 2\sin\theta$ passes through the pole." Is the student correct? Justify by checking whether each curve passes through the pole, and state the $\theta$-values (if any) where $r = 0$.</p>
+<p><strong>(c)</strong> Convert both polar equations to rectangular form. Verify that your intersection points from part (a) satisfy both rectangular equations.</p>
+<p><strong>(d)</strong> Now consider a <em>different</em> pair of curves: $r_1 = \sin\theta$ and $r_2 = \cos\theta$. Find all intersection points. Use the two-step pole check: (Step 1) solve $r_1 = r_2$, then (Step 2) separately check whether each curve passes through the pole. How many total intersection points are there?</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(59,83,35,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--green-dark);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Polar Intersections</span></p>
+
+<!-- SVG Sketch of r=2sinθ and r=1 -->
+<div style="text-align:center;margin:16px 0 10px;">
+<svg viewBox="-10 -140 280 290" xmlns="http://www.w3.org/2000/svg" style="max-width:320px;width:100%;height:auto;background:white;border-radius:10px;border:1px solid var(--cream-dark);">
+<!-- Polar grid: concentric circles at r=0.5,1,1.5,2 -->
+<circle cx="130" cy="0" r="32.5" fill="none" stroke="#e8e4dc" stroke-width="0.6"/>
+<circle cx="130" cy="0" r="65" fill="none" stroke="#ddd" stroke-width="0.8"/>
+<circle cx="130" cy="0" r="97.5" fill="none" stroke="#e8e4dc" stroke-width="0.6"/>
+<circle cx="130" cy="0" r="130" fill="none" stroke="#ddd" stroke-width="0.8"/>
+<!-- Axes -->
+<line x1="0" y1="0" x2="260" y2="0" stroke="#bbb" stroke-width="1"/>
+<line x1="130" y1="-130" x2="130" y2="130" stroke="#bbb" stroke-width="1"/>
+<!-- Diagonal angle lines -->
+<line x1="38" y1="92" x2="222" y2="-92" stroke="#eee" stroke-width="0.5"/>
+<line x1="38" y1="-92" x2="222" y2="92" stroke="#eee" stroke-width="0.5"/>
+<!-- r=1 circle (centered at origin, radius=65px since scale: 1 unit = 65px) -->
+<circle cx="130" cy="0" r="65" fill="rgba(200,168,78,0.08)" stroke="#C8A84E" stroke-width="2.2" stroke-dasharray="6,3"/>
+<!-- r=2sinθ circle: center (0,1) radius 1 → center (130,-65) radius 65 in SVG coords (y flipped) -->
+<circle cx="130" cy="-65" r="65" fill="rgba(59,83,35,0.06)" stroke="#3B5323" stroke-width="2.2"/>
+<!-- Intersection points: (1, π/6) and (1, 5π/6) -->
+<!-- (1,π/6): x=cos(π/6)=√3/2≈0.866, y=sin(π/6)=0.5 → SVG: (130+56.3, -32.5) -->
+<circle cx="186.3" cy="-32.5" r="5" fill="#C8A84E" stroke="white" stroke-width="1.5"/>
+<!-- (1,5π/6): x=cos(5π/6)=-√3/2≈-0.866, y=sin(5π/6)=0.5 → SVG: (130-56.3, -32.5) -->
+<circle cx="73.7" cy="-32.5" r="5" fill="#C8A84E" stroke="white" stroke-width="1.5"/>
+<!-- Origin dot -->
+<circle cx="130" cy="0" r="3" fill="#888"/>
+<!-- Labels -->
+<text x="192" y="-40" font-size="11" fill="#3E2C1C" font-weight="600" font-family="sans-serif">$(1, \frac{\pi}{6})$</text>
+<text x="20" y="-40" font-size="11" fill="#3E2C1C" font-weight="600" font-family="sans-serif">$(1, \frac{5\pi}{6})$</text>
+<text x="148" y="-118" font-size="12" fill="#3B5323" font-weight="700" font-family="sans-serif">r = 2 sin θ</text>
+<text x="200" y="18" font-size="12" fill="#C8A84E" font-weight="700" font-family="sans-serif">r = 1</text>
+<!-- Axis labels -->
+<text x="256" y="14" font-size="11" fill="#999" font-family="sans-serif">0</text>
+<text x="133" y="-130" font-size="11" fill="#999" font-family="sans-serif">π/2</text>
+<!-- Scale ticks -->
+<text x="195" y="14" font-size="9" fill="#aaa" font-family="sans-serif">1</text>
+<text x="260" y="14" font-size="9" fill="#aaa" font-family="sans-serif">2</text>
+</svg>
+<p style="font-size:12px;color:var(--text-medium);margin-top:6px;"><em>Solid green:</em> $r = 2\sin\theta$ &nbsp;|&nbsp; <em>Dashed gold:</em> $r = 1$ &nbsp;|&nbsp; <em>Gold dots:</em> intersection points</p>
+</div>
+
+<div class="highlight-box">
+<p><strong>(a)</strong> Set $2\sin\theta = 1$, so $\sin\theta = \tfrac{1}{2}$. Solutions on $[0, 2\pi)$: $\theta = \tfrac{\pi}{6}$ and $\theta = \tfrac{5\pi}{6}$.</p>
+<p>Intersection points: $\left(1,\,\tfrac{\pi}{6}\right)$ and $\left(1,\,\tfrac{5\pi}{6}\right)$.</p>
+<p><strong>(b)</strong> The student is <strong>incorrect</strong>. Yes, $r_1 = 2\sin\theta = 0$ when $\sin\theta = 0$, i.e. at $\theta = 0$ and $\theta = \pi$, so the curve $r_1$ does pass through the pole. However, $r_2 = 1$ for <em>all</em> $\theta$ — it never equals zero — so the circle $r_2$ never reaches the pole. Since both curves must pass through a point for it to be an intersection, the pole is <strong>not</strong> a shared intersection here.</p>
+<p><strong>(c)</strong> Convert $r = 2\sin\theta$: multiply both sides by $r$: $r^2 = 2r\sin\theta \Rightarrow x^2 + y^2 = 2y \Rightarrow x^2 + (y-1)^2 = 1$. This is a circle centered at $(0,1)$ with radius $1$.</p>
+<p>Convert $r = 1$: $r^2 = 1 \Rightarrow x^2 + y^2 = 1$. Circle centered at the origin with radius $1$.</p>
+<p><strong>Verification:</strong> Point $\left(1, \frac{\pi}{6}\right)$ in rectangular: $x = \cos\frac{\pi}{6} = \frac{\sqrt{3}}{2}$, $y = \sin\frac{\pi}{6} = \frac{1}{2}$.</p>
+<p>Check $x^2 + y^2 = \frac{3}{4} + \frac{1}{4} = 1$ $\checkmark$ &nbsp; Check $x^2 + (y-1)^2 = \frac{3}{4} + \frac{1}{4} = 1$ $\checkmark$</p>
+<p style="border-top:1px solid rgba(59,83,35,0.2);padding-top:12px;margin-top:14px;"><strong>(d)</strong> <strong>Step 1 — Solve $r_1 = r_2$:</strong> $\sin\theta = \cos\theta \Rightarrow \tan\theta = 1 \Rightarrow \theta = \frac{\pi}{4}$. At this angle, $r = \sin\frac{\pi}{4} = \frac{\sqrt{2}}{2}$. So one intersection is $\left(\frac{\sqrt{2}}{2},\, \frac{\pi}{4}\right)$.</p>
+<p><strong>Step 2 — Pole check:</strong></p>
+<p style="margin-left:16px;">$r_1 = \sin\theta = 0$ when $\theta = 0$ or $\pi$. $\checkmark$ Curve $r_1$ passes through the pole.</p>
+<p style="margin-left:16px;">$r_2 = \cos\theta = 0$ when $\theta = \frac{\pi}{2}$ or $\frac{3\pi}{2}$. $\checkmark$ Curve $r_2$ passes through the pole.</p>
+<p>Both curves reach $r = 0$, just at <em>different</em> $\theta$-values. Since the pole is the same physical point regardless of $\theta$, the pole <strong>is</strong> an intersection — even though no single $\theta$ makes both $r$-values zero simultaneously.</p>
+<p><strong>Total: 2 intersection points</strong> — $\left(\frac{\sqrt{2}}{2},\, \frac{\pi}{4}\right)$ and the pole.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">2</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Symmetry &amp; Petal Counting</span>
+</div>
+<p>A student claims the rose curve $r = 3\cos(4\theta)$ has 4 petals because $n = 4$.</p>
+<p><strong>(a)</strong> Prove the student is wrong by determining the correct number of petals. Justify using the petal-counting rule and explain why $\cos(n\theta)$ with even $n$ behaves differently from odd $n$.</p>
+<p><strong>(b)</strong> Find the exact $\theta$-intervals for two consecutive petals of $r = 3\cos(4\theta)$.</p>
+<p><strong>(c)</strong> The curve $r = 3\sin(3\theta)$ has how many petals? For what $\theta$-interval does the first petal appear?</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(200,168,78,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--gold);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Rose Curves</span></p>
+
+<!-- Side-by-side SVG sketches: r=3cos(4θ) and r=3sin(3θ) -->
+<div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:16px 0 10px;">
+
+<!-- r = 3cos(4θ): 8-petal rose -->
+<div style="text-align:center;">
+<svg viewBox="40 40 220 220" xmlns="http://www.w3.org/2000/svg" style="width:240px;height:240px;background:white;border-radius:10px;border:1px solid var(--cream-dark);">
+<!-- Polar grid -->
+<circle cx="150" cy="150" r="28" fill="none" stroke="#eee" stroke-width="0.5"/>
+<circle cx="150" cy="150" r="56" fill="none" stroke="#e8e4dc" stroke-width="0.6"/>
+<circle cx="150" cy="150" r="84" fill="none" stroke="#eee" stroke-width="0.5"/>
+<!-- Axes -->
+<line x1="60" y1="150" x2="240" y2="150" stroke="#ccc" stroke-width="0.8"/>
+<line x1="150" y1="60" x2="150" y2="240" stroke="#ccc" stroke-width="0.8"/>
+<line x1="87" y1="213" x2="213" y2="87" stroke="#eee" stroke-width="0.4"/>
+<line x1="87" y1="87" x2="213" y2="213" stroke="#eee" stroke-width="0.4"/>
+<!-- Rose curve -->
+<path d="M 234.0,150.0 L 233.8,148.5 L 233.1,147.1 L 232.1,145.7 L 230.5,144.4 L 228.6,143.1 L 226.3,142.0 L 223.6,141.0 L 220.5,140.1 L 217.1,139.4 L 213.4,138.8 L 209.3,138.5 L 205.0,138.3 L 200.4,138.4 L 195.6,138.6 L 190.6,139.1 L 185.4,139.9 L 180.1,140.8 L 174.7,142.0 L 169.2,143.4 L 163.7,145.0 L 158.2,146.9 L 152.7,148.9 L 147.3,151.1 L 142.0,153.6 L 136.8,156.2 L 131.7,158.9 L 126.9,161.8 L 122.2,164.8 L 117.8,167.9 L 113.6,171.0 L 109.7,174.2 L 106.1,177.4 L 102.9,180.6 L 99.9,183.8 L 97.3,186.9 L 95.0,189.9 L 93.1,192.9 L 91.6,195.7 L 90.4,198.3 L 89.5,200.7 L 89.1,203.0 L 88.9,205.0 L 89.2,206.7 L 89.7,208.2 L 90.6,209.4 L 91.8,210.3 L 93.3,210.8 L 95.0,211.1 L 97.0,210.9 L 99.3,210.5 L 101.7,209.6 L 104.3,208.4 L 107.1,206.9 L 110.1,205.0 L 113.1,202.7 L 116.2,200.1 L 119.4,197.1 L 122.6,193.9 L 125.8,190.3 L 129.0,186.4 L 132.1,182.2 L 135.2,177.8 L 138.2,173.1 L 141.1,168.3 L 143.8,163.2 L 146.4,158.0 L 148.9,152.7 L 151.1,147.3 L 153.1,141.8 L 155.0,136.3 L 156.6,130.8 L 158.0,125.3 L 159.2,119.9 L 160.1,114.6 L 160.9,109.4 L 161.4,104.4 L 161.6,99.6 L 161.7,95.0 L 161.5,90.7 L 161.2,86.6 L 160.6,82.9 L 159.9,79.5 L 159.0,76.4 L 158.0,73.7 L 156.9,71.4 L 155.6,69.5 L 154.3,67.9 L 152.9,66.9 L 151.5,66.2 L 150.0,66.0 L 148.5,66.2 L 147.1,66.9 L 145.7,67.9 L 144.4,69.5 L 143.1,71.4 L 142.0,73.7 L 141.0,76.4 L 140.1,79.5 L 139.4,82.9 L 138.8,86.6 L 138.5,90.7 L 138.3,95.0 L 138.4,99.6 L 138.6,104.4 L 139.1,109.4 L 139.9,114.6 L 140.8,119.9 L 142.0,125.3 L 143.4,130.8 L 145.0,136.3 L 146.9,141.8 L 148.9,147.3 L 151.1,152.7 L 153.6,158.0 L 156.2,163.2 L 158.9,168.3 L 161.8,173.1 L 164.8,177.8 L 167.9,182.2 L 171.0,186.4 L 174.2,190.3 L 177.4,193.9 L 180.6,197.1 L 183.8,200.1 L 186.9,202.7 L 189.9,205.0 L 192.9,206.9 L 195.7,208.4 L 198.3,209.6 L 200.7,210.5 L 203.0,210.9 L 205.0,211.1 L 206.7,210.8 L 208.2,210.3 L 209.4,209.4 L 210.3,208.2 L 210.8,206.7 L 211.1,205.0 L 210.9,203.0 L 210.5,200.7 L 209.6,198.3 L 208.4,195.7 L 206.9,192.9 L 205.0,189.9 L 202.7,186.9 L 200.1,183.8 L 197.1,180.6 L 193.9,177.4 L 190.3,174.2 L 186.4,171.0 L 182.2,167.9 L 177.8,164.8 L 173.1,161.8 L 168.3,158.9 L 163.2,156.2 L 158.0,153.6 L 152.7,151.1 L 147.3,148.9 L 141.8,146.9 L 136.3,145.0 L 130.8,143.4 L 125.3,142.0 L 119.9,140.8 L 114.6,139.9 L 109.4,139.1 L 104.4,138.6 L 99.6,138.4 L 95.0,138.3 L 90.7,138.5 L 86.6,138.8 L 82.9,139.4 L 79.5,140.1 L 76.4,141.0 L 73.7,142.0 L 71.4,143.1 L 69.5,144.4 L 67.9,145.7 L 66.9,147.1 L 66.2,148.5 L 66.0,150.0 L 66.2,151.5 L 66.9,152.9 L 67.9,154.3 L 69.5,155.6 L 71.4,156.9 L 73.7,158.0 L 76.4,159.0 L 79.5,159.9 L 82.9,160.6 L 86.6,161.2 L 90.7,161.5 L 95.0,161.7 L 99.6,161.6 L 104.4,161.4 L 109.4,160.9 L 114.6,160.1 L 119.9,159.2 L 125.3,158.0 L 130.8,156.6 L 136.3,155.0 L 141.8,153.1 L 147.3,151.1 L 152.7,148.9 L 158.0,146.4 L 163.2,143.8 L 168.3,141.1 L 173.1,138.2 L 177.8,135.2 L 182.2,132.1 L 186.4,129.0 L 190.3,125.8 L 193.9,122.6 L 197.1,119.4 L 200.1,116.2 L 202.7,113.1 L 205.0,110.1 L 206.9,107.1 L 208.4,104.3 L 209.6,101.7 L 210.5,99.3 L 210.9,97.0 L 211.1,95.0 L 210.8,93.3 L 210.3,91.8 L 209.4,90.6 L 208.2,89.7 L 206.7,89.2 L 205.0,88.9 L 203.0,89.1 L 200.7,89.5 L 198.3,90.4 L 195.7,91.6 L 192.9,93.1 L 189.9,95.0 L 186.9,97.3 L 183.8,99.9 L 180.6,102.9 L 177.4,106.1 L 174.2,109.7 L 171.0,113.6 L 167.9,117.8 L 164.8,122.2 L 161.8,126.9 L 158.9,131.7 L 156.2,136.8 L 153.6,142.0 L 151.1,147.3 L 148.9,152.7 L 146.9,158.2 L 145.0,163.7 L 143.4,169.2 L 142.0,174.7 L 140.8,180.1 L 139.9,185.4 L 139.1,190.6 L 138.6,195.6 L 138.4,200.4 L 138.3,205.0 L 138.5,209.3 L 138.8,213.4 L 139.4,217.1 L 140.1,220.5 L 141.0,223.6 L 142.0,226.3 L 143.1,228.6 L 144.4,230.5 L 145.7,232.1 L 147.1,233.1 L 148.5,233.8 L 150.0,234.0 L 151.5,233.8 L 152.9,233.1 L 154.3,232.1 L 155.6,230.5 L 156.9,228.6 L 158.0,226.3 L 159.0,223.6 L 159.9,220.5 L 160.6,217.1 L 161.2,213.4 L 161.5,209.3 L 161.7,205.0 L 161.6,200.4 L 161.4,195.6 L 160.9,190.6 L 160.1,185.4 L 159.2,180.1 L 158.0,174.7 L 156.6,169.2 L 155.0,163.7 L 153.1,158.2 L 151.1,152.7 L 148.9,147.3 L 146.4,142.0 L 143.8,136.8 L 141.1,131.7 L 138.2,126.9 L 135.2,122.2 L 132.1,117.8 L 129.0,113.6 L 125.8,109.7 L 122.6,106.1 L 119.4,102.9 L 116.2,99.9 L 113.1,97.3 L 110.1,95.0 L 107.1,93.1 L 104.3,91.6 L 101.7,90.4 L 99.3,89.5 L 97.0,89.1 L 95.0,88.9 L 93.3,89.2 L 91.8,89.7 L 90.6,90.6 L 89.7,91.8 L 89.2,93.3 L 88.9,95.0 L 89.1,97.0 L 89.5,99.3 L 90.4,101.7 L 91.6,104.3 L 93.1,107.1 L 95.0,110.1 L 97.3,113.1 L 99.9,116.2 L 102.9,119.4 L 106.1,122.6 L 109.7,125.8 L 113.6,129.0 L 117.8,132.1 L 122.2,135.2 L 126.9,138.2 L 131.7,141.1 L 136.8,143.8 L 142.0,146.4 L 147.3,148.9 L 152.7,151.1 L 158.2,153.1 L 163.7,155.0 L 169.2,156.6 L 174.7,158.0 L 180.1,159.2 L 185.4,160.1 L 190.6,160.9 L 195.6,161.4 L 200.4,161.6 L 205.0,161.7 L 209.3,161.5 L 213.4,161.2 L 217.1,160.6 L 220.5,159.9 L 223.6,159.0 L 226.3,158.0 L 228.6,156.9 L 230.5,155.6 L 232.1,154.3 L 233.1,152.9 L 233.8,151.5 L 234.0,150.0 Z" fill="rgba(200,168,78,0.10)" stroke="#C8A84E" stroke-width="1.8"/>
+<!-- Petal tip labels -->
+<text x="238" y="147" font-size="8" fill="#8B6914" font-weight="600" font-family="sans-serif">3</text>
+<text x="152" y="62" font-size="8" fill="#8B6914" font-weight="600" font-family="sans-serif">3</text>
+<text x="62" y="147" font-size="8" fill="#8B6914" font-weight="600" font-family="sans-serif">3</text>
+<text x="152" y="240" font-size="8" fill="#8B6914" font-weight="600" font-family="sans-serif">3</text>
+<!-- Origin -->
+<circle cx="150" cy="150" r="2" fill="#888"/>
+</svg>
+<p style="font-size:11px;color:var(--text-medium);margin-top:4px;font-weight:600;">$r = 3\cos(4\theta)$ — <span style="color:#C8A84E;">8 petals</span></p>
+</div>
+
+<!-- r = 3sin(3θ): 3-petal rose -->
+<div style="text-align:center;">
+<svg viewBox="40 40 220 220" xmlns="http://www.w3.org/2000/svg" style="width:240px;height:240px;background:white;border-radius:10px;border:1px solid var(--cream-dark);">
+<!-- Polar grid -->
+<circle cx="150" cy="150" r="28" fill="none" stroke="#eee" stroke-width="0.5"/>
+<circle cx="150" cy="150" r="56" fill="none" stroke="#e8e4dc" stroke-width="0.6"/>
+<circle cx="150" cy="150" r="84" fill="none" stroke="#eee" stroke-width="0.5"/>
+<!-- Axes -->
+<line x1="60" y1="150" x2="240" y2="150" stroke="#ccc" stroke-width="0.8"/>
+<line x1="150" y1="60" x2="150" y2="240" stroke="#ccc" stroke-width="0.8"/>
+<line x1="87" y1="213" x2="213" y2="87" stroke="#eee" stroke-width="0.4"/>
+<line x1="87" y1="87" x2="213" y2="213" stroke="#eee" stroke-width="0.4"/>
+<!-- Rose curve -->
+<path d="M 150.0,150.0 L 152.2,150.0 L 154.4,149.9 L 156.6,149.8 L 158.8,149.7 L 161.0,149.5 L 163.1,149.3 L 165.3,149.1 L 167.4,148.8 L 169.5,148.5 L 171.7,148.1 L 173.7,147.7 L 175.8,147.3 L 177.9,146.8 L 179.9,146.3 L 181.9,145.8 L 183.8,145.2 L 185.8,144.7 L 187.7,144.0 L 189.5,143.4 L 191.4,142.7 L 193.2,142.0 L 194.9,141.3 L 196.6,140.5 L 198.3,139.7 L 199.9,138.9 L 201.5,138.1 L 203.0,137.3 L 204.5,136.4 L 206.0,135.5 L 207.4,134.6 L 208.7,133.7 L 210.0,132.8 L 211.2,131.9 L 212.4,130.9 L 213.6,130.0 L 214.6,129.0 L 215.6,128.0 L 216.6,127.1 L 217.5,126.1 L 218.4,125.1 L 219.1,124.1 L 219.9,123.2 L 220.5,122.2 L 221.2,121.3 L 221.7,120.3 L 222.2,119.4 L 222.6,118.4 L 223.0,117.5 L 223.3,116.6 L 223.5,115.7 L 223.7,114.8 L 223.8,114.0 L 223.9,113.1 L 223.9,112.3 L 223.9,111.5 L 223.8,110.8 L 223.6,110.0 L 223.4,109.3 L 223.1,108.7 L 222.7,108.0 L 222.4,107.4 L 221.9,106.8 L 221.4,106.2 L 220.8,105.7 L 220.2,105.3 L 219.6,104.8 L 218.9,104.4 L 218.1,104.1 L 217.3,103.7 L 216.5,103.5 L 215.6,103.2 L 214.6,103.0 L 213.7,102.9 L 212.6,102.8 L 211.6,102.8 L 210.5,102.8 L 209.3,102.8 L 208.2,102.9 L 207.0,103.0 L 205.7,103.2 L 204.5,103.5 L 203.2,103.8 L 201.8,104.1 L 200.5,104.5 L 199.1,105.0 L 197.7,105.5 L 196.3,106.0 L 194.9,106.6 L 193.5,107.3 L 192.0,108.0 L 190.5,108.8 L 189.0,109.6 L 187.6,110.4 L 186.1,111.3 L 184.5,112.3 L 183.0,113.3 L 181.5,114.4 L 180.0,115.5 L 178.5,116.6 L 177.0,117.8 L 175.5,119.1 L 174.0,120.4 L 172.5,121.7 L 171.0,123.1 L 169.6,124.5 L 168.1,126.0 L 166.7,127.5 L 165.3,129.0 L 163.9,130.6 L 162.5,132.2 L 161.1,133.8 L 159.8,135.5 L 158.4,137.2 L 157.2,139.0 L 155.9,140.8 L 154.7,142.6 L 153.4,144.4 L 152.3,146.2 L 151.1,148.1 L 150.0,150.0 L 148.9,151.9 L 147.9,153.8 L 146.9,155.8 L 145.9,157.8 L 144.9,159.7 L 144.0,161.7 L 143.2,163.7 L 142.3,165.7 L 141.6,167.7 L 140.8,169.7 L 140.1,171.7 L 139.4,173.7 L 138.8,175.7 L 138.2,177.7 L 137.7,179.7 L 137.2,181.7 L 136.7,183.6 L 136.3,185.6 L 136.0,187.5 L 135.6,189.5 L 135.3,191.4 L 135.1,193.3 L 134.9,195.1 L 134.7,197.0 L 134.6,198.8 L 134.5,200.6 L 134.5,202.3 L 134.5,204.0 L 134.5,205.7 L 134.6,207.4 L 134.7,209.0 L 134.9,210.6 L 135.1,212.1 L 135.3,213.6 L 135.6,215.1 L 135.9,216.5 L 136.2,217.8 L 136.6,219.2 L 136.9,220.4 L 137.4,221.6 L 137.8,222.8 L 138.3,223.9 L 138.8,225.0 L 139.3,226.0 L 139.9,226.9 L 140.4,227.8 L 141.0,228.7 L 141.6,229.5 L 142.3,230.2 L 142.9,230.8 L 143.6,231.4 L 144.3,232.0 L 145.0,232.4 L 145.7,232.9 L 146.4,233.2 L 147.1,233.5 L 147.8,233.7 L 148.5,233.9 L 149.3,234.0 L 150.0,234.0 L 150.7,234.0 L 151.5,233.9 L 152.2,233.7 L 152.9,233.5 L 153.6,233.2 L 154.3,232.9 L 155.0,232.4 L 155.7,232.0 L 156.4,231.4 L 157.1,230.8 L 157.7,230.2 L 158.4,229.5 L 159.0,228.7 L 159.6,227.8 L 160.1,226.9 L 160.7,226.0 L 161.2,225.0 L 161.7,223.9 L 162.2,222.8 L 162.6,221.6 L 163.1,220.4 L 163.4,219.2 L 163.8,217.8 L 164.1,216.5 L 164.4,215.1 L 164.7,213.6 L 164.9,212.1 L 165.1,210.6 L 165.3,209.0 L 165.4,207.4 L 165.5,205.7 L 165.5,204.0 L 165.5,202.3 L 165.5,200.6 L 165.4,198.8 L 165.3,197.0 L 165.1,195.1 L 164.9,193.3 L 164.7,191.4 L 164.4,189.5 L 164.0,187.5 L 163.7,185.6 L 163.3,183.6 L 162.8,181.7 L 162.3,179.7 L 161.8,177.7 L 161.2,175.7 L 160.6,173.7 L 159.9,171.7 L 159.2,169.7 L 158.4,167.7 L 157.7,165.7 L 156.8,163.7 L 156.0,161.7 L 155.1,159.7 L 154.1,157.8 L 153.1,155.8 L 152.1,153.8 L 151.1,151.9 L 150.0,150.0 L 148.9,148.1 L 147.7,146.2 L 146.6,144.4 L 145.3,142.6 L 144.1,140.8 L 142.8,139.0 L 141.6,137.2 L 140.2,135.5 L 138.9,133.8 L 137.5,132.2 L 136.1,130.6 L 134.7,129.0 L 133.3,127.5 L 131.9,126.0 L 130.4,124.5 L 129.0,123.1 L 127.5,121.7 L 126.0,120.4 L 124.5,119.1 L 123.0,117.8 L 121.5,116.6 L 120.0,115.5 L 118.5,114.4 L 117.0,113.3 L 115.5,112.3 L 113.9,111.3 L 112.4,110.4 L 111.0,109.6 L 109.5,108.8 L 108.0,108.0 L 106.5,107.3 L 105.1,106.6 L 103.7,106.0 L 102.3,105.5 L 100.9,105.0 L 99.5,104.5 L 98.2,104.1 L 96.8,103.8 L 95.5,103.5 L 94.3,103.2 L 93.0,103.0 L 91.8,102.9 L 90.7,102.8 L 89.5,102.8 L 88.4,102.8 L 87.4,102.8 L 86.3,102.9 L 85.4,103.0 L 84.4,103.2 L 83.5,103.5 L 82.7,103.7 L 81.9,104.1 L 81.1,104.4 L 80.4,104.8 L 79.8,105.3 L 79.2,105.7 L 78.6,106.2 L 78.1,106.8 L 77.6,107.4 L 77.3,108.0 L 76.9,108.7 L 76.6,109.3 L 76.4,110.0 L 76.2,110.8 L 76.1,111.5 L 76.1,112.3 L 76.1,113.1 L 76.2,114.0 L 76.3,114.8 L 76.5,115.7 L 76.7,116.6 L 77.0,117.5 L 77.4,118.4 L 77.8,119.4 L 78.3,120.3 L 78.8,121.3 L 79.5,122.2 L 80.1,123.2 L 80.9,124.1 L 81.6,125.1 L 82.5,126.1 L 83.4,127.1 L 84.4,128.0 L 85.4,129.0 L 86.4,130.0 L 87.6,130.9 L 88.8,131.9 L 90.0,132.8 L 91.3,133.7 L 92.6,134.6 L 94.0,135.5 L 95.5,136.4 L 97.0,137.3 L 98.5,138.1 L 100.1,138.9 L 101.7,139.7 L 103.4,140.5 L 105.1,141.3 L 106.8,142.0 L 108.6,142.7 L 110.5,143.4 L 112.3,144.0 L 114.2,144.7 L 116.2,145.2 L 118.1,145.8 L 120.1,146.3 L 122.1,146.8 L 124.2,147.3 L 126.3,147.7 L 128.3,148.1 L 130.5,148.5 L 132.6,148.8 L 134.7,149.1 L 136.9,149.3 L 139.0,149.5 L 141.2,149.7 L 143.4,149.8 L 145.6,149.9 L 147.8,150.0 L 150.0,150.0 Z" fill="rgba(59,83,35,0.10)" stroke="#3B5323" stroke-width="1.8"/>
+<!-- Origin -->
+<circle cx="150" cy="150" r="2" fill="#888"/>
+<!-- First petal label -->
+<text x="196" y="118" font-size="9" fill="#3B5323" font-style="italic" font-family="sans-serif">1st petal</text>
+<text x="196" y="128" font-size="8" fill="#3B5323" font-family="sans-serif">0 ≤ θ ≤ π/3</text>
+</svg>
+<p style="font-size:11px;color:var(--text-medium);margin-top:4px;font-weight:600;">$r = 3\sin(3\theta)$ — <span style="color:#3B5323;">3 petals</span></p>
+</div>
+
+</div>
+
+<div class="highlight-box">
+<p><strong>(a)</strong> For $r = a\cos(n\theta)$: if $n$ is odd → $n$ petals; if $n$ is even → $2n$ petals. Since $n = 4$ is even, the curve has $2(4) = \mathbf{8}$ petals. The reason: when $n$ is even, negative $r$-values trace petals in directions opposite to where they'd cancel for odd $n$.</p>
+<p><strong>(b)</strong> Petals occur where $\cos(4\theta) \geq 0$. The first petal: $-\tfrac{\pi}{8} \leq \theta \leq \tfrac{\pi}{8}$. The second petal: $\tfrac{3\pi}{8} \leq \theta \leq \tfrac{5\pi}{8}$. (Equivalently, you can start at $\theta = 0$: first petal is $[0, \pi/8]$, etc., but the full petal is symmetric about the axis.)</p>
+<p><strong>(c)</strong> $r = 3\sin(3\theta)$: $n = 3$ is odd, so <strong>3 petals</strong>. The first petal appears where $\sin(3\theta) \geq 0$ starting from $\theta = 0$: that is $0 \leq \theta \leq \tfrac{\pi}{3}$.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="border-left-color: var(--green-dark);">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">3</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Limacon Classification</span>
+</div>
+<p>Consider the family of curves $r = a + b\cos\theta$ where $a, b > 0$.</p>
+<p><strong>(a)</strong> State the condition on $\tfrac{a}{b}$ that determines whether the limacon has an inner loop, is a cardioid, is dimpled without a loop, or is convex.</p>
+<p><strong>(b)</strong> For $r = 2 + 3\cos\theta$, find the exact $\theta$-values where $r = 0$. What happens to the curve at these values?</p>
+<p><strong>(c)</strong> A classmate converts $r = 2 + 3\cos\theta$ to rectangular form and obtains a single equation. They then graph it on a graphing calculator using $y = f(x)$. Explain why the rectangular graph may fail to show the complete limacon.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(139,94,60,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--brown-medium);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Limacon Analysis</span></p>
+
+<!-- SVG Sketch: r = 2 + 3cos(θ), inner-loop limacon -->
+<!-- Canvas 300×300, center (150,150), scale 18px/unit. Max r=5 → 90px right of center -->
+<div style="text-align:center;margin:16px 0 10px;">
+<svg viewBox="30 50 240 200" xmlns="http://www.w3.org/2000/svg" style="max-width:340px;width:100%;height:auto;background:white;border-radius:10px;border:1px solid var(--cream-dark);">
+<!-- Polar grid -->
+<circle cx="150" cy="150" r="18" fill="none" stroke="#f0ece4" stroke-width="0.4"/>
+<circle cx="150" cy="150" r="36" fill="none" stroke="#e8e4dc" stroke-width="0.5"/>
+<circle cx="150" cy="150" r="54" fill="none" stroke="#f0ece4" stroke-width="0.4"/>
+<circle cx="150" cy="150" r="72" fill="none" stroke="#e8e4dc" stroke-width="0.5"/>
+<circle cx="150" cy="150" r="90" fill="none" stroke="#f0ece4" stroke-width="0.4"/>
+<!-- Axes -->
+<line x1="50" y1="150" x2="250" y2="150" stroke="#ccc" stroke-width="0.8"/>
+<line x1="150" y1="60" x2="150" y2="240" stroke="#ccc" stroke-width="0.8"/>
+<!-- Limacon curve -->
+<path d="M 240.0,150.0 L 240.0,148.4 L 239.9,146.9 L 239.8,145.3 L 239.6,143.7 L 239.5,142.2 L 239.2,140.6 L 238.9,139.1 L 238.6,137.5 L 238.2,136.0 L 237.8,134.5 L 237.4,133.0 L 236.9,131.5 L 236.3,130.1 L 235.8,128.6 L 235.2,127.2 L 234.5,125.8 L 233.8,124.4 L 233.1,123.0 L 232.3,121.7 L 231.5,120.3 L 230.7,119.0 L 229.8,117.8 L 228.9,116.5 L 228.0,115.3 L 227.0,114.1 L 226.0,112.9 L 224.9,111.8 L 223.9,110.7 L 222.8,109.6 L 221.7,108.6 L 220.5,107.6 L 219.4,106.7 L 218.2,105.7 L 217.0,104.8 L 215.7,104.0 L 214.5,103.2 L 213.2,102.4 L 211.9,101.6 L 210.6,100.9 L 209.3,100.3 L 207.9,99.6 L 206.6,99.1 L 205.2,98.5 L 203.8,98.0 L 202.5,97.5 L 201.1,97.1 L 199.7,96.7 L 198.3,96.4 L 196.9,96.1 L 195.5,95.8 L 194.0,95.6 L 192.6,95.4 L 191.2,95.3 L 189.8,95.2 L 188.4,95.1 L 187.0,95.1 L 185.6,95.1 L 184.2,95.2 L 182.9,95.3 L 181.5,95.4 L 180.1,95.6 L 178.8,95.8 L 177.5,96.1 L 176.2,96.4 L 174.9,96.7 L 173.6,97.0 L 172.3,97.4 L 171.1,97.9 L 169.8,98.3 L 168.6,98.8 L 167.4,99.3 L 166.3,99.9 L 165.1,100.5 L 164.0,101.1 L 162.9,101.7 L 161.9,102.4 L 160.8,103.1 L 159.8,103.8 L 158.8,104.5 L 157.9,105.3 L 157.0,106.1 L 156.1,106.9 L 155.2,107.7 L 154.4,108.6 L 153.5,109.4 L 152.8,110.3 L 152.0,111.2 L 151.3,112.1 L 150.6,113.1 L 150.0,114.0 L 149.4,114.9 L 148.8,115.9 L 148.3,116.9 L 147.8,117.8 L 147.3,118.8 L 146.8,119.8 L 146.4,120.8 L 146.0,121.8 L 145.7,122.8 L 145.4,123.8 L 145.1,124.8 L 144.8,125.8 L 144.6,126.8 L 144.5,127.7 L 144.3,128.7 L 144.2,129.7 L 144.1,130.7 L 144.0,131.6 L 144.0,132.6 L 144.0,133.5 L 144.0,134.5 L 144.1,135.4 L 144.2,136.3 L 144.3,137.2 L 144.4,138.1 L 144.6,138.9 L 144.8,139.8 L 145.0,140.6 L 145.2,141.4 L 145.5,142.2 L 145.8,143.0 L 146.1,143.7 L 146.4,144.5 L 146.8,145.2 L 147.1,145.9 L 147.5,146.6 L 147.9,147.2 L 148.3,147.8 L 148.7,148.4 L 149.2,149.0 L 149.6,149.6 L 150.1,150.1 L 150.6,150.6 L 151.1,151.1 L 151.5,151.5 L 152.0,152.0 L 152.6,152.4 L 153.1,152.8 L 153.6,153.1 L 154.1,153.4 L 154.6,153.8 L 155.2,154.0 L 155.7,154.3 L 156.2,154.5 L 156.7,154.7 L 157.3,154.9 L 157.8,155.1 L 158.3,155.2 L 158.8,155.3 L 159.3,155.4 L 159.8,155.4 L 160.3,155.5 L 160.8,155.5 L 161.3,155.5 L 161.7,155.5 L 162.2,155.4 L 162.6,155.4 L 163.0,155.3 L 163.5,155.2 L 163.9,155.0 L 164.2,154.9 L 164.6,154.7 L 165.0,154.6 L 165.3,154.4 L 165.6,154.2 L 165.9,154.0 L 166.2,153.7 L 166.5,153.5 L 166.7,153.2 L 166.9,153.0 L 167.1,152.7 L 167.3,152.4 L 167.5,152.1 L 167.6,151.9 L 167.7,151.6 L 167.8,151.2 L 167.9,150.9 L 168.0,150.6 L 168.0,150.3 L 168.0,150.0 L 168.0,149.7 L 168.0,149.4 L 167.9,149.1 L 167.8,148.8 L 167.7,148.4 L 167.6,148.1 L 167.5,147.9 L 167.3,147.6 L 167.1,147.3 L 166.9,147.0 L 166.7,146.8 L 166.5,146.5 L 166.2,146.3 L 165.9,146.0 L 165.6,145.8 L 165.3,145.6 L 165.0,145.4 L 164.6,145.3 L 164.2,145.1 L 163.9,145.0 L 163.5,144.8 L 163.0,144.7 L 162.6,144.6 L 162.2,144.6 L 161.7,144.5 L 161.3,144.5 L 160.8,144.5 L 160.3,144.5 L 159.8,144.6 L 159.3,144.6 L 158.8,144.7 L 158.3,144.8 L 157.8,144.9 L 157.3,145.1 L 156.7,145.3 L 156.2,145.5 L 155.7,145.7 L 155.2,146.0 L 154.6,146.2 L 154.1,146.6 L 153.6,146.9 L 153.1,147.2 L 152.6,147.6 L 152.0,148.0 L 151.5,148.5 L 151.1,148.9 L 150.6,149.4 L 150.1,149.9 L 149.6,150.4 L 149.2,151.0 L 148.7,151.6 L 148.3,152.2 L 147.9,152.8 L 147.5,153.4 L 147.1,154.1 L 146.8,154.8 L 146.4,155.5 L 146.1,156.3 L 145.8,157.0 L 145.5,157.8 L 145.2,158.6 L 145.0,159.4 L 144.8,160.2 L 144.6,161.1 L 144.4,161.9 L 144.3,162.8 L 144.2,163.7 L 144.1,164.6 L 144.0,165.5 L 144.0,166.5 L 144.0,167.4 L 144.0,168.4 L 144.1,169.3 L 144.2,170.3 L 144.3,171.3 L 144.5,172.3 L 144.6,173.2 L 144.8,174.2 L 145.1,175.2 L 145.4,176.2 L 145.7,177.2 L 146.0,178.2 L 146.4,179.2 L 146.8,180.2 L 147.3,181.2 L 147.8,182.2 L 148.3,183.1 L 148.8,184.1 L 149.4,185.1 L 150.0,186.0 L 150.6,186.9 L 151.3,187.9 L 152.0,188.8 L 152.8,189.7 L 153.5,190.6 L 154.4,191.4 L 155.2,192.3 L 156.1,193.1 L 157.0,193.9 L 157.9,194.7 L 158.8,195.5 L 159.8,196.2 L 160.8,196.9 L 161.9,197.6 L 162.9,198.3 L 164.0,198.9 L 165.1,199.5 L 166.3,200.1 L 167.4,200.7 L 168.6,201.2 L 169.8,201.7 L 171.1,202.1 L 172.3,202.6 L 173.6,203.0 L 174.9,203.3 L 176.2,203.6 L 177.5,203.9 L 178.8,204.2 L 180.1,204.4 L 181.5,204.6 L 182.9,204.7 L 184.2,204.8 L 185.6,204.9 L 187.0,204.9 L 188.4,204.9 L 189.8,204.8 L 191.2,204.7 L 192.6,204.6 L 194.0,204.4 L 195.5,204.2 L 196.9,203.9 L 198.3,203.6 L 199.7,203.3 L 201.1,202.9 L 202.5,202.5 L 203.8,202.0 L 205.2,201.5 L 206.6,200.9 L 207.9,200.4 L 209.3,199.7 L 210.6,199.1 L 211.9,198.4 L 213.2,197.6 L 214.5,196.8 L 215.7,196.0 L 217.0,195.2 L 218.2,194.3 L 219.4,193.3 L 220.5,192.4 L 221.7,191.4 L 222.8,190.4 L 223.9,189.3 L 224.9,188.2 L 226.0,187.1 L 227.0,185.9 L 228.0,184.7 L 228.9,183.5 L 229.8,182.2 L 230.7,181.0 L 231.5,179.7 L 232.3,178.3 L 233.1,177.0 L 233.8,175.6 L 234.5,174.2 L 235.2,172.8 L 235.8,171.4 L 236.3,169.9 L 236.9,168.5 L 237.4,167.0 L 237.8,165.5 L 238.2,164.0 L 238.6,162.5 L 238.9,160.9 L 239.2,159.4 L 239.5,157.8 L 239.6,156.3 L 239.8,154.7 L 239.9,153.1 L 240.0,151.6 L 240.0,150.0 Z" fill="rgba(139,94,60,0.08)" stroke="#8B5E3C" stroke-width="1.8"/>
+<!-- Key points -->
+<!-- Max: r=5 at θ=0 → (5,0) → SVG (240, 150) -->
+<circle cx="240" cy="150" r="4" fill="#8B5E3C" stroke="white" stroke-width="1.5"/>
+<text x="243" y="145" font-size="9" fill="#3E2C1C" font-weight="600" font-family="sans-serif">r = 5</text>
+<!-- Inner loop tip: r=-1 at θ=π → point at (1,0) in rect → SVG (168, 150) -->
+<circle cx="168" cy="150" r="3.5" fill="#C8A84E" stroke="white" stroke-width="1.2"/>
+<!-- r=0 points marked -->
+<circle cx="150" cy="150" r="3" fill="#3B5323" stroke="white" stroke-width="1.2"/>
+<text x="133" y="146" font-size="8" fill="#3B5323" font-weight="600" font-family="sans-serif">r = 0</text>
+<!-- Inner loop annotation -->
+<text x="153" y="155.5" font-size="8" fill="#C8A84E" font-style="italic" font-family="sans-serif">inner loop</text>
+<!-- Outer loop label -->
+<text x="195" y="88" font-size="10" fill="#8B5E3C" font-weight="700" font-family="sans-serif">r = 2 + 3cos θ</text>
+<!-- a/b label -->
+<text x="195" y="100" font-size="9" fill="#8B5E3C" font-family="sans-serif">a/b = 2/3 &lt; 1</text>
+<!-- Scale labels -->
+<text x="168" y="162" font-size="7" fill="#aaa" font-family="sans-serif">1</text>
+<text x="186" y="162" font-size="7" fill="#aaa" font-family="sans-serif">2</text>
+<text x="222" y="162" font-size="7" fill="#aaa" font-family="sans-serif">4</text>
+</svg>
+<p style="font-size:12px;color:var(--text-medium);margin-top:6px;"><em>Brown curve:</em> $r = 2 + 3\cos\theta$ (inner-loop limacon) &nbsp;|&nbsp; <em>Green dot:</em> pole ($r = 0$) &nbsp;|&nbsp; <em>Gold dot:</em> inner loop tip</p>
+</div>
+
+<div class="highlight-box">
+<p><strong>(a)</strong> Let $k = \tfrac{a}{b}$:</p>
+<p>$k < 1$: inner loop · $k = 1$: cardioid · $1 < k < 2$: dimpled (no loop) · $k \geq 2$: convex</p>
+<p><strong>(b)</strong> $2 + 3\cos\theta = 0 \Rightarrow \cos\theta = -\tfrac{2}{3}$. So $\theta = \cos^{-1}\!\left(-\tfrac{2}{3}\right)$ and $\theta = 2\pi - \cos^{-1}\!\left(-\tfrac{2}{3}\right)$. At these $\theta$-values the curve passes through the pole — this is where the inner loop begins and ends.</p>
+<p><strong>(c)</strong> The rectangular equation involves a square root (from $r = \sqrt{x^2 + y^2}$), so $y = f(x)$ only gives one branch. The polar curve traces both the outer loop and the inner loop as $\theta$ sweeps $[0, 2\pi)$. A rectangular $y = f(x)$ fails the vertical line test at points where the curve crosses itself (the inner loop), so you'd need $\pm$ branches and domain restrictions to capture the full shape.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- end challenge-container section 1 -->
+
+<div class="section-header"><div class="section-number">2</div><h2>Parametric Reasoning</h2></div>
+<div id="challenge-container-2">
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">4</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Parametric → Rectangular with Domain</span>
+</div>
+<p>A particle moves along the path $x(t) = 3\cos t$, $y(t) = 2\sin t$ for $0 \leq t \leq \pi$.</p>
+<p><strong>(a)</strong> Eliminate the parameter to find a rectangular equation.</p>
+<p><strong>(b)</strong> Describe precisely which portion of the rectangular curve is actually traced. Include the direction of motion and the endpoints.</p>
+<p><strong>(c)</strong> Now suppose the parametrization changes to $x(t) = 3\cos(2t)$, $y(t) = 2\sin(2t)$ for $0 \leq t \leq \pi$. Does the particle trace the same curve, a different portion, or the full ellipse? Justify your answer.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(59,83,35,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--green-dark);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Parametric Elimination</span></p>
+<div class="highlight-box">
+<p><strong>(a)</strong> $\frac{x}{3} = \cos t$ and $\frac{y}{2} = \sin t$. Squaring and adding:</p>
+$$\frac{x^2}{9} + \frac{y^2}{4} = 1$$
+<p><strong>(b)</strong> When $t = 0$: $(x, y) = (3, 0)$. When $t = \pi$: $(x, y) = (-3, 0)$. As $t$ increases from $0$ to $\pi$, $\cos t$ decreases and $\sin t$ is non-negative. So the particle traces the <strong>upper half</strong> of the ellipse from $(3, 0)$ to $(-3, 0)$, moving counterclockwise.</p>
+<p><strong>(c)</strong> With $2t$ replacing $t$, when $t$ goes from $0$ to $\pi$, $2t$ goes from $0$ to $2\pi$. So $\cos(2t)$ and $\sin(2t)$ complete a full cycle. The particle traces the <strong>entire ellipse</strong>, returning to its starting point. Same rectangular equation, same curve, but now the full ellipse — traced at twice the angular speed.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="border-left-color: var(--green-dark);">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">5</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Projectile with Constraints</span>
+</div>
+<p>A ball is launched from ground level at initial speed $v_0 = 40$ m/s and angle $\alpha$ above the horizontal. Use $g = 9.8$ m/s$^2$.</p>
+<p>The parametric equations are: $x(t) = (v_0 \cos\alpha)\,t$, $\quad y(t) = (v_0 \sin\alpha)\,t - \tfrac{1}{2}g\,t^2$.</p>
+<p><strong>(a)</strong> Show that the time of flight is $T = \dfrac{2v_0 \sin\alpha}{g}$ and the horizontal range is $R = \dfrac{v_0^2 \sin(2\alpha)}{g}$.</p>
+<p><strong>(b)</strong> The ball must clear a 15-meter wall that is 100 meters away. Find the minimum launch angle $\alpha$ (to the nearest tenth of a degree) for which the ball clears the wall. <em>(Calculator permitted.)</em></p>
+<p><strong>(c)</strong> For the angle found in (b), find the maximum height of the ball and the total horizontal range.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(200,168,78,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--gold);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Projectile Analysis</span></p>
+<div class="highlight-box">
+<p><strong>(a)</strong> Set $y(T) = 0$: $v_0 \sin\alpha \cdot T - \tfrac{1}{2}gT^2 = 0 \Rightarrow T(v_0\sin\alpha - \tfrac{1}{2}gT) = 0$. Since $T \neq 0$:</p>
+$$T = \frac{2v_0\sin\alpha}{g}$$
+<p>Then $R = x(T) = v_0\cos\alpha \cdot \frac{2v_0\sin\alpha}{g} = \frac{2v_0^2\sin\alpha\cos\alpha}{g} = \frac{v_0^2\sin(2\alpha)}{g}$. $\checkmark$</p>
+<p><strong>(b)</strong> At $x = 100$: $t_w = \frac{100}{40\cos\alpha} = \frac{5}{2\cos\alpha}$. Require $y(t_w) \geq 15$:</p>
+$$40\sin\alpha \cdot \frac{5}{2\cos\alpha} - \frac{1}{2}(9.8)\left(\frac{5}{2\cos\alpha}\right)^2 \geq 15$$
+$$100\tan\alpha - \frac{9.8 \cdot 25}{8\cos^2\alpha} \geq 15$$
+$$100\tan\alpha - 30.625\sec^2\alpha \geq 15$$
+<p>Using $\sec^2\alpha = 1 + \tan^2\alpha$ and letting $u = \tan\alpha$:</p>
+$$100u - 30.625(1 + u^2) \geq 15 \;\Rightarrow\; -30.625u^2 + 100u - 45.625 \geq 0$$
+<p>Quadratic formula: $u = \frac{-100 \pm \sqrt{10000 - 4(-30.625)(-45.625)}}{2(-30.625)}$</p>
+<p>$\Delta = 10000 - 5587.5 = 4412.5$, $\sqrt{\Delta} \approx 66.426$</p>
+<p>$u = \frac{100 \pm 66.426}{61.25}$, so $u \approx 0.5479$ or $u \approx 2.718$</p>
+<p>$\alpha \approx \arctan(0.5479) \approx \mathbf{28.7°}$ (minimum) or $\alpha \approx 69.8°$ (high-arc solution).</p>
+<p><strong>(c)</strong> At $\alpha \approx 28.7°$: Max height $= \frac{v_0^2\sin^2\alpha}{2g} = \frac{1600(0.4797)^2}{19.6} \approx \mathbf{18.8\text{ m}}$</p>
+<p>Range $= \frac{v_0^2\sin(2\alpha)}{g} = \frac{1600\sin(57.4°)}{9.8} \approx \frac{1600(0.8425)}{9.8} \approx \mathbf{137.6\text{ m}}$</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">6</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">Conversion Gauntlet</span>
+</div>
+<p>For each equation, convert between polar and rectangular form. Identify the curve by name.</p>
+<p><strong>(a)</strong> Convert $r = \dfrac{6}{2\sin\theta + 3\cos\theta}$ to rectangular form.</p>
+<p><strong>(b)</strong> Convert $x^2 + y^2 - 4y = 0$ to polar form, then identify the curve and state its center and radius.</p>
+<p><strong>(c)</strong> Convert $r^2 = 9\cos(2\theta)$ to rectangular form. What is this curve called?</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(139,94,60,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--brown-medium);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Conversion Gauntlet</span></p>
+<div class="highlight-box">
+<p><strong>(a)</strong> Multiply both sides by the denominator: $r(2\sin\theta + 3\cos\theta) = 6$</p>
+<p>$2r\sin\theta + 3r\cos\theta = 6 \Rightarrow 2y + 3x = 6$</p>
+<p>This is the <strong>line</strong> $3x + 2y = 6$ (or $y = -\tfrac{3}{2}x + 3$).</p>
+<p><strong>(b)</strong> $x^2 + y^2 - 4y = 0$. Replace $x^2 + y^2$ with $r^2$ and $y$ with $r\sin\theta$:</p>
+<p>$r^2 - 4r\sin\theta = 0 \Rightarrow r(r - 4\sin\theta) = 0$</p>
+<p>So $r = 4\sin\theta$. This is a <strong>circle</strong> with center $(0, 2)$ and radius $2$.</p>
+<p><strong>(c)</strong> $r^2 = 9\cos(2\theta) = 9(\cos^2\theta - \sin^2\theta)$. Multiply both sides by $r^2$:</p>
+<p>$r^4 = 9(r^2\cos^2\theta - r^2\sin^2\theta) = 9(x^2 - y^2)$</p>
+<p>Since $r^2 = x^2 + y^2$: $(x^2 + y^2)^2 = 9(x^2 - y^2)$</p>
+<p>This is a <strong>lemniscate of Bernoulli</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- end challenge-container-2 -->
+
+<div class="section-header"><div class="section-number">3</div><h2>Multi-Step &amp; Conceptual</h2></div>
+<div id="challenge-container-3">
+
+<div class="card" style="border-left-color: var(--green-dark);">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">7</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Ferris Wheel — Sinusoidal Parametric</span>
+</div>
+<p>A Ferris wheel has radius 25 meters and its center is 30 meters above the ground. It completes one full revolution every 40 seconds, rotating counterclockwise. A rider boards at the bottommost point at $t = 0$.</p>
+<p><strong>(a)</strong> Write parametric equations $x(t)$ and $y(t)$ for the rider's position, where $x$ is horizontal displacement from the center and $y$ is height above the ground.</p>
+<p><strong>(b)</strong> Find all times $t$ in the first revolution when the rider is exactly 45 meters above the ground.</p>
+<p><strong>(c)</strong> For how many seconds during one revolution is the rider above 45 meters? Express your answer exactly, then give a decimal approximation.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(59,83,35,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--green-dark);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Ferris Wheel</span></p>
+<div class="highlight-box">
+<p><strong>(a)</strong> Recall the sinusoidal parent function: for $y = A\sin(Bt) + D$ or $y = A\cos(Bt) + D$, the period is $\frac{2\pi}{B}$. Here the period is 40 seconds, so:</p>
+$$B = \frac{2\pi}{\text{period}} = \frac{2\pi}{40} = \frac{\pi}{20}$$
+<p>The amplitude is the radius: $A = 25$. The vertical midline (center height) is $D = 30$.</p>
+<p>Since the rider boards at the <strong>bottom</strong>, height starts at its minimum ($30 - 25 = 5$ m). A standard $\cos$ function starts at its max, so we use $-\cos$ to start at the min:</p>
+$$y(t) = 30 - 25\cos\!\left(\frac{\pi t}{20}\right)$$
+<p>For horizontal position, the rider starts at $x = 0$ (directly below center) and moves right initially — that matches $\sin$ starting at 0 and increasing:</p>
+$$x(t) = 25\sin\!\left(\frac{\pi t}{20}\right)$$
+<p><strong>(b)</strong> Set $y(t) = 45$:</p>
+$$30 - 25\cos\!\left(\frac{\pi t}{20}\right) = 45 \;\Rightarrow\; \cos\!\left(\frac{\pi t}{20}\right) = -\frac{3}{5}$$
+$$\frac{\pi t}{20} = \cos^{-1}\!\left(-\frac{3}{5}\right) \quad\text{or}\quad \frac{\pi t}{20} = 2\pi - \cos^{-1}\!\left(-\frac{3}{5}\right)$$
+$$t = \frac{20}{\pi}\cos^{-1}\!\left(-\frac{3}{5}\right) \approx 12.16\text{ s} \quad\text{and}\quad t = 40 - \frac{20}{\pi}\cos^{-1}\!\left(-\frac{3}{5}\right) \approx 27.84\text{ s}$$
+<p><strong>(c)</strong> Duration above 45 m $= t_2 - t_1 = 40 - \frac{40}{\pi}\cos^{-1}\!\left(-\frac{3}{5}\right)$.</p>
+<p>Exact: $\dfrac{40}{\pi}\!\left[\pi - \cos^{-1}\!\left(-\frac{3}{5}\right)\right] = \dfrac{40}{\pi}\arccos\!\left(\frac{3}{5}\right)$ (since $\pi - \arccos(-x) = \arccos(x)$… let's be careful).</p>
+<p>$t_2 - t_1 = 40 - \frac{40}{\pi}\arccos(-3/5) \approx 40 - 24.33 \approx \mathbf{15.67\text{ seconds}}$.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">8</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(200,168,78,0.15);color:#8B6914;padding:2px 8px;border-radius:4px;">Multiple Representations</span>
+</div>
+<p>A particle travels along the path given by $x(t) = 4\cos t + 1$, $\;y(t) = 3\sin t - 2$ for $0 \leq t \leq 2\pi$.</p>
+<p><strong>(a)</strong> Eliminate the parameter to find a rectangular equation. Name the curve and state its center, semi-major axis, and semi-minor axis.</p>
+<p><strong>(b)</strong> Find the four points where the curve crosses the coordinate axes (i.e., $x = 0$ or $y = 0$). Give exact coordinates and the corresponding $t$-values.</p>
+<p><strong>(c)</strong> Now convert the rectangular equation from part (a) into a polar equation $r = f(\theta)$ centered at the origin. Simplify as much as possible. <em>(Hint: substitute $x = r\cos\theta$, $y = r\sin\theta$ and solve for $r$.)</em></p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(200,168,78,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--gold);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Multiple Representations</span></p>
+
+<!-- SVG Sketch: ellipse centered at (1,-2), a=4, b=3 -->
+<!-- Coordinate mapping: SVG 340×300, math range x∈[-4,6] y∈[-6,2] → 10 wide, 8 tall -->
+<!-- Scale: 34 px/unit (x), 37.5 px/unit (y). Origin at SVG (136, 75) -->
+<div style="text-align:center;margin:16px 0 10px;">
+<svg viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg" style="max-width:380px;width:100%;height:auto;background:white;border-radius:10px;border:1px solid var(--cream-dark);">
+<!-- Grid lines -->
+<defs>
+<marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#999"/></marker>
+<marker id="arrowU" markerWidth="6" markerHeight="8" refX="3" refY="0" orient="auto"><path d="M0,8 L3,0 L6,8" fill="#999"/></marker>
+</defs>
+<!-- Light grid at integer values -->
+<!-- Vertical grid lines x = -3,-2,-1,0,1,2,3,4,5 → SVG x = 34,68,102,136,170,204,238,272,306 -->
+<line x1="34" y1="15" x2="34" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="68" y1="15" x2="68" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="102" y1="15" x2="102" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="170" y1="15" x2="170" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="204" y1="15" x2="204" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="238" y1="15" x2="238" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="272" y1="15" x2="272" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="306" y1="15" x2="306" y2="285" stroke="#f0ece4" stroke-width="0.5"/>
+<!-- Horizontal grid lines y = -5,-4,-3,-2,-1,0,1 → SVG y = 262.5,225,187.5,150,112.5,75,37.5 -->
+<line x1="15" y1="262.5" x2="325" y2="262.5" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="15" y1="225" x2="325" y2="225" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="15" y1="187.5" x2="325" y2="187.5" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="15" y1="150" x2="325" y2="150" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="15" y1="112.5" x2="325" y2="112.5" stroke="#f0ece4" stroke-width="0.5"/>
+<line x1="15" y1="37.5" x2="325" y2="37.5" stroke="#f0ece4" stroke-width="0.5"/>
+<!-- Axes -->
+<line x1="15" y1="75" x2="330" y2="75" stroke="#bbb" stroke-width="1.2" marker-end="url(#arrowR)"/>
+<line x1="136" y1="290" x2="136" y2="10" stroke="#bbb" stroke-width="1.2" marker-end="url(#arrowU)"/>
+<!-- Axis labels -->
+<text x="332" y="79" font-size="12" fill="#999" font-family="sans-serif">x</text>
+<text x="140" y="12" font-size="12" fill="#999" font-family="sans-serif">y</text>
+<!-- Tick labels on x-axis -->
+<text x="34" y="90" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="middle">-3</text>
+<text x="102" y="90" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="middle">-1</text>
+<text x="170" y="90" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="middle">1</text>
+<text x="238" y="90" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="middle">3</text>
+<text x="306" y="90" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="middle">5</text>
+<!-- Tick labels on y-axis -->
+<text x="126" y="41" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="end">1</text>
+<text x="126" y="116" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="end">-1</text>
+<text x="126" y="153.5" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="end">-2</text>
+<text x="126" y="228.5" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="end">-4</text>
+<text x="126" y="266" font-size="9" fill="#aaa" font-family="sans-serif" text-anchor="end">-5</text>
+<!-- Ellipse: center (1,-2) → SVG (170, 150), rx=4*34=136, ry=3*37.5=112.5 -->
+<ellipse cx="170" cy="150" rx="136" ry="112.5" fill="rgba(200,168,78,0.06)" stroke="#C8A84E" stroke-width="2.2"/>
+<!-- Center dot -->
+<circle cx="170" cy="150" r="3.5" fill="#3B5323"/>
+<text x="178" y="146" font-size="10" fill="#3B5323" font-weight="600" font-family="sans-serif">(1, −2)</text>
+<!-- Direction arrow: at t≈π/4, show counterclockwise motion -->
+<!-- t=π/4: x=4cos(π/4)+1≈3.83, y=3sin(π/4)-2≈0.12 → SVG (232,70.5) -->
+<!-- Tangent direction at t=π/4: dx/dt=-4sin(π/4)≈-2.83, dy/dt=3cos(π/4)≈2.12 → up-left -->
+<path d="M 244,78 Q 236,58 220,52" fill="none" stroke="#3B5323" stroke-width="1.8"/>
+<polygon points="220,52 226,48 224,58" fill="#3B5323"/>
+<text x="246" y="50" font-size="10" fill="#3B5323" font-style="italic" font-family="sans-serif">t increasing</text>
+<!-- Key points: vertices of ellipse -->
+<!-- Right vertex (5,-2) → SVG (306, 150) -->
+<circle cx="306" cy="150" r="4" fill="#C8A84E" stroke="white" stroke-width="1.5"/>
+<text x="308" y="142" font-size="9" fill="#3E2C1C" font-weight="600" font-family="sans-serif">(5, −2)</text>
+<!-- Left vertex (-3,-2) → SVG (34, 150) -->
+<circle cx="34" cy="150" r="4" fill="#C8A84E" stroke="white" stroke-width="1.5"/>
+<text x="38" y="166" font-size="9" fill="#3E2C1C" font-weight="600" font-family="sans-serif">(−3, −2)</text>
+<!-- Top vertex (1,1) → SVG (170, 37.5) -->
+<circle cx="170" cy="37.5" r="4" fill="#C8A84E" stroke="white" stroke-width="1.5"/>
+<text x="176" y="33" font-size="9" fill="#3E2C1C" font-weight="600" font-family="sans-serif">(1, 1)</text>
+<!-- Bottom vertex (1,-5) → SVG (170, 262.5) -->
+<circle cx="170" cy="262.5" r="4" fill="#C8A84E" stroke="white" stroke-width="1.5"/>
+<text x="176" y="276" font-size="9" fill="#3E2C1C" font-weight="600" font-family="sans-serif">(1, −5)</text>
+<!-- Starting point t=0: x=4(1)+1=5, y=3(0)-2=-2 → (5,-2) same as right vertex -->
+<text x="308" y="164" font-size="9" fill="#8B5E3C" font-style="italic" font-family="sans-serif">t = 0</text>
+<!-- Dashed lines showing semi-axes -->
+<line x1="34" y1="150" x2="306" y2="150" stroke="#C8A84E" stroke-width="0.8" stroke-dasharray="5,4"/>
+<line x1="170" y1="37.5" x2="170" y2="262.5" stroke="#C8A84E" stroke-width="0.8" stroke-dasharray="5,4"/>
+<!-- Semi-axis labels -->
+<text x="240" y="168" font-size="10" fill="#C8A84E" font-weight="700" font-family="sans-serif">a = 4</text>
+<text x="180" y="206" font-size="10" fill="#C8A84E" font-weight="700" font-family="sans-serif">b = 3</text>
+</svg>
+<p style="font-size:12px;color:var(--text-medium);margin-top:6px;"><em>Gold ellipse:</em> $\frac{(x-1)^2}{16}+\frac{(y+2)^2}{9}=1$ &nbsp;|&nbsp; <em>Gold dots:</em> vertices &nbsp;|&nbsp; <em>Green dot:</em> center $(1,-2)$ &nbsp;|&nbsp; Arrow shows direction as $t$ increases (counterclockwise)</p>
+</div>
+
+<div class="highlight-box">
+<p><strong>(a)</strong> $\cos t = \frac{x-1}{4}$, $\sin t = \frac{y+2}{3}$. Since $\cos^2 t + \sin^2 t = 1$:</p>
+$$\frac{(x-1)^2}{16} + \frac{(y+2)^2}{9} = 1$$
+<p>This is an <strong>ellipse</strong> with center $(1, -2)$, semi-major axis $a = 4$ (horizontal), and semi-minor axis $b = 3$ (vertical).</p>
+<p><strong>(b)</strong> <em>$x$-intercepts ($y = 0$):</em> $\frac{(x-1)^2}{16} + \frac{4}{9} = 1 \Rightarrow (x-1)^2 = 16 \cdot \frac{5}{9} = \frac{80}{9}$</p>
+<p>$x = 1 \pm \frac{4\sqrt{5}}{3}$. Points: $\left(1 + \frac{4\sqrt{5}}{3},\, 0\right)$ and $\left(1 - \frac{4\sqrt{5}}{3},\, 0\right)$.</p>
+<p>For $t$: $y = 0 \Rightarrow \sin t = \frac{2}{3} \Rightarrow t = \arcsin\!\left(\frac{2}{3}\right)$ and $t = \pi - \arcsin\!\left(\frac{2}{3}\right)$.</p>
+<p><em>$y$-intercepts ($x = 0$):</em> $\frac{1}{16} + \frac{(y+2)^2}{9} = 1 \Rightarrow (y+2)^2 = 9 \cdot \frac{15}{16} = \frac{135}{16}$</p>
+<p>$y = -2 \pm \frac{3\sqrt{15}}{4}$. Points: $\left(0,\, -2 + \frac{3\sqrt{15}}{4}\right)$ and $\left(0,\, -2 - \frac{3\sqrt{15}}{4}\right)$.</p>
+<p>For $t$: $x = 0 \Rightarrow \cos t = -\frac{1}{4} \Rightarrow t = \arccos\!\left(-\frac{1}{4}\right)$ and $t = 2\pi - \arccos\!\left(-\frac{1}{4}\right)$.</p>
+<p><strong>(c)</strong> Expand the rectangular equation: $\frac{x^2 - 2x + 1}{16} + \frac{y^2 + 4y + 4}{9} = 1$</p>
+<p>$9(x^2 - 2x + 1) + 16(y^2 + 4y + 4) = 144$</p>
+<p>$9x^2 + 16y^2 - 18x + 64y + 9 + 64 = 144$</p>
+<p>$9x^2 + 16y^2 - 18x + 64y - 71 = 0$</p>
+<p>Substitute $x = r\cos\theta$, $y = r\sin\theta$:</p>
+<p>$9r^2\cos^2\theta + 16r^2\sin^2\theta - 18r\cos\theta + 64r\sin\theta - 71 = 0$</p>
+<p>$r^2(9\cos^2\theta + 16\sin^2\theta) + r(-18\cos\theta + 64\sin\theta) - 71 = 0$</p>
+<p>Using $9\cos^2\theta + 16\sin^2\theta = 9 + 7\sin^2\theta$, this is a quadratic in $r$ — solve via the quadratic formula for $r(\theta)$.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="border-left-color: var(--green-dark);">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">9</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(139,94,60,0.12);color:var(--brown-medium);padding:2px 8px;border-radius:4px;">True / False Gauntlet</span>
+</div>
+<p>For each statement, determine if it is <strong>true</strong> or <strong>false</strong>. If false, provide a counterexample or brief explanation.</p>
+<p><strong>(a)</strong> The polar point $(3, \tfrac{\pi}{4})$ and $(-3, \tfrac{5\pi}{4})$ represent the same point in the plane.</p>
+<p><strong>(b)</strong> Every polar equation $r = f(\theta)$ passes the vertical line test when converted to rectangular coordinates.</p>
+<p><strong>(c)</strong> If a polar curve is symmetric about the polar axis, then $f(\theta) = f(-\theta)$ for all $\theta$.</p>
+<p><strong>(d)</strong> The parametric curve $x = t^2,\; y = t^4$ traces a parabola.</p>
+<p><strong>(e)</strong> Two polar curves can intersect at the pole even if there is no single $\theta$-value that makes both $r$-values zero simultaneously.</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(139,94,60,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--brown-medium);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">True / False</span></p>
+<div class="highlight-box">
+<p><strong>(a) TRUE.</strong> $(-3, \frac{5\pi}{4})$: go in the opposite direction of $\frac{5\pi}{4}$, which is $\frac{5\pi}{4} - \pi = \frac{\pi}{4}$, with $|r| = 3$. Same as $(3, \frac{\pi}{4})$. $\checkmark$</p>
+<p><strong>(b) FALSE.</strong> Counterexample: $r = 2\cos\theta$ converts to $x^2 + y^2 = 2x$, i.e. $(x-1)^2 + y^2 = 1$. This is a circle, which does <em>not</em> pass the VLT.</p>
+<p><strong>(c) TRUE.</strong> Symmetry about the polar axis ($x$-axis) means replacing $\theta$ with $-\theta$ produces the same $r$, so $f(\theta) = f(-\theta)$.</p>
+<p><strong>(d) FALSE.</strong> Eliminating: $y = t^4 = (t^2)^2 = x^2$. This is a parabola in equation, <em>but</em> since $x = t^2 \geq 0$, only the right half ($x \geq 0$) is traced. It's a half-parabola (a ray along $y = x^2$ for $x \geq 0$).</p>
+<p><strong>(e) TRUE.</strong> Each curve reaches the pole at its own $\theta$-value. For example, $r = \sin\theta$ reaches the pole at $\theta = 0$, and $r = \cos\theta$ reaches the pole at $\theta = \frac{\pi}{2}$. Both pass through the origin, but at different parameter values.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="width:34px;height:34px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;">10</div>
+<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;background:rgba(59,83,35,0.12);color:var(--green-dark);padding:2px 8px;border-radius:4px;">Conic in Polar Form</span>
+</div>
+<p>A conic section in polar form is given by $r = \dfrac{ed}{1 - e\cos\theta}$, where $e$ is the eccentricity and $d$ is the distance from the focus to the directrix.</p>
+<p><strong>(a)</strong> If $r = \dfrac{4}{1 - \cos\theta}$, identify the conic type. Find the vertex (closest point to the focus) and write the rectangular equation.</p>
+<p><strong>(b)</strong> If $r = \dfrac{6}{2 - \sin\theta}$, rewrite in standard polar conic form. Identify $e$ and classify the conic. Find the vertices along the axis of symmetry.</p>
+<p><strong>(c)</strong> For what values of $e$ does $r = \frac{ed}{1 + e\sin\theta}$ represent an ellipse? What happens as $e \to 0^+$? As $e \to 1^-$?</p>
+<button class="solution-toggle" onclick="toggleSolution(this)"><span class="arrow">&#9654;</span> Show Solution</button>
+<div class="solution-body">
+<div style="background:rgba(59,83,35,0.06);border-radius:8px;padding:14px 18px;">
+<p><span style="background:var(--green-dark);color:white;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase;">Polar Conics</span></p>
+<div class="highlight-box">
+<p><strong>(a)</strong> $r = \frac{4}{1 - \cos\theta}$ has form $\frac{ed}{1 - e\cos\theta}$ with $e = 1$, $d = 4$. Since $e = 1$, it's a <strong>parabola</strong>.</p>
+<p>Vertex occurs at $\theta = \pi$: $r = \frac{4}{1-(-1)} = \frac{4}{2} = 2$. The vertex is at $(2, \pi)$, i.e. $(-2, 0)$ in rectangular.</p>
+<p>Rectangular: Multiply out $r(1 - \cos\theta) = 4 \Rightarrow r - x = 4 \Rightarrow r = x + 4$. Square: $x^2 + y^2 = x^2 + 8x + 16 \Rightarrow y^2 = 8x + 16 = 8(x + 2)$. Parabola opening right, vertex at $(-2, 0)$. $\checkmark$</p>
+<p><strong>(b)</strong> Divide numerator and denominator by 2: $r = \frac{3}{1 - \frac{1}{2}\sin\theta}$. So $e = \frac{1}{2}$, $ed = 3 \Rightarrow d = 6$. Since $0 < e < 1$, it's an <strong>ellipse</strong>.</p>
+<p>Vertices along axis of symmetry ($\theta = \frac{\pi}{2}$ and $\frac{3\pi}{2}$):</p>
+<p>$r\big|_{\theta=\pi/2} = \frac{6}{2-1} = 6$, $\quad r\big|_{\theta=3\pi/2} = \frac{6}{2+1} = 2$.</p>
+<p><strong>(c)</strong> Ellipse when $0 < e < 1$. As $e \to 0^+$, the conic approaches a circle (equal distances in all directions). As $e \to 1^-$, the ellipse becomes more elongated and approaches a parabola.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- end challenge-container-3 -->
+
+<div class="warning-box" style="margin-top:24px;">
+<strong>Exam Strategy Reminders:</strong>
+<ul style="margin-top:8px;">
+<li>On free-response polar questions, always check the pole separately — algebraic intersection methods miss it.</li>
+<li>When eliminating a parameter, state the domain restriction on the rectangular equation. Partial credit is lost for "full curve" answers when only a portion is traced.</li>
+<li>For area integrals: sketch first, identify which curve is outer/inner on each sub-interval, and use symmetry to simplify when possible.</li>
+<li>On conic identification: rewrite in the standard form $\frac{ed}{1 \pm e\cos\theta}$ or $\frac{ed}{1 \pm e\sin\theta}$ first. The $e$-value tells you everything.</li>
+</ul>
+</div>
+
+</div><!-- end challenge -->
 
 </div><!-- end .container -->
 
