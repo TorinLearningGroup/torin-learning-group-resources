@@ -456,6 +456,7 @@
     <div class="tab-navigation">
         <button class="tab-button active" onclick="switchTab('ols-theory-tab')">OLS Theory</button>
         <button class="tab-button" onclick="switchTab('cheat-sheet-tab')">Cheat Sheet</button>
+        <button class="tab-button" onclick="switchTab('final-cheat-sheet-tab')">Final Cheat Sheet</button>
     </div>
 
     <!-- TAB 1: OLS THEORY -->
@@ -1286,6 +1287,538 @@
     </div>
 
     </div> <!-- Close cheat-sheet-tab -->
+
+
+    <!-- TAB 3: FINAL CHEAT SHEET (Panel Data, DiD, IV/2SLS, RDD) -->
+    <div id="final-cheat-sheet-tab" class="tab-content">
+    <div class="container">
+
+        <!-- ===================== SECTION 1: PANEL DATA ===================== -->
+        <div class="section-header">
+            <div class="section-number">1</div>
+            <h2>Panel Data &amp; Fixed Effects</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">What is Panel Data?</div>
+            <p>Observations on multiple entities $i$ measured across multiple time periods $t$. Two valid frameworks: <strong>Difference-in-Differences (DiD)</strong> and <strong>Least Squares Dummy Variables (LSDV) / Fixed Effects</strong>.</p>
+        </div>
+
+        <div class="card">
+            <div class="label">Two-Way Fixed Effects Model</div>
+            <div class="formula">
+                $$Y_{it} = \beta_0 + \beta_1 X_{it} + \alpha_i + \tau_t + v_{it}$$
+            </div>
+            <div class="highlight-box">
+                <strong>Components:</strong><br>
+                $\alpha_i$ = <strong>entity fixed effect</strong> — captures all <em>time-invariant</em>, entity-specific factors (geography, culture, long-run demographics)<br>
+                $\tau_t$ = <strong>time fixed effect</strong> — captures all <em>entity-invariant</em>, time-specific factors (national shocks, common trends)<br>
+                $v_{it}$ = idiosyncratic error
+            </div>
+            <div class="idea-box">
+                <strong>Key insight:</strong> $\alpha_i$ has subscript $i$ but no $t$ — so it absorbs every factor that varies across entities but is constant over time within each entity.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Counting Dummy Variables</div>
+            <p>If a panel covers $T$ years, year fixed effects require <strong>$T-1$ dummy variables</strong> (one year is dropped as reference to avoid the dummy variable trap). Same for entities: $N$ entities → $N-1$ dummies.</p>
+            <div class="highlight-box">
+                <strong>Example:</strong> Annual data 2011–2019 ($T = 9$): year FE = $9 - 1 = 8$ dummies. The 2019 dummy = 1 if $t = 2019$ for any state, 0 otherwise.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">The Within Transformation (Demeaning)</div>
+            <div class="formula">
+                $$Y_{it} - \bar{Y}_i = \beta_1 (X_{it} - \bar{X}_i) + (v_{it} - \bar{v}_i)$$
+            </div>
+            <p>Subtracting each entity's time-mean <strong>algebraically eliminates</strong> $\alpha_i$ (since $\bar{\alpha}_i = \alpha_i$). By Frisch–Waugh–Lovell, this gives identical $\hat{\beta}_1$ to LSDV with entity FE.</p>
+            <div class="warning-box">
+                <strong>Caution:</strong> Entity demeaning <em>does not</em> eliminate time fixed effects $\tau_t$. To kill those, you'd need a different transformation.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">State-Specific Time Trends</div>
+            <p>Year fixed effects $\tau_t$ impose the <strong>same</strong> time pattern for every state. To allow $Y_{st}$ to <em>trend differently</em> across states, include state-specific linear trends:</p>
+            <div class="formula">
+                $$Y_{st} = \beta_0 + \beta_1 X_{st} + \alpha_s + \tau_t + \gamma_s \cdot t + v_{st}$$
+            </div>
+            <div class="warning-box">
+                <strong>Common error:</strong> Lagged $Y_{s,t-1}$ captures persistence/autocorrelation, NOT differential trends.
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 2: DIFFERENCE-IN-DIFFERENCES ===================== -->
+        <div class="section-header">
+            <div class="section-number">2</div>
+            <h2>Difference-in-Differences (DiD)</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">DiD Regression Model</div>
+            <div class="formula">
+                $$Y_{it} = \beta_0 + \beta_1 \text{Treat}_i + \beta_2 \text{Post}_t + \beta_3 (\text{Treat}_i \times \text{Post}_t) + \varepsilon_{it}$$
+            </div>
+            <p>The treatment effect is the coefficient on the <strong>interaction term</strong> $\beta_3$.</p>
+        </div>
+
+        <div class="card">
+            <div class="label">DiD Estimator — Two Equivalent Forms</div>
+            <div class="formula">
+                $$\hat{\beta}_3 = (\bar{Y}_{T,\text{post}} - \bar{Y}_{T,\text{pre}}) - (\bar{Y}_{C,\text{post}} - \bar{Y}_{C,\text{pre}})$$
+                $$= (\bar{Y}_{T,\text{post}} - \bar{Y}_{C,\text{post}}) - (\bar{Y}_{T,\text{pre}} - \bar{Y}_{C,\text{pre}})$$
+            </div>
+            <div class="idea-box">
+                Both expressions give the <strong>same number</strong> — DiD is symmetric in differencing order. First form: difference of time-changes. Second form: difference of group-gaps.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Recovering Group Means from DiD Coefficients</div>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 12px; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);"></th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Pre</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Post</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Control</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\beta_0$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\beta_0 + \beta_2$</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Treatment</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\beta_0 + \beta_1$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\beta_0 + \beta_1 + \beta_2 + \beta_3$</td>
+                </tr>
+            </table>
+            <div class="highlight-box" style="margin-top: 12px;">
+                <strong>Each coefficient:</strong><br>
+                $\beta_0$ = control, pre (baseline)<br>
+                $\beta_1$ = treatment-vs-control gap, pre-period<br>
+                $\beta_2$ = control's pre-to-post change (time effect)<br>
+                $\beta_3$ = DiD treatment effect
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Parallel Trends Assumption</div>
+            <p>For DiD to identify a causal effect, treatment and control groups must follow the <strong>same trend</strong> in the absence of treatment. The control group's pre-to-post change serves as the counterfactual for what would have happened to the treatment group.</p>
+            <div class="warning-box">
+                <strong>Threat:</strong> If groups would have trended differently anyway, $\hat{\beta}_3$ conflates the treatment effect with the differential trend.
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 3: OMITTED VARIABLE BIAS ===================== -->
+        <div class="section-header">
+            <div class="section-number">3</div>
+            <h2>Omitted Variable Bias (OVB)</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">OVB Formula</div>
+            <p>True model: $Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i$. If we omit $X_2$:</p>
+            <div class="formula">
+                $$\hat{\beta}_1^{\text{biased}} \xrightarrow{p} \beta_1 + \beta_2 \cdot \frac{\text{Cov}(X_1, X_2)}{\text{Var}(X_1)}$$
+            </div>
+            <div class="highlight-box">
+                <strong>Sign of bias = sign of $\beta_2 \cdot \text{Cov}(X_1, X_2)$</strong>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+                    <tr style="background: var(--gold-pale);">
+                        <th style="padding: 6px; border: 1px solid var(--gold);">$\beta_2$</th>
+                        <th style="padding: 6px; border: 1px solid var(--gold);">$\text{Cov}(X_1,X_2)$</th>
+                        <th style="padding: 6px; border: 1px solid var(--gold);">Bias direction</th>
+                    </tr>
+                    <tr><td style="padding: 6px; border: 1px solid var(--gold);">+</td><td style="padding: 6px; border: 1px solid var(--gold);">+</td><td style="padding: 6px; border: 1px solid var(--gold);">+ (upward)</td></tr>
+                    <tr><td style="padding: 6px; border: 1px solid var(--gold);">−</td><td style="padding: 6px; border: 1px solid var(--gold);">−</td><td style="padding: 6px; border: 1px solid var(--gold);">+ (upward)</td></tr>
+                    <tr><td style="padding: 6px; border: 1px solid var(--gold);">+</td><td style="padding: 6px; border: 1px solid var(--gold);">−</td><td style="padding: 6px; border: 1px solid var(--gold);">− (downward)</td></tr>
+                    <tr><td style="padding: 6px; border: 1px solid var(--gold);">−</td><td style="padding: 6px; border: 1px solid var(--gold);">+</td><td style="padding: 6px; border: 1px solid var(--gold);">− (downward)</td></tr>
+                </table>
+            </div>
+            <div class="idea-box">
+                <strong>Typing example:</strong> $\beta_2 < 0$ (more experience → fewer errors), $\text{Cov}(X_1, X_2) > 0$ (more experience → faster). Bias is negative, so $\hat{\beta}_1$ is too negative; true $\beta_1$ is more positive.
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 4: INSTRUMENTAL VARIABLES ===================== -->
+        <div class="section-header">
+            <div class="section-number">4</div>
+            <h2>Instrumental Variables (IV) &amp; 2SLS</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">The Three Equations</div>
+            <p><strong>Structural (what we want):</strong></p>
+            <div class="formula">$$Y_i = \beta_0 + \beta_1 X_{1i} + \varepsilon_i \quad \text{(but } \text{Cov}(X_{1i}, \varepsilon_i) \neq 0 \text{)}$$</div>
+            <p><strong>First stage:</strong></p>
+            <div class="formula">$$X_{1i} = \pi_0 + \pi_1 Z_i + u_i$$</div>
+            <p><strong>Reduced form (NOT the second stage!):</strong></p>
+            <div class="formula">$$Y_i = \gamma_0 + \gamma_1 Z_i + v_i \quad \text{where } \gamma_1 = \beta_1 \cdot \pi_1$$</div>
+            <p><strong>Second stage:</strong></p>
+            <div class="formula">$$Y_i = \beta_0 + \beta_1 \hat{X}_{1i} + \varepsilon_i^* \quad \text{where } \hat{X}_{1i} = \hat{\pi}_0 + \hat{\pi}_1 Z_i$$</div>
+            <div class="warning-box">
+                <strong>Reduced form ≠ Second stage:</strong> reduced form regresses $Y_i$ on $Z_i$ directly. Second stage uses fitted $\hat{X}_{1i}$. Reduced form does NOT include $X_{1i}$.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Two Conditions for a Valid IV</div>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 8px; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Condition</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Requirement</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Testable?</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Relevance / Inclusion</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\text{Cov}(Z_i, X_{1i}) \neq 0$ — <em>strong</em> relationship</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Yes (F-stat)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Exogeneity / Exclusion</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\text{Cov}(Z_i, \varepsilon_i) = 0$ — <em>no</em> relationship</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">No (must argue)</td>
+                </tr>
+            </table>
+            <div class="idea-box">
+                <strong>Mnemonic:</strong> "STRONG with $X$, ZERO with $\varepsilon$." The instrument must affect $Y$ <em>only through</em> $X_1$, with no direct path or backdoor.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Testing the First Stage (Strong vs. Weak)</div>
+            <div class="formula">
+                $$F = t^2 \text{ on } \hat{\pi}_1 \text{ in the first stage}$$
+            </div>
+            <div class="highlight-box">
+                <strong>Rule of thumb (Stock-Yogo / Staiger-Stock):</strong> $F > 10$ (or $|t| > 3$) indicates a sufficiently strong instrument. Weak instruments cause finite-sample bias, large SEs, and unreliable inference.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">2SLS Standard Errors</div>
+            <div class="formula">
+                $$\text{se}(\hat{\beta}_1^{2SLS}) = \frac{\sigma_\varepsilon}{\sqrt{n \cdot R^2_{X_1 \sim Z} \cdot \text{Var}(X_1) \cdot (1 - R^2_{\hat{X}_1 \sim X_{-1}})}}$$
+            </div>
+            <p><strong>Always larger</strong> than the OLS standard error. Two reasons:</p>
+            <div class="highlight-box">
+                <strong>1. Reduced explanatory power:</strong> $\text{Var}(\hat{X}_{1i}) < \text{Var}(X_{1i})$ — the projection discards variation orthogonal to $Z_i$.<br><br>
+                <strong>2. Increased multicollinearity:</strong> $\hat{X}_{1i}$ is more correlated with other regressors $X_{ji}$ than the original $X_{1i}$ was.
+            </div>
+            <div class="warning-box">
+                <strong>Trade-off:</strong> Even with a strong first stage, 2SLS gives up <em>efficiency</em> to gain <em>consistency</em>. Strong first stage mitigates but never eliminates the SE inflation.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Direction of Bias: 2SLS vs. OLS</div>
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Sample</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">OLS bias</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">2SLS bias</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Same direction?</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Finite ($E[\cdot]$)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\propto \frac{\text{Cov}(X_1, \varepsilon)}{\text{Var}(X_1)}$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\propto \frac{\text{Cov}(X_1, \varepsilon)}{(F+1) \cdot \text{Var}(X_1)}$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);"><strong>Yes</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Asymptotic ($\text{plim}$)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\frac{\text{Cov}(X_1, \varepsilon)}{\text{Var}(X_1)}$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$0$ (valid IV)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);"><strong>No</strong></td>
+                </tr>
+            </table>
+            <div class="idea-box">
+                With <strong>weak instruments</strong>, $F \to 0$ and 2SLS finite-sample bias collapses toward OLS bias. This is why weak instruments are dangerous.
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 5: HAUSMAN & OVERID TESTS ===================== -->
+        <div class="section-header">
+            <div class="section-number">5</div>
+            <h2>Hausman &amp; Overidentification Tests</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">Hausman Test (test for endogeneity)</div>
+            <div class="formula">
+                $$H = \frac{(\hat{\beta}_1^{2SLS} - \hat{\beta}_1^{OLS})^2}{\widehat{\text{Var}}(\hat{\beta}_1^{2SLS}) - \widehat{\text{Var}}(\hat{\beta}_1^{OLS})} \sim \chi^2_1$$
+            </div>
+            <p>$H_0$: OLS is consistent (no endogeneity). Reject → endogeneity present, use 2SLS.</p>
+            <div class="warning-box">
+                <strong>Two pitfalls:</strong><br>
+                1. <strong>Meaningless if the IV itself is invalid</strong> (fails inclusion or exclusion). Test compares two estimators and assumes one is consistent.<br>
+                2. <strong>Low power:</strong> Test can be insignificant even with a substantively large gap, because $\text{Var}(\hat{\beta}_1^{2SLS})$ is large.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Overidentification (Sargan/Hansen J) Test</div>
+            <p>Available when there are <strong>more instruments than endogenous regressors</strong>. Tests whether IVs produce <em>consistent</em> estimates with each other.</p>
+            <p>$H_0$: All instruments are exogenous. Reject → at least one is invalid.</p>
+            <div class="warning-box">
+                <strong>Critical limitations:</strong><br>
+                • <strong>Insignificant ≠ both exogenous.</strong> Could mean both IVs are biased in similar ways.<br>
+                • <strong>Significant ≠ both endogenous.</strong> Tells you at least one is invalid, but not which one.
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 6: RANDOMIZED EXPERIMENTS / LATE ===================== -->
+        <div class="section-header">
+            <div class="section-number">6</div>
+            <h2>Randomized Experiments &amp; LATE</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">Three Key Quantities</div>
+            <div class="highlight-box">
+                <strong>$Z_i$ = treatment assignment</strong> (the random IV)<br>
+                <strong>$T_i$ = treatment receipt</strong> (potentially endogenous)<br>
+                <strong>$Y_i$ = outcome</strong>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 12px; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Equation</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Coefficient</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Meaning</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$Y_i = \delta_0 + \delta_1 Z_i + \nu_i$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\hat{\delta}_1$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);"><strong>ITT</strong> — effect of <em>assignment</em> on outcome</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$T_i = \gamma_0 + \gamma_1 Z_i + u_i$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\hat{\gamma}_1$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);"><strong>Compliance rate</strong> (= complier share)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">2SLS</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">$\hat{\beta}_1^{2SLS}$</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);"><strong>LATE</strong> — treatment effect for compliers</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="label">Wald Estimator (LATE Formula)</div>
+            <div class="formula">
+                $$\hat{\beta}_1^{2SLS} = \frac{\hat{\delta}_1}{\hat{\gamma}_1} = \frac{\text{ITT}}{\text{Compliance rate}}$$
+            </div>
+            <div class="highlight-box">
+                <strong>Two implications:</strong><br>
+                • $\hat{\beta}_1^{2SLS} \geq \hat{\delta}_1$ always (since $\hat{\gamma}_1 \leq 1$); equality only with perfect compliance.<br>
+                • The greater the noncompliance (smaller $\hat{\gamma}_1$), the <em>larger</em> the LATE relative to ITT.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Compliance Types (Local Average Treatment Effect)</div>
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Type</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">$T_i$ if $Z_i=0$</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">$T_i$ if $Z_i=1$</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Identified?</th>
+                </tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Complier</td><td style="padding: 8px; border: 1px solid var(--gold);">0</td><td style="padding: 8px; border: 1px solid var(--gold);">1</td><td style="padding: 8px; border: 1px solid var(--gold); color: var(--green-dark); font-weight: 600;">YES (LATE)</td></tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Always-taker</td><td style="padding: 8px; border: 1px solid var(--gold);">1</td><td style="padding: 8px; border: 1px solid var(--gold);">1</td><td style="padding: 8px; border: 1px solid var(--gold);">No</td></tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Never-taker</td><td style="padding: 8px; border: 1px solid var(--gold);">0</td><td style="padding: 8px; border: 1px solid var(--gold);">0</td><td style="padding: 8px; border: 1px solid var(--gold);">No</td></tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Defier</td><td style="padding: 8px; border: 1px solid var(--gold);">1</td><td style="padding: 8px; border: 1px solid var(--gold);">0</td><td style="padding: 8px; border: 1px solid var(--gold);">Ruled out (monotonicity)</td></tr>
+            </table>
+            <div class="idea-box">
+                <strong>LATE is "local"</strong> to compliers — students/subjects whose treatment status is moved by the instrument.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Computing Noncompliance from First Stage</div>
+            <p>If $\hat{T}_i = 0.15 + 0.6 Z_i$:</p>
+            <div class="highlight-box">
+                <strong>Treatment receipt rate, control ($Z_i = 0$):</strong> $\hat{T}_i = 0.15$ → 15% always-takers<br>
+                <strong>Treatment receipt rate, treated ($Z_i = 1$):</strong> $\hat{T}_i = 0.75$ → 25% never-takers<br>
+                <strong>Complier share:</strong> $\hat{\gamma}_1 = 0.60$<br>
+                <strong>Total noncompliance (population):</strong> $1 - \hat{\gamma}_1 = 0.40$
+            </div>
+            <div class="warning-box">
+                Don't confuse the three rates: <em>conditional on control (15%)</em>, <em>conditional on treatment (25%)</em>, and <em>population (40%)</em> are all different denominators.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">$\hat{T}_i$ in 2SLS Depends Only on $Z_i$</div>
+            <div class="formula">
+                $$\hat{T}_i = \hat{\gamma}_0 + \hat{\gamma}_1 Z_i$$
+            </div>
+            <p>Two participants with the same $Z_i$ get the <strong>same</strong> $\hat{T}_i$ regardless of their actual compliance behavior. This strips out self-selection and retains only the exogenous variation from random assignment.</p>
+        </div>
+
+        <div class="card">
+            <div class="label">Balance Tests in Randomized Experiments</div>
+            <p>Regress $Z_i$ on each baseline covariate $X_{ji}$. Under true randomization with 30 covariates at $\alpha = 0.10$:</p>
+            <div class="formula">
+                $$E[\text{# significant by chance}] = 30 \times 0.10 = 3$$
+            </div>
+            <div class="idea-box">
+                <strong>Finding 3/30 significant is exactly what randomization predicts.</strong> Include <em>all</em> $X_{ji}$ in ITT regressions anyway — for efficiency (smaller SEs) and insurance against subtle imbalances.
+            </div>
+            <div class="warning-box">
+                Don't cherry-pick only the significant covariates as controls. All predetermined covariates should be included.
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 7: REGRESSION DISCONTINUITY ===================== -->
+        <div class="section-header">
+            <div class="section-number">7</div>
+            <h2>Regression Discontinuity (RDD)</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">Sharp RDD Setup</div>
+            <p>Treatment $T_i$ is a deterministic function of an <strong>assignment variable</strong> $A_i$ crossing a <strong>cutoff</strong> $c$:</p>
+            <div class="formula">
+                $$T_i = \mathbb{1}[A_i \geq c]$$
+            </div>
+            <p>Standard RDD regression:</p>
+            <div class="formula">
+                $$Y_i = \beta_0 + \beta_1 T_i + \beta_2 (A_i - c) + \beta_3 T_i \cdot (A_i - c) + \varepsilon_i$$
+            </div>
+            <div class="highlight-box">
+                <strong>Coefficients:</strong><br>
+                $\beta_0$ = intercept of left (untreated) profile at the cutoff<br>
+                $\beta_1$ = <strong>treatment effect</strong> = vertical jump at the cutoff<br>
+                $\beta_2$ = slope of left profile<br>
+                $\beta_3$ = difference in slopes (right − left)
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Reading an RDD Graph</div>
+            <p>Example: drinking-age (21) and mortality, with younger profile reaching 92 at age 21 and a positive jump to the older profile:</p>
+            <div class="highlight-box">
+                $\hat{\beta}_0 \approx 92$ (younger profile value at cutoff)<br>
+                $\hat{\beta}_1 > 0$ (jump is positive)<br>
+                Sign of $\hat{\beta}_3$: + if right profile is steeper, − if flatter
+            </div>
+            <div class="warning-box">
+                <strong>No discontinuity = no effect identified.</strong> If profiles join smoothly at the cutoff, there's no treatment effect to estimate.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Validity Checks</div>
+            <ul style="margin-top: 8px; padding-left: 20px;">
+                <li><strong>Balance tests on covariates near the cutoff:</strong> if covariates are continuous through $c$, lack of significance supports RDD validity (subjects on either side are comparable).</li>
+                <li><strong>No manipulation of $A_i$:</strong> subjects shouldn't be able to precisely sort themselves across the cutoff.</li>
+                <li><strong>Smoothness:</strong> only treatment changes discontinuously at $c$; everything else evolves smoothly.</li>
+            </ul>
+            <div class="idea-box">
+                Balance tests near the cutoff don't tell us about <em>academic performance effects</em> — they tell us about <em>RDD validity</em>.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Fuzzy RDD</div>
+            <p>If treatment probability <em>jumps</em> at $c$ but doesn't go from 0 to 1, use $\mathbb{1}[A_i \geq c]$ as an <strong>instrument</strong> for $T_i$ in 2SLS. Estimates a LATE for compliers near the cutoff.</p>
+        </div>
+
+        <!-- ===================== SECTION 8: KEY DECISION RULES ===================== -->
+        <div class="section-header">
+            <div class="section-number">8</div>
+            <h2>Decision Rules &amp; Common Traps</h2>
+        </div>
+
+        <div class="card">
+            <div class="label">When Does Adding Fixed Effects Change $\hat{\beta}_1$?</div>
+            <p>Adding FE changes $\hat{\beta}_1$ <strong>only if</strong> the FE is correlated with $X_{1i}$.</p>
+            <div class="highlight-box">
+                <strong>Random assignment ⟹ FE doesn't change estimate.</strong><br>
+                If treatment is randomly assigned (e.g., instructors randomly assigned to courses), then $\text{Cov}(X_{1i}, \alpha_i) = 0$, and adding instructor FE leaves $\hat{\beta}_1$ unchanged in expectation. FE only reduces SE.<br><br>
+                <strong>Trends correlated with treatment ⟹ FE changes estimate.</strong><br>
+                If both grade inflation and core-course enrollment increase over time, $\text{Cov}(X_{1i}, \tau_t) \neq 0$ creates OVB. Adding year FE absorbs it.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Diagnosing First-Stage Output</div>
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);">What you see</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">What it means</th>
+                </tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold);">Large $t$ on instrument</td><td style="padding: 8px; border: 1px solid var(--gold);">Strong first stage ✓</td></tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold);">$|t| < 3$ on instrument</td><td style="padding: 8px; border: 1px solid var(--gold);">Weak instrument — IV unreliable ✗</td></tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold);">Significant <em>controls</em></td><td style="padding: 8px; border: 1px solid var(--gold);">Controls doing useful work ✓</td></tr>
+                <tr><td style="padding: 8px; border: 1px solid var(--gold);">Insignificant <em>instrument</em></td><td style="padding: 8px; border: 1px solid var(--gold);">Inclusion fails — IV invalid ✗</td></tr>
+            </table>
+            <div class="warning-box">
+                <strong>Common trap:</strong> Don't confuse significance of <em>controls</em> with a problem for the IV. Controls are included precisely to defend the exclusion restriction.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">IV Validity: What Supports vs. Threatens?</div>
+            <div class="highlight-box">
+                <strong>SUPPORTS the IV:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Common shared driver of $Z_i$ and $X_{1i}$ unrelated to $Y_i$ (relevance)</li>
+                    <li>Strong first-stage F-statistic</li>
+                </ul>
+            </div>
+            <div class="warning-box">
+                <strong>THREATENS the IV:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Direct path from $Z_i$ to $Y_i$ not through $X_{1i}$ (exclusion violation)</li>
+                    <li>$Z_i$ correlated with omitted variables affecting $Y_i$</li>
+                    <li>Reelection-driven bundled policies that affect outcome through multiple channels</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Quick Reference: Identification Strategies</div>
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Source Serif 4', serif;">
+                <tr style="background: var(--gold-pale);">
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Strategy</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Identifies</th>
+                    <th style="padding: 8px; border: 1px solid var(--gold);">Key assumption</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">Fixed Effects</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">ATE controlling for time-invariant unobservables</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Strict exogeneity within entity</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">DiD</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">ATT (avg treatment on treated)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Parallel trends</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">IV / 2SLS</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">LATE (compliers)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Relevance + exclusion + monotonicity</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">RDD (sharp)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Local ATE at cutoff</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Smoothness + no manipulation</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid var(--gold); font-weight: 600;">RCT (ITT)</td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Average effect of <em>assignment</em></td>
+                    <td style="padding: 8px; border: 1px solid var(--gold);">Random assignment</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    </div> <!-- Close final-cheat-sheet-tab -->
 
 
 
